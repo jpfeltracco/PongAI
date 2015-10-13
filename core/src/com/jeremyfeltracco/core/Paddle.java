@@ -55,13 +55,16 @@ public class Paddle extends Sprite {
 		
 		switch(pos) {
 		case TOP:
+			velocity.x = -vel;
 			break;
 		case BOTTOM:
 			velocity.x = vel;
 			break;
 		case LEFT:
+			velocity.y=-vel;
 			break;
 		case RIGHT:
+			velocity.y=vel;
 			break;
 		}
 		
