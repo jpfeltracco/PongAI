@@ -8,20 +8,34 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Sim extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+	Paddle pad;
+	Paddle pad2;
+	Paddle pad3;
+	Paddle pad4;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("rocket.png");
+		pad = new Paddle(Position.TOP);
+		pad2 = new Paddle(Position.BOTTOM);
+		pad3 = new Paddle(Position.LEFT);
+		pad4 = new Paddle(Position.RIGHT);
 	}
 
 	@Override
 	public void render () {
+		// Update all game entities
+		
+		
+		
+		// Render all game entities
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0);
+		pad.draw(batch);
+		pad2.draw(batch);
+		pad3.draw(batch);
+		pad4.draw(batch);
 		batch.end();
 	}
 }
