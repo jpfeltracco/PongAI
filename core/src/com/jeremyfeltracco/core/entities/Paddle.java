@@ -68,8 +68,8 @@ public class Paddle extends Entity{
 			break;
 		}
 		
-		float boundX = Sim.maxX - sprite.getWidth() / 2;
-		float boundY = Sim.maxY - sprite.getWidth() / 2;
+		float boundX = Sim.maxX - sprite.getWidth() / 2 - 16;
+		float boundY = Sim.maxY - sprite.getWidth() / 2 - 16;
 	
 		//Check whether the position is in valid
 		if (side == Side.TOP || side == Side.BOTTOM) {

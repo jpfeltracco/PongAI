@@ -44,18 +44,18 @@ public class Controller {
 			break;
 		case LEFT:
 			for (int i = 0; i < pads.length; i++) {
-				paddlePos[i] = pads[i].getOriginPosition().cpy().rotate(-90);
+				paddlePos[i] = pads[i].getOriginPosition().cpy().rotate(90);
 				paddleVels[i] = pads[i].getVel();
 			}
-			ballPos = b.getOriginPosition().cpy().rotate(-90).scl(-1);
+			ballPos = b.getOriginPosition().cpy().rotate(90);
 			ballVel = b.getVelocity().cpy().rotate(-90);
 			break;
 		case RIGHT:
 			for (int i = 0; i < pads.length; i++) {
-				paddlePos[i] = pads[i].getOriginPosition().cpy().rotate(90).scl(-1);
+				paddlePos[i] = pads[i].getOriginPosition().cpy().rotate(-90);
 				paddleVels[i] = pads[i].getVel();
 			}
-			ballPos = b.getOriginPosition().cpy().rotate(90);
+			ballPos = b.getOriginPosition().cpy().rotate(-90);
 			ballVel = b.getVelocity().cpy().rotate(90);
 			break;
 		}
