@@ -1,45 +1,43 @@
 package com.jeremyfeltracco.core;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-public class Paddle extends Sprite {
+public class Paddle {
+	private Sprite sprite;
 	private Vector2 velocity;
 	private Position pos;
 	
 	public Paddle(Position pos) {
-		this.setTexture(Textures.paddle);
 		this.pos = pos;
+		sprite = new Sprite(Textures.paddle);
 		velocity = new Vector2(0, 0);
-		
-		int scr_width = Gdx.graphics.getWidth();
-		int scr_height = Gdx.graphics.getHeight();
-		
-		// Assumes paddle is landscape
-		this.setBounds(0, 0, getTexture().getWidth(), getTexture().getHeight());
-		
-		float height = this.getHeight();
-		float width = this.getWidth();
-		this.setOrigin(width / 2, height / 2);
 		
 		switch(pos) {
 		case TOP:
-			this.setPosition(scr_width / 2 - getOriginX(), scr_height - 2 * getOriginY());
+			setOriginPosition(0, Sim.maxY - sprite.getOriginY());
 			break;
 		case BOTTOM:
-			this.setPosition(scr_width / 2 - getOriginX(), 0);
+			setOriginPosition(0, -Sim.maxY + sprite.getOriginY());
 			break;
 		case LEFT:
-			this.rotate(90);
-			this.setPosition(height / 2 - getOriginX(), scr_height / 2 - getOriginY());
+			sprite.rotate(90);
+			setOriginPosition(-Sim.maxX + sprite.getOriginY(), 0);
 			break;
 		case RIGHT:
-			this.rotate(90);
-			this.setPosition(scr_width - (getOriginY() + getOriginX()), scr_height / 2 - getOriginY());
+			sprite.rotate(90);
+			setOriginPosition(Sim.maxX - sprite.getOriginY(), 0);
 			break;
 		}
+	}
+	
+	private void setOriginPosition(float x, float y) {
+		sprite.setPosition(x - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
+	}
+	
+	public Sprite getSprite() {
+		return sprite;
 	}
 	
 	public void update(float delta) {
@@ -67,8 +65,8 @@ public class Paddle extends Sprite {
 		}
 		
 		
-		Vector2 pos = new Vector2(getX(), getY());
-		pos = pos.add(velocity.scl(delta));
-		this.setPosition(pos.x, pos.y);
+//		Vector2 pos = new Vector2(getX(), getY());
+//		pos = pos.add(velocity.scl(delta));
+//		this.setPosition(pos.x, pos.y);
 	}
 }
