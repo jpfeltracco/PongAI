@@ -41,9 +41,9 @@ public class Paddle extends Entity{
 		// Assume vel = controller output
 		
 		Vector2 velocity = new Vector2(0, 0);
-		float vel = 4.1820f;
+		float vel = 1000;
 		
-		vel = MathUtils.clamp(vel, -5, 5);
+		vel = MathUtils.clamp(vel, -100, 100);
 		
 		switch(pos) {
 		
@@ -61,9 +61,9 @@ public class Paddle extends Entity{
 			break;
 		}
 		
-		
-//		Vector2 pos = new Vector2(getX(), getY());
-//		pos = pos.add(duplicate(velocity).scl(delta));
-//		this.setPosition(pos.x, pos.y);
+		System.out.println(velocity);
+		Vector2 pos = getOriginPosition();
+		pos = pos.add(velocity.scl(delta));
+		setOriginPosition(pos.x, pos.y);
 	}
 }

@@ -13,8 +13,11 @@ public class Sim extends ApplicationAdapter {
 	public static int maxX;
 	public static int maxY;
 	
+	private static int amtPad = 4;
+	
 	SpriteBatch batch;
 	OrthographicCamera cam;
+	Paddle[] pads;
 	Paddle pad;
 	Paddle pad2;
 	Paddle pad3;
@@ -26,32 +29,36 @@ public class Sim extends ApplicationAdapter {
 		maxX = Gdx.graphics.getWidth() / 2;
 		maxY = Gdx.graphics.getHeight() / 2;
 		
+		pads = new Paddle[amtPad]; // Paddles and ball
+		for (int i = 0; i < amtPad; i++) {
+			pads[i] = new Paddle(Position.values()[i]);
+		}
+		ball = new Ball();
+		
 		batch = new SpriteBatch();
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.x = 0;
 		cam.position.y = 0;
-		pad = new Paddle(Position.TOP);
-		pad2 = new Paddle(Position.BOTTOM);
-		pad3 = new Paddle(Position.LEFT);
-		pad4 = new Paddle(Position.RIGHT);
-		ball = new Ball();
 	}
 
 	@Override
 	public void render () {
+		float delta = Gdx.graphics.getDeltaTime();
 		// Update all game entities
 		batch.setProjectionMatrix(cam.combined);
-		
+		for (int i = 0; i < pads.length; i++) {
+			pads[i].update(delta);
+		}
+		ball.update(delta);
 		
 		// Render all game entities
 		Gdx.gl.glClearColor(1, 0.8431372549f, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		pad.draw(batch);
-		pad2.draw(batch);
-		pad3.draw(batch);
-		pad4.draw(batch);
+		for (int i = 0; i < pads.length; i++) {
+			pads[i].draw(batch);
+		}
 		ball.draw(batch);
 		
 		//TEST UPDATE ----

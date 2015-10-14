@@ -21,8 +21,9 @@ public abstract class Entity {
 	 * Returns the position of the Entity, adjusting for the moved origin.
 	 * @return the position, in Vector2 form
 	 */
-	public Vector2 getPosition(){
-		return new Vector2(sprite.getOriginX() + sprite.getX(),sprite.getOriginY() + sprite.getY());
+	protected Vector2 getOriginPosition() {
+		return new Vector2(sprite.getX() + sprite.getOriginX(),
+				sprite.getY() + sprite.getOriginY());
 	}
 	
 	public abstract void update(float delta);
