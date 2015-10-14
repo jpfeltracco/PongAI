@@ -41,22 +41,22 @@ public class Ball extends Entity {
 
 		boolean out = true;
 		if(p.x + radius > Sim.maxX){
-			System.out.println("PAST RIGHT EDGE");
+			//System.out.println("PAST RIGHT EDGE");
 			velocity.x = -Math.abs(velocity.x);
 			out = false;
 		}
 		if(p.x - radius < -Sim.maxX){
-			System.out.println("PAST LEFT EDGE");
+			//System.out.println("PAST LEFT EDGE");
 			velocity.x = Math.abs(velocity.x);
 			out = false;
 		}
 		if(p.y + radius > Sim.maxY){
-			System.out.println("PAST TOP EDGE");
+			//System.out.println("PAST TOP EDGE");
 			velocity.y = -Math.abs(velocity.y);
 			out = false;
 		} 
 		if(p.y - radius < -Sim.maxY){
-			System.out.println("PAST BOTTOM EDGE");
+			//System.out.println("PAST BOTTOM EDGE");
 			velocity.y = Math.abs(velocity.y);
 			out = false;
 		}
