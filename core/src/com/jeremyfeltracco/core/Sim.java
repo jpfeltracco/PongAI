@@ -61,6 +61,8 @@ public class Sim extends ApplicationAdapter {
 			pads[i].draw(batch);
 		}
 		ball.draw(batch);
+		
+		
 		batch.end();
 	}
 }

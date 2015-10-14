@@ -17,6 +17,10 @@ public abstract class Entity {
 		sprite.setPosition(x - sprite.getOriginX(), y - sprite.getOriginY());
 	}
 	
+	/**
+	 * Returns the position of the Entity, adjusting for the moved origin.
+	 * @return the position, in Vector2 form
+	 */
 	protected Vector2 getOriginPosition() {
 		return new Vector2(sprite.getX() + sprite.getOriginX(),
 				sprite.getY() + sprite.getOriginY());
@@ -26,5 +30,14 @@ public abstract class Entity {
 	
 	public void draw(Batch batch) {
 		sprite.draw(batch);
+	}
+	
+	/**
+	 * Duplicates a Vector2 so as to not change the original Vector2 when performing vector operations.
+	 * @param v the input Vector2
+	 * @return a copy of the original Vector2
+	 */
+	public Vector2 duplicate(Vector2 v){
+		return new Vector2(v.x, v.y);
 	}
 }

@@ -73,7 +73,6 @@ public class Paddle extends Entity{
 			if (pos.y <= -boundY)
 				pos.y = -boundY;
 		}
-		
 		setOriginPosition(pos.x, pos.y);
 	}
 }
