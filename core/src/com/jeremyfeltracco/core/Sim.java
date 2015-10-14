@@ -20,12 +20,6 @@ public class Sim extends ApplicationAdapter {
 	SpriteBatch batch;
 	OrthographicCamera cam;
 	
-	Paddle pad;
-	Paddle pad2;
-	Paddle pad3;
-	Paddle pad4;
-	
-	
 	@Override
 	public void create () {
 		maxX = Gdx.graphics.getWidth() / 2;
