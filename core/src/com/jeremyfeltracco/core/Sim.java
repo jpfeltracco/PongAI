@@ -6,25 +6,26 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.jeremyfeltracco.core.controllers.Controller;
+import com.jeremyfeltracco.core.controllers.Naive;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Corner;
 import com.jeremyfeltracco.core.entities.Paddle;
-import com.jeremyfeltracco.core.entities.Position;
+import com.jeremyfeltracco.core.entities.Side;
 
 public class Sim extends ApplicationAdapter {
 	
 	public static int maxX;
 	public static int maxY;
 	
-	private static int amtPad = 4;
+	public static int amtPad = 4;
 	public static Paddle[] pads;
 	public static Corner[] corners;
 	public static Ball ball;
 	public static float cornerSize;
 	SpriteBatch batch;
 	OrthographicCamera cam;
-	
-	
+	Controller[] controls;
 	
 	@Override
 	public void create () {
@@ -34,7 +35,7 @@ public class Sim extends ApplicationAdapter {
 		pads = new Paddle[amtPad]; // Paddles and ball
 		corners = new Corner[8];
 		for (int i = 0; i < amtPad; i++) {
-			pads[i] = new Paddle(Position.values()[i]);
+			pads[i] = new Paddle(Side.values()[i]);
 		}
 		ball = new Ball();
 		
@@ -48,6 +49,11 @@ public class Sim extends ApplicationAdapter {
 		corners[6] = new Corner(40,0);
 		corners[7] = new Corner(-25,0);
 		
+		controls = new Controller[amtPad];
+		for (int i = 0; i < amtPad; i++) {
+			controls[i] = new Naive(Side.values()[i], pads, ball);
+		}
+		
 		batch = new SpriteBatch();
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.x = 0;
@@ -57,6 +63,10 @@ public class Sim extends ApplicationAdapter {
 	@Override
 	public void render () {
 		float delta = Gdx.graphics.getDeltaTime();
+		
+		for (Controller c : controls)
+			c.updatePaddle();
+		
 		// Update all game entities
 		batch.setProjectionMatrix(cam.combined);
 		for (int i = 0; i < pads.length; i++) {

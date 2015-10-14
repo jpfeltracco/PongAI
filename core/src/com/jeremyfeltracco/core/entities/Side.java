@@ -1,5 +1,5 @@
 package com.jeremyfeltracco.core.entities;
 
-public enum Position {
+public enum Side {
 	TOP, BOTTOM, LEFT, RIGHT
 }

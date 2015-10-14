@@ -21,7 +21,7 @@ public abstract class Entity {
 	 * Returns the position of the Entity, adjusting for the moved origin.
 	 * @return the position, in Vector2 form
 	 */
-	protected Vector2 getOriginPosition() {
+	public Vector2 getOriginPosition() {
 		return new Vector2(sprite.getX() + sprite.getOriginX(),
 				sprite.getY() + sprite.getOriginY());
 	}

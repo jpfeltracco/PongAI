@@ -1,23 +1,26 @@
 package com.jeremyfeltracco.core.entities;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
 
 public class Paddle extends Entity{
-
-	private Vector2 velocity;
-	private Position pos;
+	public enum State {
+		STOP, LEFT, RIGHT
+	}
 	private float vel;
-	private Position side;
+
 	private float boundY;
 	private float boundX;
 
+	private Side side;
+	private State state;
 	
-	public Paddle(Position side) {
+	
+	public Paddle(Side side) {
 		super(Textures.paddle);
 		this.side = side;
+		this.state = State.STOP;
 		
 		switch(side) {
 		case TOP:
@@ -35,24 +38,27 @@ public class Paddle extends Entity{
 			setOriginPosition(Sim.maxX - sprite.getOriginY(), 0);
 			break;
 		}
-		
-		boundX = Sim.maxX - sprite.getWidth() / 2 - Sim.cornerSize;
-		boundY = Sim.maxY - sprite.getWidth() / 2 - Sim.cornerSize;
+		float size = Textures.corner.getTexture().getHeight()/2;
+		boundX = Sim.maxX - sprite.getWidth() / 2 - size * 2;
+		boundY = Sim.maxY - sprite.getWidth() / 2 - size * 2;
 		
 	}
 	
 	@Override
 	public void update(float delta) {
-		// Get ball position and velocity vector, give to controller
-		// Controller outputs velocities
-		
-		Vector2 velocity = new Vector2(0, 0);
 		Vector2 pos = getOriginPosition();
-
 		
-		// Assume vel = controller output
-		vel = -100;
-		vel = MathUtils.clamp(vel, -100, 100);
+		switch(state) {
+		case STOP:
+			vel = 0;
+			break;
+		case LEFT:
+			vel = -200;
+			break;
+		case RIGHT:
+			vel = 200;
+			break;
+		}
 		
 		switch(side) {
 		case TOP:
@@ -72,15 +78,13 @@ public class Paddle extends Entity{
 		
 	
 		//Check whether the position is in valid
-		if (side == Position.TOP || side == Position.BOTTOM) {
-			if (pos.x >= boundX){
+		if (side == Side.TOP || side == Side.BOTTOM) {
+			if (pos.x >= boundX)
 				pos.x = boundX;
-			}
 			if (pos.x < -boundX)
 				pos.x = -boundX;
-			
 		}
-		if (side == Position.LEFT || side == Position.RIGHT) {
+		if (side == Side.LEFT || side == Side.RIGHT) {
 			if (pos.y > boundY)
 				pos.y = boundY;
 			if (pos.y < -boundY)
@@ -89,15 +93,17 @@ public class Paddle extends Entity{
 		
 		setOriginPosition(pos.x, pos.y);
 		
-		bounceBall();
 	}
 	
-	private void bounceBall(){
-		Vector2 balPos = Sim.ball.getOriginPosition();
-		//Deal with ball bounces!
+	public float getVel() {
+		return vel;
 	}
+	
+	public void setState(State s) {
+		this.state = s;
+	}	
 	
 	public String toString(){
-		return pos.name();
+		return side.name();
 	}
 }
