@@ -37,6 +37,10 @@ public class Ball extends Entity {
 		}
 	}
 	
+	public Vector2 getVelocity() {
+		return velocity;
+	}
+	
 	public boolean checkPosition(Vector2 p){
 
 		boolean out = true;

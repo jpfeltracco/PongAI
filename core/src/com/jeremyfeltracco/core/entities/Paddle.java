@@ -9,13 +9,14 @@ public class Paddle extends Entity{
 		STOP, LEFT, RIGHT
 	}
 	private float vel;
-	private Position side;
+	private Side side;
 	private State state;
 	
 	
-	public Paddle(Position side) {
+	public Paddle(Side side) {
 		super(Textures.paddle);
 		this.side = side;
+		this.state = State.STOP;
 		
 		switch(side) {
 		case TOP:
@@ -45,10 +46,10 @@ public class Paddle extends Entity{
 			vel = 0;
 			break;
 		case LEFT:
-			vel = -100;
+			vel = -200;
 			break;
 		case RIGHT:
-			vel = 100;
+			vel = 200;
 			break;
 		}
 		
@@ -71,7 +72,7 @@ public class Paddle extends Entity{
 		float boundY = Sim.maxY - sprite.getWidth() / 2;
 	
 		//Check whether the position is in valid
-		if (side == Position.TOP || side == Position.BOTTOM) {
+		if (side == Side.TOP || side == Side.BOTTOM) {
 			if (pos.x >= boundX){
 				pos.x = boundX;
 			}
@@ -79,7 +80,7 @@ public class Paddle extends Entity{
 				pos.x = -boundX;
 			
 		}
-		if (side == Position.LEFT || side == Position.RIGHT) {
+		if (side == Side.LEFT || side == Side.RIGHT) {
 			if (pos.y > boundY)
 				pos.y = boundY;
 			if (pos.y < -boundY)
@@ -89,6 +90,14 @@ public class Paddle extends Entity{
 		setOriginPosition(pos.x, pos.y);
 		
 		bounceBall();
+	}
+	
+	public float getVel() {
+		return vel;
+	}
+	
+	public void setState(State s) {
+		this.state = s;
 	}
 	
 	private void bounceBall(){
