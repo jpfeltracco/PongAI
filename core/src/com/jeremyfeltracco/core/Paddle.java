@@ -54,6 +54,7 @@ public class Paddle extends Sprite {
 		vel = MathUtils.clamp(vel, -5, 5);
 		
 		switch(pos) {
+		
 		case TOP:
 			velocity.x = -vel;
 			break;
