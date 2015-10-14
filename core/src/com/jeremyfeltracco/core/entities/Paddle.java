@@ -11,6 +11,8 @@ public class Paddle extends Entity{
 	private Position pos;
 	private float vel;
 	private Position side;
+	private float boundY;
+	private float boundX;
 
 	
 	public Paddle(Position side) {
@@ -33,6 +35,9 @@ public class Paddle extends Entity{
 			setOriginPosition(Sim.maxX - sprite.getOriginY(), 0);
 			break;
 		}
+		
+		boundX = Sim.maxX - sprite.getWidth() / 2 - Sim.cornerSize;
+		boundY = Sim.maxY - sprite.getWidth() / 2 - Sim.cornerSize;
 		
 	}
 	
@@ -64,8 +69,7 @@ public class Paddle extends Entity{
 			break;
 		}
 		
-		float boundX = Sim.maxX - sprite.getWidth() / 2;
-		float boundY = Sim.maxY - sprite.getWidth() / 2;
+		
 	
 		//Check whether the position is in valid
 		if (side == Position.TOP || side == Position.BOTTOM) {
