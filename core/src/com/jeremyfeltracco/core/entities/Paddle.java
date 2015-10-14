@@ -41,7 +41,7 @@ public class Paddle extends Entity{
 		// Assume vel = controller output
 		
 		Vector2 velocity = new Vector2(0, 0);
-		float vel = 1000;
+		float vel = -1000;
 		
 		vel = MathUtils.clamp(vel, -100, 100);
 		
@@ -62,8 +62,25 @@ public class Paddle extends Entity{
 		}
 		
 		//System.out.println(velocity);
-		Vector2 pos = getOriginPosition();
-		pos = pos.add(velocity.scl(delta));
-		setOriginPosition(pos.x, pos.y);
+		Vector2 position = getOriginPosition();
+		position = position.add(velocity.scl(delta));
+		if(validPos(position)){
+			setOriginPosition(position.x, position.y);
+		}
+	}
+	
+	private boolean validPos(Vector2 p){
+		boolean out = true;
+		switch(pos){
+		case TOP:
+		case BOTTOM:
+			out = (getOriginPosition().x - this.sprite.getWidth()/2 > -Sim.maxX && getOriginPosition().x + this.sprite.getWidth()/2 < Sim.maxX);
+			break;
+		case LEFT:
+		case RIGHT:
+			out = (getOriginPosition().y - this.sprite.getWidth()/2 > -Sim.maxY && getOriginPosition().y + this.sprite.getWidth()/2 < Sim.maxY);
+			break;
+		}
+		return out;
 	}
 }
