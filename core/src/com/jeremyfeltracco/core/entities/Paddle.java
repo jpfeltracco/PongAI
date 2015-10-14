@@ -61,7 +61,7 @@ public class Paddle extends Entity{
 			break;
 		}
 		
-		System.out.println(velocity);
+		//System.out.println(velocity);
 		Vector2 pos = getOriginPosition();
 		pos = pos.add(velocity.scl(delta));
 		setOriginPosition(pos.x, pos.y);
