@@ -14,15 +14,15 @@ public class Sim extends ApplicationAdapter {
 	public static int maxY;
 	
 	private static int amtPad = 4;
-	
+	public static Paddle[] pads;
 	SpriteBatch batch;
 	OrthographicCamera cam;
-	Paddle[] pads;
+	
 	Paddle pad;
 	Paddle pad2;
 	Paddle pad3;
 	Paddle pad4;
-	Ball ball;
+	public static Ball ball;
 	
 	@Override
 	public void create () {

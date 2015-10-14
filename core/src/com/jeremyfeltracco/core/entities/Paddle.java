@@ -9,6 +9,7 @@ import com.jeremyfeltracco.core.Textures;
 public class Paddle extends Entity{
 	private Vector2 velocity;
 	private Position pos;
+	float vel;
 	
 	public Paddle(Position pos) {
 		super(Textures.paddle);
@@ -31,6 +32,8 @@ public class Paddle extends Entity{
 			setOriginPosition(Sim.maxX - sprite.getOriginY(), 0);
 			break;
 		}
+		
+		vel = -1000;
 	}
 	
 	@Override
@@ -41,7 +44,7 @@ public class Paddle extends Entity{
 		// Assume vel = controller output
 		
 		Vector2 velocity = new Vector2(0, 0);
-		float vel = -1000;
+		
 		
 		vel = MathUtils.clamp(vel, -100, 100);
 		
@@ -68,7 +71,18 @@ public class Paddle extends Entity{
 		//Check whether the position is in valid
 		if(validPos(position)){
 			setOriginPosition(position.x, position.y);
+		}else{
+			
+			//Make more realistic for testing
+			vel *= -1;
 		}
+		
+		bounceBall();
+	}
+	
+	private void bounceBall(){
+		Vector2 balPos = Sim.ball.getOriginPosition();
+		//Deal with ball bounces!
 	}
 	
 	/**
@@ -81,13 +95,17 @@ public class Paddle extends Entity{
 		switch(pos){
 		case TOP:
 		case BOTTOM:
-			out = (getOriginPosition().x - this.sprite.getWidth()/2 > -Sim.maxX && getOriginPosition().x + this.sprite.getWidth()/2 < Sim.maxX);
+			out = (p.x - this.sprite.getWidth()/2 > -Sim.maxX && p.x + this.sprite.getWidth()/2 < Sim.maxX);
 			break;
 		case LEFT:
 		case RIGHT:
-			out = (getOriginPosition().y - this.sprite.getWidth()/2 > -Sim.maxY && getOriginPosition().y + this.sprite.getWidth()/2 < Sim.maxY);
+			out = (p.y - this.sprite.getWidth()/2 > -Sim.maxY && p.y + this.sprite.getWidth()/2 < Sim.maxY);
 			break;
 		}
 		return out;
+	}
+	
+	public String toString(){
+		return pos.name();
 	}
 }
