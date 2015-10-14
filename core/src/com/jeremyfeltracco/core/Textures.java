@@ -1,8 +1,9 @@
 package com.jeremyfeltracco.core;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Textures {
-	public static Texture paddle = new Texture("paddle.png");
-	public static Texture ball = new Texture("ball.png");
+	public static TextureRegion paddle = new TextureRegion(new Texture("paddle.png"));
+	public static TextureRegion ball = new TextureRegion(new Texture("ball.png"));
 }

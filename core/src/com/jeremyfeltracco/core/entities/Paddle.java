@@ -1,17 +1,18 @@
-package com.jeremyfeltracco.core;
+package com.jeremyfeltracco.core.entities;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.jeremyfeltracco.core.Position;
+import com.jeremyfeltracco.core.Sim;
+import com.jeremyfeltracco.core.Textures;
 
-public class Paddle {
-	private Sprite sprite;
+public class Paddle extends Entity{
 	private Vector2 velocity;
 	private Position pos;
 	
 	public Paddle(Position pos) {
+		super(Textures.paddle);
 		this.pos = pos;
-		sprite = new Sprite(Textures.paddle);
 		velocity = new Vector2(0, 0);
 		
 		switch(pos) {
@@ -32,14 +33,7 @@ public class Paddle {
 		}
 	}
 	
-	private void setOriginPosition(float x, float y) {
-		sprite.setPosition(x - sprite.getOriginX(), y - sprite.getOriginY());
-	}
-	
-	public Sprite getSprite() {
-		return sprite;
-	}
-	
+	@Override
 	public void update(float delta) {
 		// Get ball position and velocity vector, give to controller
 		// Controller outputs velocities

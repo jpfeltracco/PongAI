@@ -5,11 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.jeremyfeltracco.core.entities.Ball;
+import com.jeremyfeltracco.core.entities.Paddle;
 
 public class Sim extends ApplicationAdapter {
 	
-	static int maxX;
-	static int maxY;
+	public static int maxX;
+	public static int maxY;
 	
 	SpriteBatch batch;
 	OrthographicCamera cam;
@@ -46,11 +48,11 @@ public class Sim extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		pad.getSprite().draw(batch);
-		pad2.getSprite().draw(batch);
-		pad3.getSprite().draw(batch);
-		pad4.getSprite().draw(batch);
-		ball.getSprite().draw(batch);
+		pad.draw(batch);
+		pad2.draw(batch);
+		pad3.draw(batch);
+		pad4.draw(batch);
+		ball.draw(batch);
 		batch.end();
 	}
 }
