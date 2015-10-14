@@ -17,6 +17,7 @@ public class Sim extends ApplicationAdapter {
 	Paddle pad2;
 	Paddle pad3;
 	Paddle pad4;
+	Ball ball;
 	
 	@Override
 	public void create () {
@@ -31,6 +32,7 @@ public class Sim extends ApplicationAdapter {
 		pad2 = new Paddle(Position.BOTTOM);
 		pad3 = new Paddle(Position.LEFT);
 		pad4 = new Paddle(Position.RIGHT);
+		ball = new Ball();
 	}
 
 	@Override
@@ -48,6 +50,7 @@ public class Sim extends ApplicationAdapter {
 		pad2.getSprite().draw(batch);
 		pad3.getSprite().draw(batch);
 		pad4.getSprite().draw(batch);
+		ball.getSprite().draw(batch);
 		batch.end();
 	}
 }

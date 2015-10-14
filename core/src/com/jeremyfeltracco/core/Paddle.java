@@ -33,7 +33,7 @@ public class Paddle {
 	}
 	
 	private void setOriginPosition(float x, float y) {
-		sprite.setPosition(x - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
+		sprite.setPosition(x - sprite.getOriginX(), y - sprite.getOriginY());
 	}
 	
 	public Sprite getSprite() {
