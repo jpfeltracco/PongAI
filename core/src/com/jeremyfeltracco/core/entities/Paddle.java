@@ -63,7 +63,7 @@ public class Paddle extends Entity{
 		
 		
 //		Vector2 pos = new Vector2(getX(), getY());
-//		pos = pos.add(velocity.scl(delta));
+//		pos = pos.add(duplicate(velocity).scl(delta));
 //		this.setPosition(pos.x, pos.y);
 	}
 }

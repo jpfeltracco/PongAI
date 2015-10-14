@@ -53,6 +53,11 @@ public class Sim extends ApplicationAdapter {
 		pad3.draw(batch);
 		pad4.draw(batch);
 		ball.draw(batch);
+		
+		//TEST UPDATE ----
+		ball.update(0.1f);
+		//TEST UPDATE ----
+		
 		batch.end();
 	}
 }
