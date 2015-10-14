@@ -31,13 +31,5 @@ public abstract class Entity {
 	public void draw(Batch batch) {
 		sprite.draw(batch);
 	}
-	
-	/**
-	 * Duplicates a Vector2 so as to not change the original Vector2 when performing vector operations.
-	 * @param v the input Vector2
-	 * @return a copy of the original Vector2
-	 */
-	public Vector2 duplicate(Vector2 v){
-		return new Vector2(v.x, v.y);
-	}
+
 }

@@ -26,7 +26,7 @@ public class Ball extends Entity {
 		
 		// TODO Auto-generated method stub
 		
-		pos = pos.add(duplicate(velocity).scl(delta));
+		pos = pos.add(velocity.cpy().scl(delta));
 		if(checkPosition(pos)){
 			this.setOriginPosition(pos.x, pos.y);
 		}
@@ -41,22 +41,22 @@ public class Ball extends Entity {
 
 		boolean out = true;
 		if(p.x + radius > Sim.maxX){
-			System.out.println("PAST RIGHT EDGE");
+			//System.out.println("PAST RIGHT EDGE");
 			velocity.x = -Math.abs(velocity.x);
 			out = false;
 		}
 		if(p.x - radius < -Sim.maxX){
-			System.out.println("PAST LEFT EDGE");
+			//System.out.println("PAST LEFT EDGE");
 			velocity.x = Math.abs(velocity.x);
 			out = false;
 		}
 		if(p.y + radius > Sim.maxY){
-			System.out.println("PAST TOP EDGE");
+			//System.out.println("PAST TOP EDGE");
 			velocity.y = -Math.abs(velocity.y);
 			out = false;
 		} 
 		if(p.y - radius < -Sim.maxY){
-			System.out.println("PAST BOTTOM EDGE");
+			//System.out.println("PAST BOTTOM EDGE");
 			velocity.y = Math.abs(velocity.y);
 			out = false;
 		}
