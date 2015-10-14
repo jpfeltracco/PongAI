@@ -19,10 +19,6 @@ public class Sim extends ApplicationAdapter {
 	SpriteBatch batch;
 	OrthographicCamera cam;
 	Paddle[] pads;
-	Paddle pad;
-	Paddle pad2;
-	Paddle pad3;
-	Paddle pad4;
 	Ball ball;
 	
 	@Override
