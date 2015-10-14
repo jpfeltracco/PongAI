@@ -49,6 +49,7 @@ public class Sim extends ApplicationAdapter {
 		
 		batch.begin();
 		pad.draw(batch);
+		pad.update(Gdx.graphics.getDeltaTime());
 		pad2.draw(batch);
 		pad3.draw(batch);
 		pad4.draw(batch);

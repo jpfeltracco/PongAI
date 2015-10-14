@@ -3,6 +3,7 @@ package com.jeremyfeltracco.core.entities;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
 	protected Sprite sprite;
@@ -14,6 +15,11 @@ public abstract class Entity {
 	
 	protected void setOriginPosition(float x, float y) {
 		sprite.setPosition(x - sprite.getOriginX(), y - sprite.getOriginY());
+	}
+	
+	protected Vector2 getOriginPosition() {
+		return new Vector2(sprite.getX() + sprite.getOriginX(),
+				sprite.getY() + sprite.getOriginY());
 	}
 	
 	public abstract void update(float delta);
