@@ -2,21 +2,22 @@ package com.jeremyfeltracco.core.entities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.jeremyfeltracco.core.Position;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
 
 public class Paddle extends Entity{
+
 	private Vector2 velocity;
 	private Position pos;
-	float vel;
+	private float vel;
+	private Position side;
+
 	
-	public Paddle(Position pos) {
+	public Paddle(Position side) {
 		super(Textures.paddle);
-		this.pos = pos;
-		velocity = new Vector2(0, 0);
+		this.side = side;
 		
-		switch(pos) {
+		switch(side) {
 		case TOP:
 			setOriginPosition(0, Sim.maxY - sprite.getOriginY());
 			break;
@@ -33,7 +34,6 @@ public class Paddle extends Entity{
 			break;
 		}
 		
-		vel = -1000;
 	}
 	
 	@Override
@@ -41,41 +41,50 @@ public class Paddle extends Entity{
 		// Get ball position and velocity vector, give to controller
 		// Controller outputs velocities
 		
-		// Assume vel = controller output
-		
 		Vector2 velocity = new Vector2(0, 0);
+		Vector2 pos = getOriginPosition();
+
 		
-		
+		// Assume vel = controller output
+		vel = -100;
 		vel = MathUtils.clamp(vel, -100, 100);
 		
-		switch(pos) {
-		
+		switch(side) {
 		case TOP:
-			velocity.x = -vel;
+			pos.x += -vel * delta;
 			break;
 		case BOTTOM:
-			velocity.x = vel;
+			pos.x += vel * delta;
 			break;
 		case LEFT:
-			velocity.y = -vel;
+			pos.y += -vel * delta;
 			break;
 		case RIGHT:
-			velocity.y = vel;
+			pos.y += vel * delta;
 			break;
 		}
 		
-		//System.out.println(velocity);
-		Vector2 position = getOriginPosition();
-		position = position.add(velocity.scl(delta));
-		
+		float boundX = Sim.maxX - sprite.getWidth() / 2;
+		float boundY = Sim.maxY - sprite.getWidth() / 2;
+	
 		//Check whether the position is in valid
-		if(validPos(position)){
-			setOriginPosition(position.x, position.y);
-		}else{
+		if (side == Position.TOP || side == Position.BOTTOM) {
+			System.out.println(vel);
+			if (pos.x >= boundX){
+				pos.x = boundX;
+			}
+			if (pos.x < -boundX)
+				pos.x = -boundX;
 			
-			//Make more realistic for testing
-			vel *= -1;
 		}
+		if (side == Position.LEFT || side == Position.RIGHT) {
+			if (pos.y > boundY)
+				pos.y = boundY;
+			if (pos.y < -boundY)
+				pos.y = -boundY;
+		}
+		
+		setOriginPosition(pos.x, pos.y);
 		
 		bounceBall();
 	}
@@ -83,26 +92,6 @@ public class Paddle extends Entity{
 	private void bounceBall(){
 		Vector2 balPos = Sim.ball.getOriginPosition();
 		//Deal with ball bounces!
-	}
-	
-	/**
-	 * Checks if the proposed position is within the scope of the screen for each possible paddle type
-	 * @param p the position to be checked
-	 * @return whether that position is valid
-	 */
-	private boolean validPos(Vector2 p){
-		boolean out = true;
-		switch(pos){
-		case TOP:
-		case BOTTOM:
-			out = (p.x - this.sprite.getWidth()/2 > -Sim.maxX && p.x + this.sprite.getWidth()/2 < Sim.maxX);
-			break;
-		case LEFT:
-		case RIGHT:
-			out = (p.y - this.sprite.getWidth()/2 > -Sim.maxY && p.y + this.sprite.getWidth()/2 < Sim.maxY);
-			break;
-		}
-		return out;
 	}
 	
 	public String toString(){

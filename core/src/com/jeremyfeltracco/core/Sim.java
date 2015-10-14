@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
+import com.jeremyfeltracco.core.entities.Position;
 
 public class Sim extends ApplicationAdapter {
 	
@@ -15,6 +16,7 @@ public class Sim extends ApplicationAdapter {
 	
 	private static int amtPad = 4;
 	public static Paddle[] pads;
+	public static Ball ball;
 	SpriteBatch batch;
 	OrthographicCamera cam;
 	
@@ -22,7 +24,7 @@ public class Sim extends ApplicationAdapter {
 	Paddle pad2;
 	Paddle pad3;
 	Paddle pad4;
-	public static Ball ball;
+	
 	
 	@Override
 	public void create () {

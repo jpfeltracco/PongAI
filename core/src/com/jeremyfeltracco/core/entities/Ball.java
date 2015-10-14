@@ -27,7 +27,6 @@ public class Ball extends Entity {
 		// TODO Auto-generated method stub
 		
 		pos = pos.add(duplicate(velocity).scl(delta));
-		//System.out.println(velocity.x);
 		if(checkPosition(pos)){
 			this.setOriginPosition(pos.x, pos.y);
 		}
