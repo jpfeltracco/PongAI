@@ -64,11 +64,18 @@ public class Paddle extends Entity{
 		//System.out.println(velocity);
 		Vector2 position = getOriginPosition();
 		position = position.add(velocity.scl(delta));
+		
+		//Check whether the position is in valid
 		if(validPos(position)){
 			setOriginPosition(position.x, position.y);
 		}
 	}
 	
+	/**
+	 * Checks if the proposed position is within the scope of the screen for each possible paddle type
+	 * @param p the position to be checked
+	 * @return whether that position is valid
+	 */
 	private boolean validPos(Vector2 p){
 		boolean out = true;
 		switch(pos){
