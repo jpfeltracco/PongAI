@@ -9,6 +9,10 @@ public class Paddle extends Entity{
 		STOP, LEFT, RIGHT
 	}
 	private float vel;
+
+	private float boundY;
+	private float boundX;
+
 	private Side side;
 	private State state;
 	
@@ -34,6 +38,9 @@ public class Paddle extends Entity{
 			setOriginPosition(Sim.maxX - sprite.getOriginY(), 0);
 			break;
 		}
+		float size = Textures.corner.getTexture().getHeight()/2;
+		boundX = Sim.maxX - sprite.getWidth() / 2 - size * 2;
+		boundY = Sim.maxY - sprite.getWidth() / 2 - size * 2;
 		
 	}
 	
@@ -46,10 +53,10 @@ public class Paddle extends Entity{
 			vel = 0;
 			break;
 		case LEFT:
-			vel = -200;
+			vel = -100;
 			break;
 		case RIGHT:
-			vel = 200;
+			vel = 100;
 			break;
 		}
 		
@@ -67,18 +74,13 @@ public class Paddle extends Entity{
 			pos.y += vel * delta;
 			break;
 		}
-		
-		float boundX = Sim.maxX - sprite.getWidth() / 2 - 16;
-		float boundY = Sim.maxY - sprite.getWidth() / 2 - 16;
 	
 		//Check whether the position is in valid
 		if (side == Side.TOP || side == Side.BOTTOM) {
-			if (pos.x >= boundX){
+			if (pos.x >= boundX)
 				pos.x = boundX;
-			}
 			if (pos.x < -boundX)
 				pos.x = -boundX;
-			
 		}
 		if (side == Side.LEFT || side == Side.RIGHT) {
 			if (pos.y > boundY)
@@ -89,7 +91,6 @@ public class Paddle extends Entity{
 		
 		setOriginPosition(pos.x, pos.y);
 		
-		bounceBall();
 	}
 	
 	public float getVel() {
@@ -98,12 +99,7 @@ public class Paddle extends Entity{
 	
 	public void setState(State s) {
 		this.state = s;
-	}
-	
-	private void bounceBall(){
-		Vector2 balPos = Sim.ball.getOriginPosition();
-		//Deal with ball bounces!
-	}
+	}	
 	
 	public String toString(){
 		return side.name();

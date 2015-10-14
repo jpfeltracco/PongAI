@@ -17,7 +17,7 @@ public class Ball extends Entity {
 		pos = this.getOriginPosition();
 		
 		//Initial test velocity
-		velocity = new Vector2(300.0f,92.4f);
+		velocity = new Vector2(300f,120f);
 		radius = this.sprite.getWidth()/2;
 	}
 	
@@ -27,9 +27,8 @@ public class Ball extends Entity {
 		// TODO Auto-generated method stub
 		
 		pos = pos.add(velocity.cpy().scl(delta));
-		if(checkPosition(pos)){
-			this.setOriginPosition(pos.x, pos.y);
-		}
+		checkPosition(pos);
+		this.setOriginPosition(pos.x, pos.y);
 		
 		
 		for(Paddle p : Sim.pads){
@@ -64,13 +63,49 @@ public class Ball extends Entity {
 			velocity.y = Math.abs(velocity.y);
 			out = false;
 		}
+		
+		Vector2 cornerPos;
+		for (Corner c : Sim.corners){
+			
+			cornerPos = c.getOriginPosition();
+			if (this.sprite.getBoundingRectangle().overlaps(c.sprite.getBoundingRectangle())){
+				out = false;
+				System.out.println("contact");
+				switch(getBiggestIndex(p,cornerPos)){
+				case 1:
+					velocity.x = -Math.abs(velocity.x);
+					break;
+				case 2:
+					velocity.y = Math.abs(velocity.y);
+					break;
+				case 3:
+					velocity.y = -Math.abs(velocity.y);
+					break;
+				case 0:
+					velocity.x = Math.abs(velocity.x);
+					break;
+				}
+			}
+		}
 		return out;
 	}
 	
-	boolean overlap(Paddle p){
-
-		return false;
+	
+	private int getBiggestIndex(Vector2 a, Vector2 b){
+		double doubles[] = {a.x-b.x, b.x-a.x, a.y-b.y, b.y-a.y};
+		double size = -1;
+		int index = -1;
+		for(int i = 0; i < 4; i++){
+			if (Math.abs(doubles[i]) > size) {
+				size = doubles[i];
+				index = i;
+			}
+		}
+		System.out.println(index);
+		return index;
 	}
+	
+	
 	
 
 }
