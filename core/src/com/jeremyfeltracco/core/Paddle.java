@@ -62,10 +62,10 @@ public class Paddle extends Sprite {
 			velocity.x = vel;
 			break;
 		case LEFT:
-			velocity.y=-vel;
+			velocity.y = -vel;
 			break;
 		case RIGHT:
-			velocity.y=vel;
+			velocity.y = vel;
 			break;
 		}
 		
