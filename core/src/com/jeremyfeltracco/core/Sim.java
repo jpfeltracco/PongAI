@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
+import com.jeremyfeltracco.core.entities.Position;
 
 public class Sim extends ApplicationAdapter {
 	

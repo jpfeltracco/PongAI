@@ -2,20 +2,18 @@ package com.jeremyfeltracco.core.entities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.jeremyfeltracco.core.Position;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
 
 public class Paddle extends Entity{
-	private Vector2 velocity;
-	private Position pos;
+	private float vel;
+	private Position side;
 	
-	public Paddle(Position pos) {
+	public Paddle(Position side) {
 		super(Textures.paddle);
-		this.pos = pos;
-		velocity = new Vector2(0, 0);
+		this.side = side;
 		
-		switch(pos) {
+		switch(side) {
 		case TOP:
 			setOriginPosition(0, Sim.maxY - sprite.getOriginY());
 			break;
@@ -38,32 +36,44 @@ public class Paddle extends Entity{
 		// Get ball position and velocity vector, give to controller
 		// Controller outputs velocities
 		
-		// Assume vel = controller output
+		Vector2 pos = getOriginPosition();
 		
-		Vector2 velocity = new Vector2(0, 0);
-		float vel = 1000;
+		// Assume vel = controller output
+		vel = -100;
 		
 		vel = MathUtils.clamp(vel, -100, 100);
 		
-		switch(pos) {
-		
+		switch(side) {
 		case TOP:
-			velocity.x = -vel;
+			pos.x += -vel * delta;
 			break;
 		case BOTTOM:
-			velocity.x = vel;
+			pos.x += vel * delta;
 			break;
 		case LEFT:
-			velocity.y = -vel;
+			pos.y += -vel * delta;
 			break;
 		case RIGHT:
-			velocity.y = vel;
+			pos.y += vel * delta;
 			break;
 		}
 		
-		System.out.println(velocity);
-		Vector2 pos = getOriginPosition();
-		pos = pos.add(velocity.scl(delta));
+		float boundX = Sim.maxX - sprite.getWidth() / 2;
+		float boundY = Sim.maxY - sprite.getWidth() / 2;
+		
+		if (side == Position.TOP || side == Position.BOTTOM) {
+			if (pos.x >= boundX)
+				pos.x = boundX;
+			if (pos.x <= -boundX)
+				pos.x = -boundX;
+		}
+		if (side == Position.LEFT || side == Position.RIGHT) {
+			if (pos.y >= boundY)
+				pos.y = boundY;
+			if (pos.y <= -boundY)
+				pos.y = -boundY;
+		}
+		
 		setOriginPosition(pos.x, pos.y);
 	}
 }
