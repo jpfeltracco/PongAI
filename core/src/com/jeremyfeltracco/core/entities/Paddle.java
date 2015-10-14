@@ -39,8 +39,7 @@ public class Paddle extends Entity{
 		Vector2 pos = getOriginPosition();
 		
 		// Assume vel = controller output
-		vel = -100;
-		
+		vel = -100;		
 		vel = MathUtils.clamp(vel, -100, 100);
 		
 		switch(side) {
