@@ -69,7 +69,6 @@ public class Paddle extends Entity{
 	
 		//Check whether the position is in valid
 		if (side == Position.TOP || side == Position.BOTTOM) {
-			System.out.println(vel);
 			if (pos.x >= boundX){
 				pos.x = boundX;
 			}
