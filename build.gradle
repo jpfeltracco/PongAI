@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
+    	mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
@@ -25,6 +25,7 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://neuroph.sourceforge.net/maven2/" }
     }
 }
 
@@ -60,6 +61,8 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        
+        compile "org.neuroph:neuroph-core:2.9"
     }
 }
 
