@@ -17,8 +17,15 @@ public class Ball extends Entity {
 	private boolean error = false;
 	private String errorString;
 	
+	
+	/*ERRORS:
+	 * super(Textures.ball,new Vector2(250,70));   -> 26s  ID
+	 * super(Textures.ball,new Vector2(100,-320)); -> 5s   OVERLAP
+	 * super(Textures.ball,new Vector2(300,-20));  -> 42s  ID
+	 */
+	
 	public Ball(float x, float y) {
-		super(Textures.ball,new Vector2(250,70));
+		super(Textures.ball,new Vector2(300,-20));
 		setOriginPosition(x, y);
 		pos = this.getOriginPosition();
 		radius = this.sprite.getWidth()/2;
@@ -104,12 +111,6 @@ public class Ball extends Entity {
 							altIndex = i;
 						}
 					}
-				}
-			}
-			
-			if(contactCorner){
-				for(float f : segDists){
-					//System.out.println(f);
 				}
 			}
 
