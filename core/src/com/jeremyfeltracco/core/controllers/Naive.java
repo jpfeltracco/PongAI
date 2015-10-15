@@ -17,6 +17,7 @@ public class Naive extends Controller {
 		State state = this.getPadState();
 		Vector2 ballPos = this.getBallPos();
 		Vector2 padPos = this.getPaddlePos();
+		
 		if (ballPos.x > padPos.x) {
 			state = State.RIGHT;
 		} else if (ballPos.x < padPos.x) {
