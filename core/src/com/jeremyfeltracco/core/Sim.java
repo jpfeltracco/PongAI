@@ -64,7 +64,7 @@ public class Sim extends ApplicationAdapter {
 		float delta = Gdx.graphics.getDeltaTime();
 		
 		for (Controller c : controls)
-			c.updatePaddle();
+			c.update();
 		
 		// Update all game entities
 		batch.setProjectionMatrix(cam.combined);

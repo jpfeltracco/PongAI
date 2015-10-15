@@ -23,7 +23,7 @@ public class Paddle extends Entity{
 		this.state = State.STOP;
 		
 		switch(side) {
-		case TOP:
+		case UP:
 			setOriginPosition(0, Sim.maxY - sprite.getOriginY());
 			break;
 		case BOTTOM:
@@ -61,7 +61,7 @@ public class Paddle extends Entity{
 		}
 		
 		switch(side) {
-		case TOP:
+		case UP:
 			pos.x += -vel * delta;
 			break;
 		case BOTTOM:
@@ -76,7 +76,7 @@ public class Paddle extends Entity{
 		}
 	
 		//Check whether the position is in valid
-		if (side == Side.TOP || side == Side.BOTTOM) {
+		if (side == Side.UP || side == Side.BOTTOM) {
 			if (pos.x >= boundX)
 				pos.x = boundX;
 			if (pos.x < -boundX)
@@ -99,7 +99,11 @@ public class Paddle extends Entity{
 	
 	public void setState(State s) {
 		this.state = s;
-	}	
+	}
+	
+	public State getState() {
+		return this.state;
+	}
 	
 	public String toString(){
 		return side.name();
