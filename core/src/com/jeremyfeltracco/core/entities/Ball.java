@@ -8,7 +8,7 @@ import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private Vector2 pos;
-	Vector2 velocity = new Vector2(-500, 37);
+	Vector2 velocity = new Vector2(5, 5);
 	float radius;
 	private Box2DDebugRenderer debugRenderer;
 	
@@ -111,12 +111,18 @@ public class Ball extends Entity {
 			
 			if (contact){
 				System.out.println("contact");
-				
+				Vector2 corners[] = c.getCorners();
+				Vector2 side;
 				if(contactCorner){
 					System.out.println("----------------CORNER------------------");
+					Vector2 side1 = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
+					Vector2 side2 = simplify(corners[altIndex+1].cpy().sub(corners[altIndex]).cpy());
+					
+					side = side1.nor().add(side2.nor());
+					
 				}else{
 				
-					Vector2 corners[] = c.getCorners();
+					
 					
 					
 					
@@ -135,18 +141,20 @@ public class Ball extends Entity {
 					//System.out.println("\n");
 					System.out.println("Min Index: " + index);*/
 					
-					Vector2 side = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
-					Vector2 n = new Vector2(-side.y, side.x).nor();
-					Vector2 v = simplify(velocity.cpy());				
-					velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
+					side = simplify(corners[index+1].cpy().sub(corners[index]).cpy()).nor();
 					
-					//System.out.println("V: " + v + "\tN: " + n + "\nRESULT: " + result);
-					//System.out.println("VEL: " + velocity);
-					
-					Vector2 u = velocity.cpy().nor();
-					System.out.println(velocity.cpy().scl(delta).len());
-					p = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len()));
 				}
+				
+				Vector2 n = new Vector2(-side.y, side.x).nor();
+				Vector2 v = simplify(velocity.cpy());				
+				velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
+				
+				//System.out.println("V: " + v + "\tN: " + n + "\nRESULT: " + result);
+				//System.out.println("VEL: " + velocity);
+				
+				Vector2 u = velocity.cpy().nor();
+				//System.out.println(velocity.cpy().scl(delta).len());
+				p = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len()));
 				
 				//Adjust position to keep the ball from getting stuck in the shape
 				

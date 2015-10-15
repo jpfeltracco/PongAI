@@ -42,14 +42,14 @@ public class Sim extends ApplicationAdapter {
 			pads[i] = new Paddle(Side.values()[i]);
 		}
 		//pads[0] = new Paddle(Side.LEFT);
-		ball = new Ball(-220,0);
+		ball = new Ball(105,100);
 		
 		cornerSize = Textures.corner.getTexture().getHeight()/2;
 		corners[0] = new Corner(-maxX+cornerSize,-maxY+cornerSize);
 		corners[1] = new Corner(maxX-cornerSize,-maxY+cornerSize);
 		corners[2] = new Corner(-maxX+cornerSize,maxY-cornerSize);
 		corners[3] = new Corner(maxX-cornerSize,maxY-cornerSize);
-		corners[4] = new Corner(0,0);
+		corners[4] = new Corner(130,130);
 		corners[5] = new Corner(0,-35);
 		corners[6] = new Corner(50,0);
 		corners[6].sprite.rotate(30);
