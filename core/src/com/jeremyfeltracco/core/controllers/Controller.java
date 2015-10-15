@@ -1,63 +1,50 @@
 package com.jeremyfeltracco.core.controllers;
 
+import java.util.EnumMap;
+
 import com.badlogic.gdx.math.Vector2;
-import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
+import com.jeremyfeltracco.core.entities.Paddle.State;
 import com.jeremyfeltracco.core.entities.Side;
 
-public class Controller {
-	Paddle p;
+public abstract class Controller {
+	EnumMap<Side, Integer> rotMap = new EnumMap<Side, Integer>(Side.class);
+	
 	Side side;
 	Paddle[] pads;
-	Ball b;
-	
-	Vector2[] paddlePos = new Vector2[Sim.amtPad];
-	float[] paddleVels = new float[Sim.amtPad];
-	Vector2 ballPos = new Vector2();
-	Vector2 ballVel = new Vector2();
+	Ball ball;
 	
 	public Controller(Side s, Paddle[] pads, Ball b) {
-		p = pads[s.ordinal()];
 		this.side = s;
 		this.pads = pads;
-		this.b = b;
+		this.ball = b;
+		
+		rotMap.put(Side.TOP, 180);
+		rotMap.put(Side.BOTTOM, 0);
+		rotMap.put(Side.LEFT, 90);
+		rotMap.put(Side.RIGHT, -90);
 	}
 	
-	public void updatePaddle() {
-		switch(side) {
-		case TOP:
-			for (int i = 0; i < pads.length; i++) {
-				paddlePos[i] = pads[i].getOriginPosition().cpy().rotate(180);
-				paddleVels[i] = pads[i].getVel();
-			}
-			ballPos = b.getOriginPosition().cpy().rotate(180);
-			ballVel = b.getVelocity().cpy().rotate(180);
-			break;
-		case BOTTOM:
-			for (int i = 0; i < pads.length; i++) {
-				paddlePos[i] = pads[i].getOriginPosition().cpy();
-				paddleVels[i] = pads[i].getVel();
-			}
-			ballPos = b.getOriginPosition().cpy();
-			ballVel = b.getVelocity().cpy();
-			break;
-		case LEFT:
-			for (int i = 0; i < pads.length; i++) {
-				paddlePos[i] = pads[i].getOriginPosition().cpy().rotate(90);
-				paddleVels[i] = pads[i].getVel();
-			}
-			ballPos = b.getOriginPosition().cpy().rotate(90);
-			ballVel = b.getVelocity().cpy().rotate(-90);
-			break;
-		case RIGHT:
-			for (int i = 0; i < pads.length; i++) {
-				paddlePos[i] = pads[i].getOriginPosition().cpy().rotate(-90);
-				paddleVels[i] = pads[i].getVel();
-			}
-			ballPos = b.getOriginPosition().cpy().rotate(-90);
-			ballVel = b.getVelocity().cpy().rotate(90);
-			break;
-		}
+	protected void setPadState(State s) {
+		pads[side.ordinal()].setState(s);
 	}
+	
+	protected Vector2 getPaddlePos() {
+		return getOtherPaddlePos(side);
+	}
+	
+	protected Vector2 getOtherPaddlePos(Side s) {
+		return pads[s.ordinal()].getOriginPosition().cpy().rotate(rotMap.get(side));
+	}
+	
+	protected Vector2 getBallPos() {
+		return ball.getOriginPosition().cpy().rotate(rotMap.get(side));
+	}
+	
+	protected Vector2 getBallVel() {
+		return ball.getVelocity().cpy().rotate(rotMap.get(side));		
+	}
+	
+	public abstract void updatePaddle();
 }
