@@ -2,58 +2,51 @@ package com.jeremyfeltracco.core.entities;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private Vector2 pos;
-	Vector2 velocity = new Vector2(0, 0);
+	Vector2 velocity = new Vector2(-500, 37);
 	float radius;
+	private Box2DDebugRenderer debugRenderer;
 	
-	public Ball() {
-		super(Textures.ball);
-		setOriginPosition(200, 0);
+	public Ball(float x, float y) {
+		super(Textures.ball,x,y);
+		setOriginPosition(x, y);
 		pos = this.getOriginPosition();
-		
-		//Initial test velocity
-		velocity = new Vector2(200,177);
 		radius = this.sprite.getWidth()/2;
 	}
 	
 	@Override
 	public void update(float delta) {
 		pos = pos.add(velocity.cpy().scl(delta));
-		if(checkPosition(pos)){
-			this.setOriginPosition(pos.x, pos.y);
-		}
+		checkPosition(pos, delta);
+		this.setOriginPosition(pos.x, pos.y);
 	}
 	
 	public Vector2 getVelocity() {
 		return velocity;
 	}
 	
-	public boolean checkPosition(Vector2 p){
+	public void checkPosition(Vector2 p, float delta){
 
-		boolean out = true;
 		if(p.x + radius > Sim.maxX){
 			//System.out.println("PAST RIGHT EDGE");
 			velocity.x = -Math.abs(velocity.x);
-			out = false;
 		}
 		if(p.x - radius < -Sim.maxX){
 			//System.out.println("PAST LEFT EDGE");
 			velocity.x = Math.abs(velocity.x);
-			out = false;
 		}
 		if(p.y + radius > Sim.maxY){
 			//System.out.println("PAST TOP EDGE");
 			velocity.y = -Math.abs(velocity.y);
-			out = false;
 		} 
 		if(p.y - radius < -Sim.maxY){
 			//System.out.println("PAST BOTTOM EDGE");
 			velocity.y = Math.abs(velocity.y);
-			out = false;
 		}
 		
 		Vector2 cornerPos;
@@ -62,49 +55,105 @@ public class Ball extends Entity {
 				continue;
 			}
 			cornerPos = c.getOriginPosition();
-			if (this.overlaps(c,p)){
-				out = true;
-				System.out.println("contact");
-				float distances[] = new float[4];
-				Vector2 corners[] = c.getCorners();
-				
-				int index = -1;
-				double dist = Double.MAX_VALUE; 
+			
+			if(c.getOriginPosition().dst(pos) > c.maxSize + 5)
+				continue;
+			
+			Vector2[] cor = c.getCorners().clone();
+			float[] segDists = new float[4];
+			int index = -1;
+			int altIndex = -1;
+			for(int i = 0; i < 4; i++){
+				segDists[i]=Intersector.distanceSegmentPoint(cor[i], cor[i+1], pos);
+			}
+			
+			//----------------------CONTACT----------------------
+			boolean contact = false;
+			
+			int contactPoints = 0;
+			for(int i = 0; i < 4; i++){
+				if(segDists[i] <= radius){
+					contactPoints++;
+					contact = true;
+				}
+			}
+			
+			double dist = Double.MAX_VALUE; 
+			for(int i = 0; i < 4; i++){
+				if(segDists[i] < dist){
+					dist = segDists[i];
+					index = i;
+				}
+			}
+			
+			boolean contactCorner = false;
+			if(contact && contactPoints > 1){
 				for(int i = 0; i < 4; i++){
-					if(distances[i] < dist){
-						dist = distances[i];
-						index = i;
+					if(i!=index){
+						if(segDists[i] == segDists[index]){
+							contactCorner = true;
+							altIndex = i;
+						}
 					}
 				}
-				
-				//Tracing values
-				/*for(Vector2 v : corners){
-					System.out.print(v + "\t");
+			}
+			
+			if(contactCorner){
+				for(float f : segDists){
+					System.out.println(f);
 				}
-				System.out.println("\n");
-				//top, right, bottom, left
-				String text[] = {"Top","Right","Bottom","Left"};
-				for(int i = 0; i< 4; i++){
-					distances[i] = Intersector.distanceSegmentPoint(corners[i], corners[i+1], p);
+			}
+
+			//---------------------------------------------------
+			
+			
+			
+			
+			if (contact){
+				System.out.println("contact");
+				
+				if(contactCorner){
+					System.out.println("----------------CORNER------------------");
+				}else{
+				
+					Vector2 corners[] = c.getCorners();
 					
-					System.out.println(i + "\t" + distances[i] + "\t" + text[i]);
+					
+					
+					//Tracing values
+					/*for(Vector2 v : corners){
+						System.out.print(v + "\t");
+					}
+					System.out.println("\n");
+					//top, right, bottom, left
+					String text[] = {"Top","Right","Bottom","Left"};
+					for(int i = 0; i< 4; i++){
+						distances[i] = Intersector.distanceSegmentPoint(corners[i], corners[i+1], p);
+						
+						System.out.println(i + "\t" + distances[i] + "\t" + text[i]);
+					}
+					//System.out.println("\n");
+					System.out.println("Min Index: " + index);*/
+					
+					Vector2 side = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
+					Vector2 n = new Vector2(-side.y, side.x).nor();
+					Vector2 v = simplify(velocity.cpy());				
+					velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
+					
+					//System.out.println("V: " + v + "\tN: " + n + "\nRESULT: " + result);
+					//System.out.println("VEL: " + velocity);
+					
+					Vector2 u = velocity.cpy().nor();
+					System.out.println(velocity.cpy().scl(delta).len());
+					p = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len()));
 				}
-				//System.out.println("\n");
-				System.out.println("Min Index: " + index);*/
 				
-				Vector2 side = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
-				Vector2 n = new Vector2(-side.y, side.x).nor();
-				Vector2 v = simplify(velocity.cpy());				
-				velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
+				//Adjust position to keep the ball from getting stuck in the shape
 				
-				//System.out.println("V: " + v + "\tN: " + n + "\nRESULT: " + result);
-				//System.out.println("VEL: " + velocity);
 				
-				moveToEdge(p, velocity);
 				
 			}
 		}
-		return out;
 	}
 	
 	private Vector2 simplify(Vector2 v){
@@ -124,20 +173,40 @@ public class Ball extends Entity {
 		System.out.println(index);
 		return index;
 	}
+
 	
-	private void moveToEdge(Vector2 p, Vector2 v){
+	/*private boolean contactCorner(Entity c, float[] segs){
+		for (int i=0; i<4; i++){
+	        for (int j=i+1; j<4; j++){
+	            if (Math.abs(segs[i]-segs[j])<0.0001f){
+	                return true;
+	            }
+	        }
+	    }
+		return false;
+	}*/
+	
+	private Vector2 overlapsCorner(Entity c, Vector2 p){
+		//if(!contact(c))
+			//return null;
 		
-	}
-	
-	private boolean overlaps(Entity c, Vector2 p){
-		if(c.getOriginPosition().dst(p) > c.maxSize + 5)
-			return false;
 		Vector2[] cor = c.getCorners().clone();
 		for(int i = 0; i < 4; i++){
-			if(Intersector.distanceSegmentPoint(cor[i], cor[i+1], p) <= radius)
-				return true;
+			Vector2 edge = new Vector2(cor[i+1].cpy().sub(cor[i])).nor();
+			
+			Vector2 intersectPoint = proj(p,edge);
+			
+			return intersectPoint;
 		}
-		return false;
+		
+		return null;
+	}
+	
+	private Vector2 proj(Vector2 ina, Vector2 inb){
+		Vector2 a = ina.cpy();
+		Vector2 b = inb.cpy();
+		
+		return b.nor().scl(b.dot(a)/b.len());
 	}
 
 }

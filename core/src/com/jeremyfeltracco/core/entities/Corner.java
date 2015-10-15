@@ -4,7 +4,7 @@ import com.jeremyfeltracco.core.Textures;
 
 public class Corner extends Entity {
 	public Corner(float x, float y) {
-		super(Textures.corner);
+		super(Textures.corner,x,y);
 		setOriginPosition(x, y);
 		this.updateSides();
 	}

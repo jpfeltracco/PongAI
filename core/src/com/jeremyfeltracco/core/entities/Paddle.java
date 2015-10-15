@@ -18,7 +18,7 @@ public class Paddle extends Entity{
 	
 	
 	public Paddle(Side side) {
-		super(Textures.paddle);
+		super(Textures.paddle,0,0);
 		this.side = side;
 		this.state = State.STOP;
 		
