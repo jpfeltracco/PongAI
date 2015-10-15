@@ -1,7 +1,9 @@
 package com.jeremyfeltracco.core.controllers;
 
+import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
+import com.jeremyfeltracco.core.entities.Paddle.State;
 import com.jeremyfeltracco.core.entities.Side;
 
 public class Naive extends Controller {
@@ -11,15 +13,17 @@ public class Naive extends Controller {
 	}
 	
 	@Override
-	public void updatePaddle() {
-		super.updatePaddle();
-		if (ballPos.x > paddlePos[side.ordinal()].x) {
-			p.setState(Paddle.State.RIGHT);
-		} else if (ballPos.x < paddlePos[side.ordinal()].x) {
-			p.setState(Paddle.State.LEFT);
-		} else {
-			p.setState(Paddle.State.STOP);
+	public State controlPaddle() {
+		State state = this.getPadState();
+		Vector2 ballPos = this.getBallPos();
+		Vector2 padPos = this.getPaddlePos();
+		
+		if (ballPos.x > padPos.x) {
+			state = State.RIGHT;
+		} else if (ballPos.x < padPos.x) {
+			state = State.LEFT;
 		}
+		return state;
 	}
 	
 }

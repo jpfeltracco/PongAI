@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jeremyfeltracco.core.controllers.Controller;
 import com.jeremyfeltracco.core.controllers.Naive;
@@ -66,7 +65,7 @@ public class Sim extends ApplicationAdapter {
 		float delta = Gdx.graphics.getDeltaTime();
 		
 		for (Controller c : controls)
-			c.updatePaddle();
+			c.update();
 		
 		// Update all game entities
 		batch.setProjectionMatrix(cam.combined);
