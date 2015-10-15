@@ -64,6 +64,14 @@ public abstract class Controller {
 	public void update() {
 		setPadState(controlPaddle());
 	}
+	
+	/**
+	 * Returns a new state for the controlled paddle. All controllers must
+	 * implement this function.
+	 * 
+	 * @return A new state for the controlled paddle.
+	 */
+	public abstract State controlPaddle();
 
 	/**
 	 * Sets the state of the controlled paddle.
@@ -80,7 +88,7 @@ public abstract class Controller {
 	 * @return State of controlled paddle.
 	 */
 	protected State getPadState() {
-		return getOtherPadState(controlledSide);
+		return getOtherPadState(Side.BOTTOM);
 	}
 
 	/**
@@ -147,12 +155,4 @@ public abstract class Controller {
 	protected Vector2 getBallVel() {
 		return ball.getVelocity().cpy().rotate(rotMap.get(controlledSide));
 	}
-
-	/**
-	 * Returns a new state for the controlled paddle. All controllers must
-	 * implement this function.
-	 * 
-	 * @return A new state for the controlled paddle.
-	 */
-	public abstract State controlPaddle();
 }
