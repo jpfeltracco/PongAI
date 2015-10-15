@@ -8,12 +8,12 @@ import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private Vector2 pos;
-	Vector2 velocity = new Vector2(600, 390);
 	float radius;
 	private Box2DDebugRenderer debugRenderer;
+	private float maxVelocity = 1000;
 	
 	public Ball(float x, float y) {
-		super(Textures.ball,x,y);
+		super(Textures.ball,new Vector2(500,100));
 		setOriginPosition(x, y);
 		pos = this.getOriginPosition();
 		radius = this.sprite.getWidth()/2;
@@ -21,13 +21,13 @@ public class Ball extends Entity {
 	
 	@Override
 	public void update(float delta) {
+		if(velocity.len() > maxVelocity){
+			velocity.nor().scl(maxVelocity);
+			System.out.println("NEW VELOCITY VALUE: " + velocity);
+		}
 		pos = pos.add(velocity.cpy().scl(delta));
 		checkPosition(pos, delta);
 		this.setOriginPosition(pos.x, pos.y);
-	}
-	
-	public Vector2 getVelocity() {
-		return velocity;
 	}
 	
 	public void checkPosition(Vector2 p, float delta){
@@ -49,13 +49,10 @@ public class Ball extends Entity {
 			velocity.y = Math.abs(velocity.y);
 		}
 		
-		Vector2 cornerPos;
 		for (Entity c : Entity.entities){
 			if(c == this){
 				continue;
 			}
-			cornerPos = c.getOriginPosition();
-			
 			if(c.getOriginPosition().dst(pos) > c.maxSize + 30)
 				continue;
 			
@@ -80,13 +77,13 @@ public class Ball extends Entity {
 			
 			double dist = Double.MAX_VALUE; 
 			for(int i = 0; i < 4; i++){
-				System.out.print(segDists[i] + "\t");
+				//System.out.print(segDists[i] + "\t");
 				if(segDists[i] < dist){
 					dist = segDists[i];
 					index = i;
 				}
 			}
-			System.out.println();
+			//System.out.println();
 			
 			boolean contactCorner = false;
 			if(contact && contactPoints > 1){
@@ -102,7 +99,7 @@ public class Ball extends Entity {
 			
 			if(contactCorner){
 				for(float f : segDists){
-					System.out.println(f);
+					//System.out.println(f);
 				}
 			}
 
@@ -112,12 +109,11 @@ public class Ball extends Entity {
 			
 			
 			if (contact){
-				System.out.println("contact");
 				Vector2 corners[] = c.getCorners();
 				Vector2 side;
 				Vector2 n;
 				if(contactCorner){
-					System.out.println("----------------CORNER------------------");
+					System.out.println("----------Corner Collision--------");
 					Vector2 side1 = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
 					Vector2 side2 = simplify(corners[altIndex+1].cpy().sub(corners[altIndex]).cpy());
 					Vector2 point;
@@ -131,6 +127,7 @@ public class Ball extends Entity {
 					
 					
 					n = p.cpy().sub(point).nor();
+					System.out.println("----------------------------------\n");
 				}else{
 				
 					
@@ -157,15 +154,41 @@ public class Ball extends Entity {
 				}
 				
 				
-				Vector2 v = simplify(velocity.cpy());				
-				velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
-				
-				//System.out.println("V: " + v + "\tN: " + n + "\nRESULT: " + result);
-				//System.out.println("VEL: " + velocity);
-				
+					
+				Vector2 addVel = simplify(proj(c.getVelocity(),n));
+				if(Math.abs(addVel.x)>0 || Math.abs(addVel.y)>0){
+					Vector2 compare = simplify(addVel.cpy().nor().scl(-1)).sub(simplify(velocity.cpy().nor()));
+					
+					System.out.println("------------ACCELERATION----------");
+					System.out.println("Normal Plane: " + n);
+					if(Math.abs(compare.x) < 1 && Math.abs(compare.y) < 1){
+						//----------TOWARDS----------
+						System.out.println("Towards contact detected:\nVel: " + velocity + "\t\tOtherV: " + c.getVelocity());
+						System.out.println("Old Velocity: " + velocity.len() + "\t\tAdd Velocity: " + addVel);
+						Vector2 v = simplify(velocity.cpy());	
+						velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
+						velocity.add(addVel);
+						System.out.println("New Velocity: " + velocity.len() + "\t\tVector Form: " + velocity);
+					}else{
+						//------------AWAY-----------
+						System.out.println("Away contact detected:\nVel: " + velocity + "\t\tOtherV: " + c.getVelocity());
+						System.out.println("Old Velocity: " + velocity.len() + "\t\tAdd Velocity: " + addVel);
+						velocity.add(addVel);
+						System.out.println("New Velocity: " + velocity.len() + "\t\tVector Form: " + velocity);
+					}
+					
+					System.out.println("----------------------------------\n");
+					
+				}else{
+					System.out.println("----------NORMAL COLLISION--------");
+					Vector2 velocityPrevious = velocity.cpy();
+					Vector2 v = simplify(velocity.cpy());	
+					velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
+					System.out.println("----------------------------------\n");
+				}
 				Vector2 u = velocity.cpy().nor();
 				//System.out.println(u + "\tSCALE: " + (segDists[index] - radius + velocity.cpy().scl(delta).len()));
-				pos = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len()));
+				pos = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len() + addVel.scl(delta).len()));
 				
 				//Adjust position to keep the ball from getting stuck in the shape
 				
@@ -179,52 +202,9 @@ public class Ball extends Entity {
 		return new Vector2(((Math.abs(v.x)<0.0001)?0:v.x),((Math.abs(v.y)<0.0001)?0:v.y));
 	}
 	
-	private int getBiggestIndex(Vector2 a, Vector2 b){
-		double doubles[] = {a.x-b.x, b.x-a.x, a.y-b.y, b.y-a.y};
-		double size = -1;
-		int index = -1;
-		for(int i = 0; i < 4; i++){
-			if (Math.abs(doubles[i]) > size) {
-				size = doubles[i];
-				index = i;
-			}
-		}
-		System.out.println(index);
-		return index;
-	}
-
-	
-	/*private boolean contactCorner(Entity c, float[] segs){
-		for (int i=0; i<4; i++){
-	        for (int j=i+1; j<4; j++){
-	            if (Math.abs(segs[i]-segs[j])<0.0001f){
-	                return true;
-	            }
-	        }
-	    }
-		return false;
-	}*/
-	
-	private Vector2 overlapsCorner(Entity c, Vector2 p){
-		//if(!contact(c))
-			//return null;
-		
-		Vector2[] cor = c.getCorners().clone();
-		for(int i = 0; i < 4; i++){
-			Vector2 edge = new Vector2(cor[i+1].cpy().sub(cor[i])).nor();
-			
-			Vector2 intersectPoint = proj(p,edge);
-			
-			return intersectPoint;
-		}
-		
-		return null;
-	}
-	
 	private Vector2 proj(Vector2 ina, Vector2 inb){
 		Vector2 a = ina.cpy();
 		Vector2 b = inb.cpy();
-		
 		return b.nor().scl(b.dot(a)/b.len());
 	}
 
