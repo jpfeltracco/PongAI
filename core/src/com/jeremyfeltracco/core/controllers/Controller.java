@@ -23,6 +23,7 @@ public abstract class Controller {
 	
 	// Maps to convert global side to side relative to top, left, and right
 	// Bottom is of course equal to global
+	// Hola
 	EnumMap<Side, Side> relTop = new EnumMap<Side, Side>(Side.class);
 	EnumMap<Side, Side> relLeft = new EnumMap<Side, Side>(Side.class);
 	EnumMap<Side, Side> relRight = new EnumMap<Side, Side>(Side.class);
