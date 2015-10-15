@@ -1,5 +1,7 @@
 package com.jeremyfeltracco.core.entities;
 
+import java.awt.Polygon;
+
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -10,10 +12,13 @@ public class Ball extends Entity {
 	private Vector2 pos;
 	float radius;
 	private Box2DDebugRenderer debugRenderer;
-	private float maxVelocity = 1000;
+	private float maxVelocity = 350;
+	private int lastIDContact = -1;
+	private boolean error = false;
+	private String errorString;
 	
 	public Ball(float x, float y) {
-		super(Textures.ball,new Vector2(500,100));
+		super(Textures.ball,new Vector2(250,70));
 		setOriginPosition(x, y);
 		pos = this.getOriginPosition();
 		radius = this.sprite.getWidth()/2;
@@ -23,11 +28,13 @@ public class Ball extends Entity {
 	public void update(float delta) {
 		if(velocity.len() > maxVelocity){
 			velocity.nor().scl(maxVelocity);
-			System.out.println("NEW VELOCITY VALUE: " + velocity);
+			System.out.println("NEW VELOCITY VALUE: " + velocity + " :" + velocity.cpy().len() +"\tTime: " + Sim.systemTime + "\n");
 		}
 		pos = pos.add(velocity.cpy().scl(delta));
 		checkPosition(pos, delta);
-		this.setOriginPosition(pos.x, pos.y);
+		if(handleErrors()){
+			this.setOriginPosition(pos.x, pos.y);
+		}
 	}
 	
 	public void checkPosition(Vector2 p, float delta){
@@ -48,20 +55,24 @@ public class Ball extends Entity {
 			//System.out.println("PAST BOTTOM EDGE");
 			velocity.y = Math.abs(velocity.y);
 		}
-		
+		int delay = 0;
 		for (Entity c : Entity.entities){
-			if(c == this){
-				continue;
-			}
-			if(c.getOriginPosition().dst(pos) > c.maxSize + 30)
-				continue;
 			
-			Vector2[] cor = c.getCorners().clone();
+			if(c == this || c.getOriginPosition().dst(pos) > c.maxSize + velocity.cpy().scl(delta).len() * 2)
+				continue;
+			double dist = c.getOriginPosition().dst(pos);
+			double maxAdj = c.maxSize + 40;
+			int delayAmt;
+			delayAmt = (int)(maxAdj / dist * 35);
+			if(delayAmt > delay){
+				delay = delayAmt;
+			}
+			Vector2[] corners = c.getCorners().clone();
 			float[] segDists = new float[4];
 			int index = -1;
 			int altIndex = -1;
 			for(int i = 0; i < 4; i++){
-				segDists[i]=Intersector.distanceSegmentPoint(cor[i], cor[i+1], pos);
+				segDists[i]=Intersector.distanceSegmentPoint(corners[i], corners[i+1], pos);
 			}
 			
 			//----------------------CONTACT----------------------
@@ -75,7 +86,7 @@ public class Ball extends Entity {
 				}
 			}
 			
-			double dist = Double.MAX_VALUE; 
+			dist = Double.MAX_VALUE; 
 			for(int i = 0; i < 4; i++){
 				//System.out.print(segDists[i] + "\t");
 				if(segDists[i] < dist){
@@ -83,13 +94,12 @@ public class Ball extends Entity {
 					index = i;
 				}
 			}
-			//System.out.println();
 			
 			boolean contactCorner = false;
 			if(contact && contactPoints > 1){
 				for(int i = 0; i < 4; i++){
 					if(i!=index){
-						if(segDists[i] == segDists[index]){
+						if(Math.abs(segDists[i] - segDists[index]) < 0.01){
 							contactCorner = true;
 							altIndex = i;
 						}
@@ -103,17 +113,40 @@ public class Ball extends Entity {
 				}
 			}
 
+			float[] vertices = new float[8];
+			for(int i = 0; i < 4; i++){
+				vertices[i*2] = corners[i].x;
+				vertices[i*2+1] = corners[i].y;
+			}
+			
+			com.badlogic.gdx.math.Polygon poly = new com.badlogic.gdx.math.Polygon(vertices);
+			if(poly.contains(p.x, p.y)){
+				error = true;
+				errorString = "The ball has been detected inside another object. (ID: " + c.id + ")";
+			}
+			
 			//---------------------------------------------------
 			
 			
 			
-			
 			if (contact){
-				Vector2 corners[] = c.getCorners();
+				if(lastIDContact == c.id){
+					error = true;
+					errorString = "The ball hit the same object (ID: " + c.id + ") twice.";
+				}
+				lastIDContact = c.id;
 				Vector2 side;
 				Vector2 n;
 				if(contactCorner){
-					System.out.println("----------Corner Collision--------");
+					System.out.println("----------Corner Collision--------  ID: " + c.id + "\tTime: " + Sim.systemTime);
+					String text[] = {"Top","Right","Bottom","Left"};
+					for(int i = 0; i< 4; i++){
+						if(i == index || i == altIndex){
+							System.out.println("\t[" + i + "]\t" + segDists[i] + "\tPixels Away\t" + corners[i] + "," + corners[i+1] + "\t:" + corners[i+1].cpy().sub(corners[i].cpy()));
+						}else{
+							System.out.println("\t " + i + "\t" + segDists[i] + "\tPixels Away");
+						}
+					}
 					Vector2 side1 = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
 					Vector2 side2 = simplify(corners[altIndex+1].cpy().sub(corners[altIndex]).cpy());
 					Vector2 point;
@@ -124,33 +157,27 @@ public class Ball extends Entity {
 					}else{
 						point = corners[index].cpy();
 					}
-					
-					
 					n = p.cpy().sub(point).nor();
-					System.out.println("----------------------------------\n");
+					System.out.println("Calculated Corner Point: " + point);
+					System.out.println("Ball Pos: " + p + "\tNormal: " + n);
+					
+					
 				}else{
-				
-					
-					
-					
-					
-					//Tracing values
-					/*for(Vector2 v : corners){
-						System.out.print(v + "\t");
-					}
-					System.out.println("\n");
-					//top, right, bottom, left
+					System.out.println("-----------Side Collision---------  ID: " + c.id + "\tTime: " + Sim.systemTime);
 					String text[] = {"Top","Right","Bottom","Left"};
 					for(int i = 0; i< 4; i++){
-						distances[i] = Intersector.distanceSegmentPoint(corners[i], corners[i+1], p);
-						
-						System.out.println(i + "\t" + distances[i] + "\t" + text[i]);
+						if(i == index){
+							System.out.println("\t[" + i + "]\t" + segDists[i] + "\tPixels Away");
+						}else{
+							System.out.println("\t " + i + "\t" + segDists[i] + "\tPixels Away");
+						}
 					}
-					//System.out.println("\n");
-					System.out.println("Min Index: " + index);*/
 					
-					side = simplify(corners[index+1].cpy().sub(corners[index]).cpy()).nor();
+					side = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
+					System.out.println("Calculated Side: " + side + "\tCorners: " + corners[index] + "  " + corners[index+1]);
+					side = side.nor();
 					n = new Vector2(-side.y, side.x).nor();
+					System.out.println("Ball Pos: " + p +"\tNormal: " + n);
 				}
 				
 				
@@ -159,7 +186,7 @@ public class Ball extends Entity {
 				if(Math.abs(addVel.x)>0 || Math.abs(addVel.y)>0){
 					Vector2 compare = simplify(addVel.cpy().nor().scl(-1)).sub(simplify(velocity.cpy().nor()));
 					
-					System.out.println("------------ACCELERATION----------");
+					System.out.println("------------Acceleration----------");
 					System.out.println("Normal Plane: " + n);
 					if(Math.abs(compare.x) < 1 && Math.abs(compare.y) < 1){
 						//----------TOWARDS----------
@@ -180,10 +207,11 @@ public class Ball extends Entity {
 					System.out.println("----------------------------------\n");
 					
 				}else{
-					System.out.println("----------NORMAL COLLISION--------");
-					Vector2 velocityPrevious = velocity.cpy();
+					System.out.println("---------Collision Physics--------");
+					System.out.println("Old Velocity: " + velocity + "\tNormal: " + n);
 					Vector2 v = simplify(velocity.cpy());	
 					velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
+					System.out.println("New Velocity: " + velocity);
 					System.out.println("----------------------------------\n");
 				}
 				Vector2 u = velocity.cpy().nor();
@@ -196,6 +224,15 @@ public class Ball extends Entity {
 				
 			}
 		}
+		Sim.setTimeDelay(delay);
+	}
+	
+	private boolean handleErrors(){
+		if(error){
+			Sim.enable = false;
+			System.out.println("\n-----ERROR-----\n"+errorString+"\n---------------");
+		}
+		return !error;
 	}
 	
 	private Vector2 simplify(Vector2 v){

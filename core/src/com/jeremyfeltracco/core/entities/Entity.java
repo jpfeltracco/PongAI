@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 public abstract class Entity {
 	public Sprite sprite;
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
+	public static int objCount = 0;
+	public int id;
 	private Vector2 edges[];
 	public float maxSize;
 	protected Vector2 velocity;
@@ -21,6 +23,7 @@ public abstract class Entity {
 		entities.add(this);
 		maxSize = new Vector2(sprite.getWidth()/2,sprite.getHeight()/2).len();
 		velocity = vel;
+		id = objCount++;
 	}
 	
 	public Entity(TextureRegion texture){
