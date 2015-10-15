@@ -10,6 +10,7 @@ public class Corner extends Entity {
 	public Corner(float x, float y) {
 		super(Textures.corner);
 		setOriginPosition(x, y);
+		this.updateSides();
 	}
 
 	@Override

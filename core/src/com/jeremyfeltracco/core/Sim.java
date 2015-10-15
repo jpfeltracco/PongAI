@@ -24,7 +24,7 @@ public class Sim extends ApplicationAdapter {
 	public static Ball ball;
 	public static float cornerSize;
 	SpriteBatch batch;
-	OrthographicCamera cam;
+	public static OrthographicCamera cam;
 	Controller[] controls;
 	
 	@Override
@@ -37,6 +37,7 @@ public class Sim extends ApplicationAdapter {
 		for (int i = 0; i < amtPad; i++) {
 			pads[i] = new Paddle(Side.values()[i]);
 		}
+		//pads[0] = new Paddle(Side.LEFT);
 		ball = new Ball();
 		
 		cornerSize = Textures.corner.getTexture().getHeight()/2;
@@ -44,10 +45,10 @@ public class Sim extends ApplicationAdapter {
 		corners[1] = new Corner(maxX-cornerSize,-maxY+cornerSize);
 		corners[2] = new Corner(-maxX+cornerSize,maxY-cornerSize);
 		corners[3] = new Corner(maxX-cornerSize,maxY-cornerSize);
-		corners[4] = new Corner(0,40);
-		corners[5] = new Corner(0,-25);
-		corners[6] = new Corner(40,0);
-		corners[7] = new Corner(-25,0);
+		corners[4] = new Corner(0,50);
+		corners[5] = new Corner(0,-35);
+		corners[6] = new Corner(50,0);
+		corners[7] = new Corner(-55,0);
 		
 		controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
@@ -89,5 +90,12 @@ public class Sim extends ApplicationAdapter {
 		
 		
 		batch.end();
+		
+		/*try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	}
 }

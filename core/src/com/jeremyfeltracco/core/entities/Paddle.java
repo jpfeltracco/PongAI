@@ -13,7 +13,7 @@ public class Paddle extends Entity{
 	private float boundY;
 	private float boundX;
 
-	private Side side;
+	Side side;
 	private State state;
 	
 	
@@ -41,6 +41,7 @@ public class Paddle extends Entity{
 		float size = Textures.corner.getTexture().getHeight()/2;
 		boundX = Sim.maxX - sprite.getWidth() / 2 - size * 2;
 		boundY = Sim.maxY - sprite.getWidth() / 2 - size * 2;
+		this.updateSides();
 		
 	}
 	
@@ -72,10 +73,9 @@ public class Paddle extends Entity{
 			break;
 		case RIGHT:
 			pos.y += vel * delta;
+			
 			break;
 		}
-		
-		
 	
 		//Check whether the position is in valid
 		if (side == Side.TOP || side == Side.BOTTOM) {
@@ -92,7 +92,7 @@ public class Paddle extends Entity{
 		}
 		
 		setOriginPosition(pos.x, pos.y);
-		
+		this.updateSides();
 	}
 	
 	public float getVel() {
@@ -106,4 +106,6 @@ public class Paddle extends Entity{
 	public String toString(){
 		return side.name();
 	}
+
+	
 }
