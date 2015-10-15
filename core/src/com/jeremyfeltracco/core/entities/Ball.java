@@ -8,7 +8,7 @@ import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private Vector2 pos;
-	Vector2 velocity = new Vector2(5, 5);
+	Vector2 velocity = new Vector2(600, 390);
 	float radius;
 	private Box2DDebugRenderer debugRenderer;
 	
@@ -56,7 +56,7 @@ public class Ball extends Entity {
 			}
 			cornerPos = c.getOriginPosition();
 			
-			if(c.getOriginPosition().dst(pos) > c.maxSize + 5)
+			if(c.getOriginPosition().dst(pos) > c.maxSize + 30)
 				continue;
 			
 			Vector2[] cor = c.getCorners().clone();
@@ -80,11 +80,13 @@ public class Ball extends Entity {
 			
 			double dist = Double.MAX_VALUE; 
 			for(int i = 0; i < 4; i++){
+				System.out.print(segDists[i] + "\t");
 				if(segDists[i] < dist){
 					dist = segDists[i];
 					index = i;
 				}
 			}
+			System.out.println();
 			
 			boolean contactCorner = false;
 			if(contact && contactPoints > 1){
@@ -113,13 +115,22 @@ public class Ball extends Entity {
 				System.out.println("contact");
 				Vector2 corners[] = c.getCorners();
 				Vector2 side;
+				Vector2 n;
 				if(contactCorner){
 					System.out.println("----------------CORNER------------------");
 					Vector2 side1 = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
 					Vector2 side2 = simplify(corners[altIndex+1].cpy().sub(corners[altIndex]).cpy());
-					
+					Vector2 point;
 					side = side1.nor().add(side2.nor());
 					
+					if(corners[index+1]==corners[altIndex]){
+						point = corners[altIndex].cpy();
+					}else{
+						point = corners[index].cpy();
+					}
+					
+					
+					n = p.cpy().sub(point).nor();
 				}else{
 				
 					
@@ -142,10 +153,10 @@ public class Ball extends Entity {
 					System.out.println("Min Index: " + index);*/
 					
 					side = simplify(corners[index+1].cpy().sub(corners[index]).cpy()).nor();
-					
+					n = new Vector2(-side.y, side.x).nor();
 				}
 				
-				Vector2 n = new Vector2(-side.y, side.x).nor();
+				
 				Vector2 v = simplify(velocity.cpy());				
 				velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
 				
@@ -153,8 +164,8 @@ public class Ball extends Entity {
 				//System.out.println("VEL: " + velocity);
 				
 				Vector2 u = velocity.cpy().nor();
-				//System.out.println(velocity.cpy().scl(delta).len());
-				p = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len()));
+				//System.out.println(u + "\tSCALE: " + (segDists[index] - radius + velocity.cpy().scl(delta).len()));
+				pos = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len()));
 				
 				//Adjust position to keep the ball from getting stuck in the shape
 				

@@ -42,7 +42,7 @@ public class Sim extends ApplicationAdapter {
 			pads[i] = new Paddle(Side.values()[i]);
 		}
 		//pads[0] = new Paddle(Side.LEFT);
-		ball = new Ball(105,100);
+		ball = new Ball(107,102);
 		
 		cornerSize = Textures.corner.getTexture().getHeight()/2;
 		corners[0] = new Corner(-maxX+cornerSize,-maxY+cornerSize);
@@ -71,7 +71,7 @@ public class Sim extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		float delta = Gdx.graphics.getDeltaTime();
+		float delta = 0.01f;//Gdx.graphics.getDeltaTime();
 		//world.step(0.1f, 10, 10);
 		
 		
