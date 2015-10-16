@@ -26,7 +26,7 @@ public class Paddle extends Entity{
 		case UP:
 			setOriginPosition(0, Sim.maxY - sprite.getOriginY());
 			break;
-		case BOTTOM:
+		case DOWN:
 			setOriginPosition(0, -Sim.maxY + sprite.getOriginY());
 			break;
 		case LEFT:
@@ -66,7 +66,7 @@ public class Paddle extends Entity{
 			pos.x += -vel * delta;
 			velocity.x = -vel;
 			break;
-		case BOTTOM:
+		case DOWN:
 			pos.x += vel * delta;
 			velocity.x = vel;
 			break;
@@ -82,7 +82,7 @@ public class Paddle extends Entity{
 		}
 	
 		//Check whether the position is invalid
-		if (side == Side.UP || side == Side.BOTTOM) {
+		if (side == Side.UP || side == Side.DOWN) {
 			if (pos.x >= boundX){
 				pos.x = boundX;
 				velocity.x = 0;

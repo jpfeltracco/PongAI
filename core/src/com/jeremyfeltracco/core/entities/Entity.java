@@ -15,6 +15,10 @@ public abstract class Entity {
 	public int id;
 	private Vector2 edges[];
 	public float maxSize;
+	public float[] segDists = new float[4];
+	public int contactPoints = 0;
+	public boolean contact = false;
+	
 	protected Vector2 velocity;
 	Body body;
 	public Entity(TextureRegion texture, Vector2 vel) {
@@ -30,6 +34,11 @@ public abstract class Entity {
 		this(texture, new Vector2(0,0));
 	}
 	
+	public Entity(Vector2[] shape){
+		edges = shape;
+		id = -1;
+	}
+	
 	protected void setOriginPosition(float x, float y) {
 		sprite.setPosition(x - sprite.getOriginX(), y - sprite.getOriginY());
 		updateSides();
@@ -39,13 +48,18 @@ public abstract class Entity {
 		return velocity;
 	}
 	
+	
 	/**
 	 * Returns the position of the Entity, adjusting for the moved origin.
 	 * @return the position, in Vector2 form
 	 */
 	public Vector2 getOriginPosition() {
-		return new Vector2(sprite.getX() + sprite.getOriginX(),
+		if(sprite != null){
+			return new Vector2(sprite.getX() + sprite.getOriginX(),
 				sprite.getY() + sprite.getOriginY());
+		}else{
+			return new Vector2( (edges[0].x + edges[1].x)/2, (edges[0].y + edges[1].y)/2);
+		}
 	}
 	
 	public abstract void update(float delta);
