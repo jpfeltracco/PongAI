@@ -35,7 +35,7 @@ public class Paddle extends Entity{
 			break;
 		case RIGHT:
 			sprite.rotate(90);
-			setOriginPosition(Sim.maxX - sprite.getOriginY(), 0);
+			setOriginPosition(Sim.maxX - sprite.getOriginY(), -150);
 			break;
 		}
 		float size = Textures.corner.getTexture().getHeight()/2;
@@ -64,31 +64,43 @@ public class Paddle extends Entity{
 		switch(side) {
 		case UP:
 			pos.x += -vel * delta;
+			velocity.x = -vel;
 			break;
 		case BOTTOM:
 			pos.x += vel * delta;
+			velocity.x = vel;
 			break;
 		case LEFT:
 			pos.y += -vel * delta;
+			velocity.y = -vel;
 			break;
 		case RIGHT:
 			pos.y += vel * delta;
+			velocity.y = vel;
 			
 			break;
 		}
 	
-		//Check whether the position is in valid
+		//Check whether the position is invalid
 		if (side == Side.UP || side == Side.BOTTOM) {
-			if (pos.x >= boundX)
+			if (pos.x >= boundX){
 				pos.x = boundX;
-			if (pos.x < -boundX)
+				velocity.x = 0;
+			}
+			if (pos.x < -boundX){
 				pos.x = -boundX;
+				velocity.x = 0;
+			}
 		}
 		if (side == Side.LEFT || side == Side.RIGHT) {
-			if (pos.y > boundY)
+			if (pos.y > boundY){
 				pos.y = boundY;
-			if (pos.y < -boundY)
+				velocity.y = 0;
+			}
+			if (pos.y < -boundY){
 				pos.y = -boundY;
+				velocity.y = 0;
+			}
 		}
 		
 		setOriginPosition(pos.x, pos.y);

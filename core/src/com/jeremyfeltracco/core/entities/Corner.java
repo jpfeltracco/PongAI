@@ -1,5 +1,6 @@
 package com.jeremyfeltracco.core.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.Textures;
 
 public class Corner extends Entity {
@@ -11,7 +12,6 @@ public class Corner extends Entity {
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+
 	}
 }
