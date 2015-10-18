@@ -9,49 +9,78 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class Entity {
-	public Sprite sprite;
+	
+	//-----Static Variables-----
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 	public static int objCount = 0;
-	public int id;
+	//--------------------------
+	
+
+	public Sprite sprite;
+	private int id;
 	private Vector2 edges[];
+	protected Vector2 velocity;
+	
+	//----Physics Variables-----
 	public float maxSize;
 	public float[] segDists = new float[4];
 	public int contactPoints = 0;
 	public boolean contact = false;
 	public Side side = null;
+	//--------------------------
 	
-	protected Vector2 velocity;
-	Body body;
+	/**
+	 * Constructs a new Entity
+	 * @param texture the texture to display with the Entity
+	 * @param vel the initial velocity of the Entity
+	 */
 	public Entity(TextureRegion texture, Vector2 vel) {
 		sprite = new Sprite(texture);
-		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
+		Vector2 size = new Vector2(sprite.getWidth() / 2, sprite.getHeight() / 2);
+		sprite.setOrigin(size.x, size.y);
 		entities.add(this);
-		maxSize = new Vector2(sprite.getWidth()/2,sprite.getHeight()/2).len();
+		maxSize = size.len();
 		velocity = vel;
 		id = objCount++;
 	}
 	
+	/**
+	 * Constructs a new Entity. Defaults to a velocity of zero.
+	 * @param texture the texture to display with the Entity
+	 */
 	public Entity(TextureRegion texture){
 		this(texture, new Vector2(0,0));
 	}
 	
+	/**
+	 * Constructs a new Entity, defined by the shape passed in. This Entity is not added to the entity arrayList and cannot be updated.
+	 * Used for framing only.
+	 * @param shape the vertices of the shape
+	 */
 	public Entity(Vector2[] shape){
 		edges = shape;
 		id = -1;
 	}
 	
-	protected void setOriginPosition(float x, float y) {
-		sprite.setPosition(x - sprite.getOriginX(), y - sprite.getOriginY());
-		updateSides();
+	/**
+	 * Gets the object ID. Unique to all objects except those defined by a shape.
+	 * @return the object ID.
+	 */
+	public int getID(){
+		return id;
 	}
 	
+	/**
+	 * Gets the velocity of the Entity
+	 * @return the velocity of the Entity, in Vector2 form
+	 */
 	public Vector2 getVelocity() {
 		return velocity;
 	}
 	
 	
 	/**
-	 * Returns the position of the Entity, adjusting for the moved origin.
+	 * Returns the position of the Entity.
 	 * @return the position, in Vector2 form
 	 */
 	public Vector2 getOriginPosition() {
@@ -63,18 +92,25 @@ public abstract class Entity {
 		}
 	}
 	
+	/**
+	 * Abstract function update: method that is called when each Entity is told to update.
+	 * @param delta the change in time since the last update
+	 */
 	public abstract void update(float delta);
 	
+	
+	/**
+	 * Gets the corners of the Entity, including a 5th corner which is the same as the 1st one. Calculated based on the sprite or shape provided. 
+	 * @return the corners in Vector2 form
+	 */
 	public Vector2[] getCorners() {		
-		/* 0/4  1
-		 * 	_____
-		 * 	|	|
-		 * 	|___|
-		 *  3   2
-		 */
 		return edges.clone();
 	}
 	
+	/**
+	 * Gets the corners of the Entity. Calculated based on the sprite or shape provided. 
+	 * @return the corners in Vector2 form
+	 */
 	public Vector2[] getFourCorners(){
 		Vector2 out[] = new Vector2[4];
 		for(int i = 0; i < 4; i++){
@@ -83,25 +119,64 @@ public abstract class Entity {
 		return out.clone();
 	}
 	
+	/**
+	 * Recalculates the sides of the Entity. Used if the entity is rotated or moved in any way.
+	 */
 	public void updateSides(){
 		float[] vertices = sprite.getVertices().clone();
 		Vector2 firstPoint = new Vector2(vertices[5],vertices[6]);
 		edges = new Vector2[] {firstPoint,new Vector2(vertices[10],vertices[11]),new Vector2(vertices[15],vertices[16]),new Vector2(vertices[0],vertices[1]),firstPoint};
 	}
 	
+	/**
+	 * Draws the object on the screen.
+	 * @param batch the batch to draw in
+	 */
 	public void draw(Batch batch) {
 		sprite.draw(batch);
 	}
 	
+	/**
+	 * Returns a string version of this object.
+	 */
+	public String toString(){
+		return "" + id;
+	}
+	
+	/**
+	 * Removes this object from the update list.
+	 */
+	public void remove(){
+		entities.remove(this);
+	}
+	
+	/**
+	 * Sets the origin position (defined at the center of the image via width and height).
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	protected void setOriginPosition(float x, float y) {
+		sprite.setPosition(x - sprite.getOriginX(), y - sprite.getOriginY());
+		updateSides();
+	}
+	
+	/**
+	 * Sets the origin position (defined at the center of the image via width and height).
+	 * @param v the position in Vector2 form
+	 */
+	protected void setOriginPosition(Vector2 v) {
+		sprite.setPosition(v.x - sprite.getOriginX(), v.y - sprite.getOriginY());
+		updateSides();
+	}
+	
+	/**
+	 * Prints the corners of the object. Used for debugging.
+	 */
 	protected void printCorners(){
 		for(int i = 0; i < 4; i++){
 			System.out.print(edges[i] + "\t");
 		}
 		System.out.println();
-	}
-	
-	public String toString(){
-		return "" + id;
 	}
 
 }

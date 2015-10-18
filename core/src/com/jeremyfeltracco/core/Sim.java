@@ -27,14 +27,10 @@ public class Sim extends ApplicationAdapter {
 	public static float cornerSize;
 	public static double systemTime = 0;
 	public static boolean enable = true;
-	private static Side sideHit;
+	private static Side loser;
 	SpriteBatch batch;
 	public static OrthographicCamera cam;
 	Controller[] controls;
-	
-	//TESTING
-	private static int timeDelay = 0;
-	//-------
 	
 	boolean value = false;
 	@Override
@@ -47,15 +43,7 @@ public class Sim extends ApplicationAdapter {
 		for (int i = 0; i < amtPad; i++) {
 			pads[i] = new Paddle(Side.values()[i]);
 		}
-		ball = new Ball(0,0);
-		
-		/*cornerSize = Textures.corner.getTexture().getHeight()/2;
-		new Corner(-maxX+cornerSize,-maxY+cornerSize);
-		new Corner(maxX-cornerSize,-maxY+cornerSize);
-		new Corner(-maxX+cornerSize,maxY-cornerSize);
-		new Corner(maxX-cornerSize,maxY-cornerSize);
-		Corner cor = new Corner(-0.06796265f,242.0f,new Vector2(100.0f,0.0f));
-		cor.updateSides();*/
+		ball = new Ball(0,0, new Vector2(-300f,680f));
 		
 		cornerSize = Textures.corner.getTexture().getHeight()/2;
 		new Corner(-maxX+cornerSize,-maxY+cornerSize);
@@ -69,15 +57,6 @@ public class Sim extends ApplicationAdapter {
 		cor.updateSides();
 		new Corner(-55,0);
 		
-		//new Corner(50.7f,-50).sprite.rotate(-20);
-		
-		//Corner a = new Corner(48.083261108f,-36.769552612f);
-		//Corner b = new Corner(36.769552612f,-48.083261108f);
-		
-		//a.sprite.rotate(45);
-		//b.sprite.rotate(45);
-		//a.updateSides();
-		//b.updateSides();
 		
 		controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
@@ -98,7 +77,7 @@ public class Sim extends ApplicationAdapter {
 		//---
 		
 		value = true;
-		while(value){// && systemTime < 744.701967202127 - 5*0.016666){
+		while(value && systemTime < 744.701967202127 - 5*0.016666){
 			if(enable){
 				float delta = 0.01666f;//Gdx.graphics.getDeltaTime();
 				systemTime += delta;
@@ -144,26 +123,9 @@ public class Sim extends ApplicationAdapter {
 		
 		batch.end();
 		
-		
-		
-		
-		try {
-			Thread.sleep(((value)?1000:0));//Sim.timeDelay);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
 	}
 	
 	public static void setSideHit(Side s){
-		sideHit = s;
-	}
-	
-	public static void setTimeDelay(int t){
-		Sim.timeDelay = 0;//t;
+		loser = s;
 	}
 }

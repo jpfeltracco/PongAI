@@ -9,12 +9,9 @@ public class Paddle extends Entity{
 		STOP, LEFT, RIGHT
 	}
 	private float vel;
-
 	private float boundY;
 	private float boundX;
-
 	private State state;
-	
 	
 	public Paddle(Side side) {
 		super(Textures.paddle);
@@ -119,7 +116,7 @@ public class Paddle extends Entity{
 	}
 	
 	public String toString(){
-		return side.name() + " " + id;
+		return side.name() + " " + getID();
 	}
 
 	

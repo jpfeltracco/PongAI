@@ -18,8 +18,10 @@ public class Corner extends Entity {
 
 	@Override
 	public void update(float delta) {
-		Vector2 pos = getOriginPosition();
-		pos.add(velocity.cpy().scl(delta));
-		this.setOriginPosition(pos.x, pos.y);
+		if(velocity.x > 0 && velocity.y > 0){
+			Vector2 pos = getOriginPosition();
+			pos.add(velocity.cpy().scl(delta));
+			this.setOriginPosition(pos.x, pos.y);
+		}
 	}
 }
