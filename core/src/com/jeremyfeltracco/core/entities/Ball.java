@@ -32,8 +32,8 @@ public class Ball extends Entity {
 	public void update(float delta) {
 		if (velocity.len() > maxVelocity) {
 			velocity.nor().scl(maxVelocity);
-			System.out.println("NEW VELOCITY VALUE: " + velocity + " :" + velocity.cpy().len() + "\tTime: "
-					+ Sim.systemTime + "\n");
+			//System.out.println("NEW VELOCITY VALUE: " + velocity + " :" + velocity.cpy().len() + "\tTime: "
+			//		+ Sim.systemTime + "\n");
 		}
 		pos = pos.add(velocity.cpy().scl(delta));
 		physics(delta);
