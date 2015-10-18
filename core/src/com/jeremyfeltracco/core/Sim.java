@@ -1,7 +1,14 @@
 package com.jeremyfeltracco.core;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,9 +34,10 @@ public class Sim extends ApplicationAdapter {
 	public static double systemTime = 0;
 	public static boolean enable = true;
 	public static String errorMessage;
+	public static FileHandle fh;
 	private static Side loser;
-	private int simulationRuns = 0;
-	private double totalSystemTime = 0; 
+	private static int simulationRuns = 0;
+	private static double totalSystemTime = 0; 
 	SpriteBatch batch;
 	public static OrthographicCamera cam;
 	Controller[] controls;
@@ -37,6 +45,8 @@ public class Sim extends ApplicationAdapter {
 	boolean value = false;
 	@Override
 	public void create () {
+		fh = Gdx.files.internal("output.txt");
+		log("----------Simulation Start----------\n");
 		maxX = Gdx.graphics.getWidth() / 2;
 		maxY = Gdx.graphics.getHeight() / 2;
 		
@@ -56,6 +66,7 @@ public class Sim extends ApplicationAdapter {
 		new Corner(-49f,-50);
 		new Corner(-55,0);
 		
+		log("Added " + Entity.objCount + " objects to the simulation.\n");
 		
 		controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
@@ -70,6 +81,9 @@ public class Sim extends ApplicationAdapter {
 		cam.position.y = 0;
 
 		
+		
+		
+		
 		value = true;
 		while(value){//systemTime < 66.9833368267864 - 5/60f){
 			update();
@@ -78,7 +92,7 @@ public class Sim extends ApplicationAdapter {
 	}
 	
 	public void update(){
-		if(!enable || systemTime > 1800){
+		if(!enable || systemTime > 120){
 			reset();
 		}
 		float delta = 1/60f;//0.01666f;
@@ -93,6 +107,7 @@ public class Sim extends ApplicationAdapter {
 			System.out.print("Loser: " + loser + "\t");
 			reset();
 			//Handle loser
+			//log("Loser: " + loser + "\tSim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\n");
 			loser = null;
 		}
 	}
@@ -104,6 +119,7 @@ public class Sim extends ApplicationAdapter {
 		enable = true;
 		systemTime = 0;
 		System.out.println("Sim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime);
+		
 		simulationRuns++;
 	}
 
@@ -126,6 +142,22 @@ public class Sim extends ApplicationAdapter {
 	
 	public static void writeError(String in){
 		System.out.println(in);
-		//WRITE ERROR TO A FILE!
+		log(in + "\nElements:\n");
+		for(Entity e : Entity.entities){
+			log("\t" + e.getClass() + "\t POS: " + e.getInitPos() + "\t ROT: " + e.getInitRotation() + "\t VEL: " + e.getInitVelocity() + "\n");
+		}
+		log("\nConditions: " + "\tSimulation Number: " + simulationRuns + "\tAI Version: " + "<AI VERSION INFO>" + "\tTotal Sim Time: " + totalSystemTime + "\n");
+	}
+	
+	public static void log(String s){
+		try {
+		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fh.file().getAbsolutePath(), true)));
+		    out.print(s);
+		    out.close();
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 	}
 }
+
+

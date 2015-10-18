@@ -197,5 +197,29 @@ public abstract class Entity {
 		}
 		System.out.println();
 	}
+	
+	/**
+	 * Gets the initial velocity of this Entity
+	 * @return the initial velocity
+	 */
+	public Vector2 getInitVelocity(){
+		return initVelocity;
+	}
+	
+	/**
+	 * Gets the initial rotation of this Entity
+	 * @return the initial rotation
+	 */
+	public float getInitRotation(){
+		return initRotation;
+	}
+	
+	/**
+	 * Gets the initial position of this Entity
+	 * @return the initial position
+	 */
+	public Vector2 getInitPos(){
+		return initPos;
+	}
 
 }
