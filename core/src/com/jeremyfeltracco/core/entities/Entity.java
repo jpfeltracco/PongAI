@@ -18,6 +18,7 @@ public abstract class Entity {
 	public float[] segDists = new float[4];
 	public int contactPoints = 0;
 	public boolean contact = false;
+	public Side side = null;
 	
 	protected Vector2 velocity;
 	Body body;
@@ -74,6 +75,14 @@ public abstract class Entity {
 		return edges.clone();
 	}
 	
+	public Vector2[] getFourCorners(){
+		Vector2 out[] = new Vector2[4];
+		for(int i = 0; i < 4; i++){
+			out[i] = edges[i];
+		}
+		return out.clone();
+	}
+	
 	public void updateSides(){
 		float[] vertices = sprite.getVertices().clone();
 		Vector2 firstPoint = new Vector2(vertices[5],vertices[6]);
@@ -89,6 +98,10 @@ public abstract class Entity {
 			System.out.print(edges[i] + "\t");
 		}
 		System.out.println();
+	}
+	
+	public String toString(){
+		return "" + id;
 	}
 
 }

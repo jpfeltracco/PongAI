@@ -36,6 +36,7 @@ public class Sim extends ApplicationAdapter {
 	private static int timeDelay = 0;
 	//-------
 	
+	boolean value = false;
 	@Override
 	public void create () {
 		maxX = Gdx.graphics.getWidth() / 2;
@@ -68,6 +69,16 @@ public class Sim extends ApplicationAdapter {
 		cor.updateSides();
 		new Corner(-55,0);
 		
+		//new Corner(50.7f,-50).sprite.rotate(-20);
+		
+		//Corner a = new Corner(48.083261108f,-36.769552612f);
+		//Corner b = new Corner(36.769552612f,-48.083261108f);
+		
+		//a.sprite.rotate(45);
+		//b.sprite.rotate(45);
+		//a.updateSides();
+		//b.updateSides();
+		
 		controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
 			controls[i] = new Naive(Side.values()[i], pads, ball);
@@ -86,7 +97,8 @@ public class Sim extends ApplicationAdapter {
 		//-------
 		//---
 		
-		/*while(true){
+		value = true;
+		while(value){// && systemTime < 744.701967202127 - 5*0.016666){
 			if(enable){
 				float delta = 0.01666f;//Gdx.graphics.getDeltaTime();
 				systemTime += delta;
@@ -104,7 +116,7 @@ public class Sim extends ApplicationAdapter {
 					e.printStackTrace();
 				}
 			}
-		}*/
+		}
 		
 	}
 
@@ -136,7 +148,7 @@ public class Sim extends ApplicationAdapter {
 		
 		
 		try {
-			Thread.sleep(Sim.timeDelay);
+			Thread.sleep(((value)?1000:0));//Sim.timeDelay);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

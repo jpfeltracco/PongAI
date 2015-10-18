@@ -13,7 +13,6 @@ public class Paddle extends Entity{
 	private float boundY;
 	private float boundX;
 
-	Side side;
 	private State state;
 	
 	
@@ -120,7 +119,7 @@ public class Paddle extends Entity{
 	}
 	
 	public String toString(){
-		return side.name();
+		return side.name() + " " + id;
 	}
 
 	
