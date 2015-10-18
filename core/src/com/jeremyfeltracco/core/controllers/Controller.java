@@ -38,23 +38,23 @@ public abstract class Controller {
 		this.ball = ball;
 
 		rotMap.put(Side.UP, 180); // Top corresponds to 180 degree rot
-		rotMap.put(Side.BOTTOM, 0); // Bottom corresponds to 0 degree rot
+		rotMap.put(Side.DOWN, 0); // Bottom corresponds to 0 degree rot
 		rotMap.put(Side.LEFT, 90); // Left corresponds to 90 degree rot
 		rotMap.put(Side.RIGHT, -90); // Right corresponds to -90 degree rot
 		
-		relTop.put(Side.UP, Side.BOTTOM);
-		relTop.put(Side.BOTTOM, Side.UP);
+		relTop.put(Side.UP, Side.DOWN);
+		relTop.put(Side.DOWN, Side.UP);
 		relTop.put(Side.LEFT, Side.RIGHT);
 		relTop.put(Side.RIGHT, Side.LEFT);
 		
 		relLeft.put(Side.UP, Side.RIGHT);
-		relLeft.put(Side.BOTTOM, Side.LEFT);
+		relLeft.put(Side.DOWN, Side.LEFT);
 		relLeft.put(Side.LEFT, Side.UP);
-		relLeft.put(Side.RIGHT, Side.BOTTOM);
+		relLeft.put(Side.RIGHT, Side.DOWN);
 		
 		relRight.put(Side.UP, Side.LEFT);
-		relRight.put(Side.BOTTOM, Side.RIGHT);
-		relRight.put(Side.LEFT, Side.BOTTOM);
+		relRight.put(Side.DOWN, Side.RIGHT);
+		relRight.put(Side.LEFT, Side.DOWN);
 		relRight.put(Side.RIGHT, Side.UP);
 	}
 
@@ -89,7 +89,7 @@ public abstract class Controller {
 	 * @return State of controlled paddle.
 	 */
 	protected State getPadState() {
-		return getOtherPadState(Side.BOTTOM);
+		return getOtherPadState(Side.DOWN);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public abstract class Controller {
 		case UP:
 			ind = relTop.get(side).ordinal();
 			break;
-		case BOTTOM:
+		case DOWN:
 			ind = side.ordinal();
 			break;
 		case LEFT:
