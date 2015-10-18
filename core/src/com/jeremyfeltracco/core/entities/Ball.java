@@ -1,249 +1,401 @@
 package com.jeremyfeltracco.core.entities;
 
-import java.awt.Polygon;
-
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private Vector2 pos;
-	float radius;
-	private Box2DDebugRenderer debugRenderer;
-	private float maxVelocity = 350;
+	private float radius;
+	private float maxVelocity = 500;
 	private int lastIDContact = -1;
-	private boolean error = false;
 	private String errorString;
-	
-	
-	/*ERRORS:
-	 * super(Textures.ball,new Vector2(250,70));   -> 26s  ID
-	 * super(Textures.ball,new Vector2(100,-320)); -> 5s   OVERLAP
-	 * super(Textures.ball,new Vector2(300,-20));  -> 42s  ID
+
+	/**
+	 * Creates a new ball. Can bounce off Entities that are properly configured.
+	 * 
+	 * @param x the initial x position
+	 * @param y the initial y position
+	 * @param initVelo the initial velocity
 	 */
-	
-	public Ball(float x, float y) {
-		super(Textures.ball,new Vector2(300,-20));
+	public Ball(float x, float y, Vector2 initVelo) {
+		super(Textures.ball, initVelo);
 		setOriginPosition(x, y);
 		pos = this.getOriginPosition();
-		radius = this.sprite.getWidth()/2;
+		radius = this.sprite.getWidth() / 2;
 	}
 	
-	@Override
+	/**
+	 * Updates the ball's position and physics
+	 */
 	public void update(float delta) {
-		if(velocity.len() > maxVelocity){
+		if (velocity.len() > maxVelocity) {
 			velocity.nor().scl(maxVelocity);
-			System.out.println("NEW VELOCITY VALUE: " + velocity + " :" + velocity.cpy().len() +"\tTime: " + Sim.systemTime + "\n");
+			System.out.println("NEW VELOCITY VALUE: " + velocity + " :" + velocity.cpy().len() + "\tTime: "
+					+ Sim.systemTime + "\n");
 		}
 		pos = pos.add(velocity.cpy().scl(delta));
-		checkPosition(pos, delta);
-		if(handleErrors()){
-			this.setOriginPosition(pos.x, pos.y);
-		}
+		physics(delta);
+		setOriginPosition(pos.x, pos.y);
 	}
-	
-	public void checkPosition(Vector2 p, float delta){
 
-		if(p.x + radius > Sim.maxX){
-			//System.out.println("PAST RIGHT EDGE");
-			velocity.x = -Math.abs(velocity.x);
-		}
-		if(p.x - radius < -Sim.maxX){
-			//System.out.println("PAST LEFT EDGE");
-			velocity.x = Math.abs(velocity.x);
-		}
-		if(p.y + radius > Sim.maxY){
-			//System.out.println("PAST TOP EDGE");
-			velocity.y = -Math.abs(velocity.y);
-		} 
-		if(p.y - radius < -Sim.maxY){
-			//System.out.println("PAST BOTTOM EDGE");
-			velocity.y = Math.abs(velocity.y);
-		}
-		int delay = 0;
-		for (Entity c : Entity.entities){
-			
-			if(c == this || c.getOriginPosition().dst(pos) > c.maxSize + velocity.cpy().scl(delta).len() * 2)
+	/**
+	 * Operates physics based on the delta t
+	 * @param delta the time since the last update
+	 */
+	public void physics(float delta) {
+
+		checkWallBounces();
+
+		
+		//Initial object sorting
+		Entity c = this;
+		int contactCount = 0;
+		for (Entity cor : Entity.entities) {
+			Vector2 tmp = pos.cpy().sub(cor.getOriginPosition());
+			if (cor == this || tmp.x * tmp.x + tmp.y+tmp.y  > (cor.maxSize + radius * 3) * (cor.maxSize + radius * 3))
 				continue;
-			double dist = c.getOriginPosition().dst(pos);
-			double maxAdj = c.maxSize + 40;
-			int delayAmt;
-			delayAmt = (int)(maxAdj / dist * 35);
-			if(delayAmt > delay){
-				delay = delayAmt;
+			Vector2[] corners = cor.getCorners();
+			for (int i = 0; i < 4; i++) {
+				cor.segDists[i] = Intersector.distanceSegmentPoint(corners[i], corners[i + 1], pos);
 			}
-			Vector2[] corners = c.getCorners().clone();
-			float[] segDists = new float[4];
-			int index = -1;
-			int altIndex = -1;
-			for(int i = 0; i < 4; i++){
-				segDists[i]=Intersector.distanceSegmentPoint(corners[i], corners[i+1], pos);
-			}
-			
-			//----------------------CONTACT----------------------
-			boolean contact = false;
-			
-			int contactPoints = 0;
-			for(int i = 0; i < 4; i++){
-				if(segDists[i] <= radius){
-					contactPoints++;
-					contact = true;
+
+			cor.contactPoints = 0;
+			cor.contact = false;
+			for (int i = 0; i < 4; i++) {
+				if (cor.segDists[i] <= radius) {
+					// System.out.println(proj(pos.cpy().sub(cor.getOriginPosition()),velocity));
+					cor.contactPoints++;
+					cor.contact = true;
 				}
 			}
-			
-			dist = Double.MAX_VALUE; 
-			for(int i = 0; i < 4; i++){
-				//System.out.print(segDists[i] + "\t");
-				if(segDists[i] < dist){
-					dist = segDists[i];
+			if (cor.contact) {
+				contactCount++;
+				c = cor;
+			}
+		}
+		
+		//----------------------
+
+		boolean virtualShape = false;
+		if (contactCount > 2) {
+			error("Collision with too many objects (>2)\tTIME: " + Sim.systemTime);
+			return;
+		} else if (contactCount == 2) {
+			//System.out.println("----Contact with mutiple objects----");
+			Entity mergeObj[] = new Entity[2];
+			int i = 0;
+			for (Entity cor : Entity.entities) {
+				if (cor.contact == true) {
+					mergeObj[i] = cor;
+					i++;
+				}
+				if (i == 2)
+					break;
+			}
+
+			Vector2[] e0 = mergeObj[0].getFourCorners();
+			Vector2[] e1 = mergeObj[1].getFourCorners();
+
+			//System.out.println("IDs: " + mergeObj[0] + ", " + mergeObj[1]);
+
+			int numPointsConnected = 0;
+			for (i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (e1[j] == null)
+						continue;
+					if (close(e1[j], e0[i])) {
+						e1[j] = null;
+						e0[i] = null;
+						numPointsConnected++;
+						break;
+					}
+				}
+			}
+
+			if (numPointsConnected == 0) {
+				error("The ball hit two objects that were not touching. (Sandwich effect) (IDs: " + mergeObj[0]
+						+ ", " + mergeObj[1] + "). TIME: " + Sim.systemTime);
+				return;
+			}
+
+			//System.out.println("Points connected: " + numPointsConnected);
+			if (numPointsConnected == 1) {
+				//System.out.println("1: SIDE: " + mergeObj[0].side);
+				//System.out.println("2: SIDE: " + mergeObj[1].side);
+				if (mergeObj[0].side != null && mergeObj[1].side != null) {
+					lastIDContact = -1;
+					velocity = velocity.scl(-1);
+					return;
+				}
+			}
+
+			/*System.out.println("e0:");
+			for (Vector2 v : e0) {
+				System.out.print(v + " ");
+			}
+			System.out.println("\ne1:");
+			for (Vector2 v : e1) {
+				System.out.print(v + " ");
+			}
+			System.out.println();*/
+
+			/*
+			 * for(i = 0; i < 4; i++){ Vector2 point; for(Vector2 v : e0){ if(v
+			 * != null){ point = v; break; } }
+			 * 
+			 * }
+			 */
+
+			Vector2[] newShape = new Vector2[5];
+			int j = 0;
+			for (i = 0; i < 4; i++) {
+				if (e0[i] != null) {
+					newShape[j++] = e0[i];
+				}
+			}
+			for (i = 0; i < 4; i++) {
+				if (e1[i] != null) {
+					newShape[j++] = e1[i];
+				}
+			}
+
+			newShape[4] = newShape[0].cpy();
+
+			Vector2 sides[] = new Vector2[5];
+			for (i = 0; i < 4; i++) {
+				sides[i] = simplify(newShape[i + 1].cpy().sub(newShape[i]).cpy());
+			}
+			sides[4] = sides[0];
+			for (i = 0; i < 4; i++) {
+				if (Math.abs(sides[i].dot(sides[i + 1])) > 0.005) {
+					Vector2 tmp = newShape[2];
+					newShape[2] = newShape[3];
+					newShape[3] = tmp;
+					break;
+				}
+			}
+
+			/*System.out.println("NEW:");
+			for (Vector2 cor : newShape) {
+				System.out.print(cor + "\t");
+			}
+			System.out.println("\n");*/
+
+			c = new VirtualShape(newShape);
+			Vector2[] corners = c.getCorners();
+			for (i = 0; i < 4; i++) {
+				c.segDists[i] = Intersector.distanceSegmentPoint(corners[i], corners[i + 1], pos);
+			}
+			virtualShape = true;
+		}
+
+		if (c != this) {
+			Vector2[] corners = c.getCorners();
+			int index = -1;
+			int altIndex = -1;
+
+			// ----------------------CONTACT----------------------
+
+			double dist = Double.MAX_VALUE;
+			for (int i = 0; i < 4; i++) {
+				if (c.segDists[i] < dist) {
+					dist = c.segDists[i];
 					index = i;
 				}
 			}
-			
+
 			boolean contactCorner = false;
-			if(contact && contactPoints > 1){
-				for(int i = 0; i < 4; i++){
-					if(i!=index){
-						if(Math.abs(segDists[i] - segDists[index]) < 0.01){
-							contactCorner = true;
+			if (c.contact && c.contactPoints > 1) {
+				for (int i = 0; i < 4; i++) {
+					if (i != index) {
+						if (Math.abs(c.segDists[i] - c.segDists[index]) < 0.5) {
 							altIndex = i;
+							contactCorner = true;
 						}
 					}
 				}
 			}
 
+			// ---------------------------------------------------
+
+			if (lastIDContact == c.getID() && lastIDContact != -1) {
+				error("The ball hit the same object (ID: " + c.getID() + ") twice. TIME: " + Sim.systemTime);
+			}
+			lastIDContact = c.getID();
+			Vector2 side;
+			Vector2 n;
+			if (contactCorner) {
+				//System.out.println("----------Corner Collision--------  ID: " + c + "\tTime: " + Sim.systemTime);
+				/*for (int i = 0; i < 4; i++) {
+					if (i == index || i == altIndex) {
+						System.out.println("\t[" + i + "]\t" + c.segDists[i] + "\tPixels Away\t" + corners[i] + ","
+								+ corners[i + 1] + "\t:" + corners[i + 1].cpy().sub(corners[i].cpy()));
+					} else {
+						System.out.println("\t " + i + "\t" + c.segDists[i] + "\tPixels Away");
+					}
+				}*/
+				
+				Vector2 point;
+
+				if (corners[index + 1] == corners[altIndex]) {
+					point = corners[altIndex].cpy();
+				} else {
+					point = corners[index].cpy();
+				}
+				//System.out.println("DISTANCE: " + point.cpy().sub(pos.cpy()).len());
+
+				Vector2 p = pos.cpy();
+				Vector2 velTmp = velocity.cpy().nor();
+				while (point.cpy().sub(p.cpy()).len() < radius) {
+					p.sub(velTmp);
+					//System.out.println("DIST: " + point.cpy().sub(p.cpy()).len() + "\t" + p);
+				}
+
+				//System.out.println("DISTANCE: " + point.cpy().sub(p.cpy()).len());
+				n = p.cpy().sub(point).nor();
+				//System.out.println("Calculated Corner Point: " + point);
+				//System.out.println("New Ball Point: " + p);
+				//System.out.println("Ball Pos: " + pos + "\tC Pos: " + c.getOriginPosition() + "\tNormal: " + n);
+
+			} else {
+				//System.out.println("-----------Side Collision---------  ID: " + c + "\tTime: " + Sim.systemTime);
+				/*for (int i = 0; i < 4; i++) {
+					if (i == index) {
+						System.out.println("\t[" + i + "]\t" + c.segDists[i] + "\tPixels Away\t" + corners[i] + ","
+								+ corners[i + 1] + "\t:" + corners[i + 1].cpy().sub(corners[i].cpy()));
+					} else {
+						System.out.println("\t " + i + "\t" + c.segDists[i] + "\tPixels Away");
+					}
+				}*/
+
+				side = simplify(corners[index + 1].cpy().sub(corners[index]).cpy());
+				//System.out.println(
+				//		"Calculated Side: " + side + "\tCorners: " + corners[index] + "  " + corners[index + 1]);
+				side = side.nor();
+				n = new Vector2(-side.y, side.x).nor();
+				//System.out.println("Ball Pos: " + pos + "\tC Pos: " + c.getOriginPosition() + "\tNormal: " + n);
+			}
+
+			Vector2 v = simplify(velocity.cpy());
+			Vector2 addVel = new Vector2(0, 0);
+			if (contactCorner && v.cpy().nor().dot(n.cpy()) > 0) {
+				//System.out.println("----SKIM----");
+				n = perp(v.cpy().nor());
+			} else {
+				addVel = simplify(proj(c.getVelocity(), n));
+				velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n))); //***
+				if (!(Math.abs(addVel.x) < 0.001) || !(Math.abs(addVel.y) < 0.001)) {
+					//System.out.println("------------Acceleration----------");
+
+					//System.out.print("Init Vel: " + velocity);
+					//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n)));
+					//System.out.print("\tCal Vel: " + velocity);
+					velocity.add(c.getVelocity());// .cpy().scl(1.1f));
+
+					//System.out.println(
+					//		"\tC Vel: " + c.getVelocity()/* .cpy().scl(1.1f) */ + "\tFinal Vel: " + velocity);
+
+				} else {
+					//System.out.println("---------Collision Physics--------");
+					//System.out.println("Old Velocity: " + velocity + "\tNormal: " + n);
+					//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n))); //COMMENT ABOVE ***
+					//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n)));
+					//System.out.println("New Velocity: " + velocity);
+
+				}
+				
+			}
+			Vector2 u = velocity.cpy().nor();
+			// System.out.println(u + "\tSCALE: " + (c.segDists[index] - radius
+			// + velocity.cpy().scl(delta).len()));
+			pos.add(u.scl(radius - c.segDists[index]));
+			//double distance = Intersector.distanceSegmentPoint(corners[index], corners[index + 1], pos);
+			while (Intersector.distanceSegmentPoint(corners[index], corners[index + 1], pos) < radius) {
+				pos.add(u);
+				//System.out.println("DIST: " + distance);
+				//distance = Intersector.distanceSegmentPoint(corners[index], corners[index + 1], pos);
+			}
+
+			// pos = pos.cpy().add(u.scl(radius - c.segDists[index]));// +
+			// velocity.cpy().scl(delta).len() + addVel.scl(delta).len()));
+			//System.out.println("New Pos: " + pos + "Dist: " + corners[index].cpy().sub(pos.cpy()).len());
+			//System.out.println("----------------------------------\n");
+			// Adjust position to keep the ball from getting stuck in the shape
+
 			float[] vertices = new float[8];
-			for(int i = 0; i < 4; i++){
-				vertices[i*2] = corners[i].x;
-				vertices[i*2+1] = corners[i].y;
+			for (int i = 0; i < 4; i++) {
+				vertices[i * 2] = corners[i].x;
+				vertices[i * 2 + 1] = corners[i].y;
 			}
-			
 			com.badlogic.gdx.math.Polygon poly = new com.badlogic.gdx.math.Polygon(vertices);
-			if(poly.contains(p.x, p.y)){
-				error = true;
-				errorString = "The ball has been detected inside another object. (ID: " + c.id + ")";
-			}
-			
-			//---------------------------------------------------
-			
-			
-			
-			if (contact){
-				if(lastIDContact == c.id){
-					error = true;
-					errorString = "The ball hit the same object (ID: " + c.id + ") twice.";
-				}
-				lastIDContact = c.id;
-				Vector2 side;
-				Vector2 n;
-				if(contactCorner){
-					System.out.println("----------Corner Collision--------  ID: " + c.id + "\tTime: " + Sim.systemTime);
-					String text[] = {"Top","Right","Bottom","Left"};
-					for(int i = 0; i< 4; i++){
-						if(i == index || i == altIndex){
-							System.out.println("\t[" + i + "]\t" + segDists[i] + "\tPixels Away\t" + corners[i] + "," + corners[i+1] + "\t:" + corners[i+1].cpy().sub(corners[i].cpy()));
-						}else{
-							System.out.println("\t " + i + "\t" + segDists[i] + "\tPixels Away");
-						}
-					}
-					Vector2 side1 = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
-					Vector2 side2 = simplify(corners[altIndex+1].cpy().sub(corners[altIndex]).cpy());
-					Vector2 point;
-					side = side1.nor().add(side2.nor());
-					
-					if(corners[index+1]==corners[altIndex]){
-						point = corners[altIndex].cpy();
-					}else{
-						point = corners[index].cpy();
-					}
-					n = p.cpy().sub(point).nor();
-					System.out.println("Calculated Corner Point: " + point);
-					System.out.println("Ball Pos: " + p + "\tNormal: " + n);
-					
-					
-				}else{
-					System.out.println("-----------Side Collision---------  ID: " + c.id + "\tTime: " + Sim.systemTime);
-					String text[] = {"Top","Right","Bottom","Left"};
-					for(int i = 0; i< 4; i++){
-						if(i == index){
-							System.out.println("\t[" + i + "]\t" + segDists[i] + "\tPixels Away");
-						}else{
-							System.out.println("\t " + i + "\t" + segDists[i] + "\tPixels Away");
-						}
-					}
-					
-					side = simplify(corners[index+1].cpy().sub(corners[index]).cpy());
-					System.out.println("Calculated Side: " + side + "\tCorners: " + corners[index] + "  " + corners[index+1]);
-					side = side.nor();
-					n = new Vector2(-side.y, side.x).nor();
-					System.out.println("Ball Pos: " + p +"\tNormal: " + n);
-				}
-				
-				
-					
-				Vector2 addVel = simplify(proj(c.getVelocity(),n));
-				if(Math.abs(addVel.x)>0 || Math.abs(addVel.y)>0){
-					Vector2 compare = simplify(addVel.cpy().nor().scl(-1)).sub(simplify(velocity.cpy().nor()));
-					
-					System.out.println("------------Acceleration----------");
-					System.out.println("Normal Plane: " + n);
-					if(Math.abs(compare.x) < 1 && Math.abs(compare.y) < 1){
-						//----------TOWARDS----------
-						System.out.println("Towards contact detected:\nVel: " + velocity + "\t\tOtherV: " + c.getVelocity());
-						System.out.println("Old Velocity: " + velocity.len() + "\t\tAdd Velocity: " + addVel);
-						Vector2 v = simplify(velocity.cpy());	
-						velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
-						velocity.add(addVel);
-						System.out.println("New Velocity: " + velocity.len() + "\t\tVector Form: " + velocity);
-					}else{
-						//------------AWAY-----------
-						System.out.println("Away contact detected:\nVel: " + velocity + "\t\tOtherV: " + c.getVelocity());
-						System.out.println("Old Velocity: " + velocity.len() + "\t\tAdd Velocity: " + addVel);
-						velocity.add(addVel);
-						System.out.println("New Velocity: " + velocity.len() + "\t\tVector Form: " + velocity);
-					}
-					
-					System.out.println("----------------------------------\n");
-					
-				}else{
-					System.out.println("---------Collision Physics--------");
-					System.out.println("Old Velocity: " + velocity + "\tNormal: " + n);
-					Vector2 v = simplify(velocity.cpy());	
-					velocity = v.cpy().sub(n.cpy().scl(2*v.cpy().dot(n)));
-					System.out.println("New Velocity: " + velocity);
-					System.out.println("----------------------------------\n");
-				}
-				Vector2 u = velocity.cpy().nor();
-				//System.out.println(u + "\tSCALE: " + (segDists[index] - radius + velocity.cpy().scl(delta).len()));
-				pos = p.cpy().add(u.scl(segDists[index] - radius + velocity.cpy().scl(delta).len() + addVel.scl(delta).len()));
-				
-				//Adjust position to keep the ball from getting stuck in the shape
-				
-				
-				
+			if (poly.contains(pos.x, pos.y)) {
+				error("The ball has been detected inside another object. (ID: " + c.getID() + ") TIME: "
+						+ Sim.systemTime);
 			}
 		}
-		Sim.setTimeDelay(delay);
-	}
-	
-	private boolean handleErrors(){
-		if(error){
-			Sim.enable = false;
-			System.out.println("\n-----ERROR-----\n"+errorString+"\n---------------");
+		
+		if(virtualShape){
+			c.remove();
 		}
-		return !error;
+		
 	}
 	
-	private Vector2 simplify(Vector2 v){
-		return new Vector2(((Math.abs(v.x)<0.0001)?0:v.x),((Math.abs(v.y)<0.0001)?0:v.y));
+	private void checkWallBounces(){
+		if (pos.x + radius > Sim.maxX) {
+			Sim.setSideHit(Side.RIGHT);
+			velocity.x = -Math.abs(velocity.x);
+			lastIDContact = -1;
+			Sim.setSideHit(Side.RIGHT);
+		}
+		if (pos.x - radius < -Sim.maxX) {
+			Sim.setSideHit(Side.LEFT);
+			velocity.x = Math.abs(velocity.x);
+			lastIDContact = -1;
+			Sim.setSideHit(Side.LEFT);
+		}
+		if (pos.y + radius > Sim.maxY) {
+			Sim.setSideHit(Side.UP);
+			velocity.y = -Math.abs(velocity.y);
+			lastIDContact = -1;
+			Sim.setSideHit(Side.UP);
+		}
+		if (pos.y - radius < -Sim.maxY) {
+			Sim.setSideHit(Side.DOWN);
+			velocity.y = Math.abs(velocity.y);
+			lastIDContact = -1;
+			Sim.setSideHit(Side.DOWN);
+		}
+		
 	}
 	
-	private Vector2 proj(Vector2 ina, Vector2 inb){
+	private void error(String message) {
+		Sim.enable = false;
+		System.out.println("\n-----ERROR-----\n" + message + "\n---------------");
+	}
+
+	private Vector2 perp(Vector2 v) {
+		Vector2 tmp = v.cpy();
+		return new Vector2(-tmp.y, tmp.x);
+	}
+
+	private Vector2 simplify(Vector2 v) {
+		return new Vector2(((Math.abs(v.x) < 0.0001) ? 0 : v.x), ((Math.abs(v.y) < 0.0001) ? 0 : v.y));
+	}
+
+	private Vector2 proj(Vector2 ina, Vector2 inb) {
 		Vector2 a = ina.cpy();
 		Vector2 b = inb.cpy();
-		return b.nor().scl(b.dot(a)/b.len());
+		return b.nor().scl(b.dot(a) / b.len());
+	}
+
+	private boolean close(Vector2 a, Vector2 b, double tol) {
+		return (Math.abs(b.x - a.x) < tol && Math.abs(b.y - a.y) < tol);
+	}
+
+	private boolean close(Vector2 a, Vector2 b) {
+		return close(a, b, 0.01);
 	}
 
 }

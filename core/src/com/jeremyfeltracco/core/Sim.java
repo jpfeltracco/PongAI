@@ -2,10 +2,10 @@ package com.jeremyfeltracco.core;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.controllers.Controller;
 import com.jeremyfeltracco.core.controllers.MLPerceptronControl;
 import com.jeremyfeltracco.core.controllers.Naive;
@@ -27,14 +27,12 @@ public class Sim extends ApplicationAdapter {
 	public static float cornerSize;
 	public static double systemTime = 0;
 	public static boolean enable = true;
+	private static Side loser;
 	SpriteBatch batch;
 	public static OrthographicCamera cam;
 	Controller[] controls;
 	
-	//TESTING
-	private static int timeDelay = 0;
-	//-------
-	
+	boolean value = false;
 	@Override
 	public void create () {
 		maxX = Gdx.graphics.getWidth() / 2;
@@ -45,26 +43,27 @@ public class Sim extends ApplicationAdapter {
 		for (int i = 0; i < amtPad; i++) {
 			pads[i] = new Paddle(Side.values()[i]);
 		}
-		ball = new Ball(0,0);
+		ball = new Ball(0,0, new Vector2(-300f,680f));
 		
 		cornerSize = Textures.corner.getTexture().getHeight()/2;
-		corners[0] = new Corner(-maxX+cornerSize,-maxY+cornerSize);
-		corners[1] = new Corner(maxX-cornerSize,-maxY+cornerSize);
-		corners[2] = new Corner(-maxX+cornerSize,maxY-cornerSize);
-		corners[3] = new Corner(maxX-cornerSize,maxY-cornerSize);
-		corners[4] = new Corner(130,130);
-		corners[5] = new Corner(50,50);
-		corners[6] = new Corner(50,0);
-		corners[6].sprite.rotate(30);
-		corners[6].updateSides();
-		corners[7] = new Corner(-55,0);
+		new Corner(-maxX+cornerSize,-maxY+cornerSize);
+		new Corner(maxX-cornerSize,-maxY+cornerSize);
+		new Corner(-maxX+cornerSize,maxY-cornerSize);
+		new Corner(maxX-cornerSize,maxY-cornerSize);
+		new Corner(130,130);
+		new Corner(50,50);
+		Corner cor = new Corner(-49f,-50);//(50,0);
+		cor.sprite.rotate(0);
+		cor.updateSides();
+		new Corner(-55,0);
+		
 		
 		controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
 			controls[i] = new Naive(Side.values()[i], pads, ball);
 		}
 		
-		controls[Side.BOTTOM.ordinal()] = new MLPerceptronControl(Side.BOTTOM, pads, ball);
+//		controls[Side.BOTTOM.ordinal()] = new MLPerceptronControl(Side.BOTTOM, pads, ball);
 		
 		batch = new SpriteBatch();
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -77,7 +76,8 @@ public class Sim extends ApplicationAdapter {
 		//-------
 		//---
 		
-		/*while(!Gdx.input.isKeyPressed(Keys.SPACE)){
+		value = true;
+		while(value && systemTime < 744.701967202127 - 5*0.016666){
 			if(enable){
 				float delta = 0.01666f;//Gdx.graphics.getDeltaTime();
 				systemTime += delta;
@@ -96,10 +96,6 @@ public class Sim extends ApplicationAdapter {
 				}
 			}
 		}
-		
-		System.out.println("EXIT");
-		
-		Gdx.app.exit();*/
 		
 	}
 
@@ -127,22 +123,9 @@ public class Sim extends ApplicationAdapter {
 		
 		batch.end();
 		
-		
-		
-		
-		try {
-			Thread.sleep(Sim.timeDelay);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
 	}
 	
-	public static void setTimeDelay(int t){
-		Sim.timeDelay = t;
+	public static void setSideHit(Side s){
+		loser = s;
 	}
 }
