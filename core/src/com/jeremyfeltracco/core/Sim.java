@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.controllers.Controller;
 import com.jeremyfeltracco.core.controllers.Naive;
+import com.jeremyfeltracco.core.elvolver.GA;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Corner;
 import com.jeremyfeltracco.core.entities.Entity;
@@ -42,6 +43,7 @@ public class Sim extends ApplicationAdapter {
 	public static OrthographicCamera cam;
 	Controller[] controls;
 	
+	GA algorithm;
 	
 	boolean value = false;
 	@Override
@@ -69,13 +71,13 @@ public class Sim extends ApplicationAdapter {
 		
 		log("Added " + Entity.objCount + " objects to the simulation.\n");
 		
+		algorithm = new GA(this, pads, ball);
+		
 		controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
 			controls[i] = new Naive(Side.values()[i], pads, ball);
 		}
-		
-//		controls[Side.BOTTOM.ordinal()] = new MLPerceptronControl(Side.BOTTOM, pads, ball);
-		
+
 		batch = new SpriteBatch();
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.x = 0;
@@ -107,6 +109,7 @@ public class Sim extends ApplicationAdapter {
 		
 		if(loser != null){
 			System.out.print("Loser: " + loser + "\t");
+			algorithm.update(loser);
 			reset();
 			//Handle loser
 			//log("Loser: " + loser + "\tSim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\n");
