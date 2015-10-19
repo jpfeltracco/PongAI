@@ -29,7 +29,7 @@ public abstract class Entity {
 	public Side side = null;
 	//--------------------------
 	
-	private Vector2 initVelocity;
+	protected Vector2 initVelocity;
 	protected float initRotation;
 	protected Vector2 initPos;
 	

@@ -14,6 +14,7 @@ public class Paddle extends Entity{
 	private float boundY;
 	private float boundX;
 	private State state;
+	protected float curveSideLength = 128f;
 	
 	public Paddle(Side side) {
 		super(Textures.paddle);
