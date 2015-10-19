@@ -8,9 +8,11 @@ import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private float radius;
-	private float maxVelocity = 500;
+	private float maxVelocity = 300;
+	private final float CURVEAMT =  45 * MathUtils.degRad;
 	private int lastIDContact = -1;
 	private Vector2 pos;
+
 	
 	/**
 	 * Creates a new ball. Can bounce off Entities that are properly configured.
@@ -231,6 +233,7 @@ public class Ball extends Entity {
 			lastIDContact = c.getID();
 			Vector2 side;
 			Vector2 n;
+			boolean curveSide = false;
 			if (contactCorner) {
 				//System.out.println("----------Corner Collision--------  ID: " + c + "\tTime: " + Sim.systemTime);
 				/*for (int i = 0; i < 4; i++) {
@@ -276,41 +279,87 @@ public class Ball extends Entity {
 				}*/
 
 				side = simplify(corners[index + 1].cpy().sub(corners[index]).cpy());
-				//System.out.println(
-				//		"Calculated Side: " + side + "\tCorners: " + corners[index] + "  " + corners[index + 1]);
-				side = side.nor();
-				n = new Vector2(-side.y, side.x).nor();
+				if(c instanceof Paddle && Math.abs(side.cpy().len() - ((Paddle)(c)).curveSideLength) < 0.01){
+					float len = ((Paddle)(c)).curveSideLength / 2;
+					float distFromCenter = pos.cpy().sub(c.getOriginPosition()).len();
+					Vector2 s = side.cpy().nor();
+					Vector2 ref = new Vector2(0,1);
+					float angle = (float)Math.acos(ref.cpy().dot(s.cpy()) / (ref.len() * s.len())) + (float)Math.PI;
+					float add = (1-(len - distFromCenter) / (len)) * (CURVEAMT);
+					
+					int mut = 0;
+					switch(((Paddle)(c)).side){
+					case UP:
+						if(pos.x < c.getOriginPosition().x)
+							mut = -1;
+						else
+							mut = 1;
+						break;
+					case DOWN:
+						add += 180 * MathUtils.degRad;
+						if(pos.x > c.getOriginPosition().x)
+							mut = -1;
+						else
+							mut = 1;
+						break;
+					case LEFT:
+						if(pos.y < c.getOriginPosition().y)
+							mut = -1;
+						else
+							mut = 1;
+						break;
+					case RIGHT:
+						if(pos.y > c.getOriginPosition().y)
+							mut = -1;
+						else
+							mut = 1;
+						break;
+					}
+					angle += add * mut;
+					
+					Vector2 bounceDir = new Vector2((float)Math.cos(angle), (float)Math.sin(angle));
+					velocity = bounceDir.scl(velocity.len());
+					curveSide = true;
+					n = new Vector2(0,0);
+				}else{
+					//System.out.println(
+					//		"Calculated Side: " + side + "\tCorners: " + corners[index] + "  " + corners[index + 1]);
+					side = side.nor();
+					n = new Vector2(-side.y, side.x).nor();
+				}
 				//System.out.println("Ball Pos: " + pos + "\tC Pos: " + c.getOriginPosition() + "\tNormal: " + n);
 			}
 
-			Vector2 v = simplify(velocity.cpy());
-			Vector2 addVel = new Vector2(0, 0);
-			if (contactCorner && v.cpy().nor().dot(n.cpy()) > 0) {
-				//System.out.println("----SKIM----");
-				n = perp(v.cpy().nor());
-			} else {
-				addVel = simplify(proj(c.getVelocity(), n));
-				velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n))); //***
-				if (!(Math.abs(addVel.x) < 0.001) || !(Math.abs(addVel.y) < 0.001)) {
-					//System.out.println("------------Acceleration----------");
-
-					//System.out.print("Init Vel: " + velocity);
-					//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n)));
-					//System.out.print("\tCal Vel: " + velocity);
-					velocity.add(c.getVelocity());// .cpy().scl(1.1f));
-
-					//System.out.println(
-					//		"\tC Vel: " + c.getVelocity()/* .cpy().scl(1.1f) */ + "\tFinal Vel: " + velocity);
-
+			if(!curveSide){
+				Vector2 v = simplify(velocity.cpy());
+				Vector2 addVel = new Vector2(0, 0);
+				if (contactCorner && v.cpy().nor().dot(n.cpy()) > 0) {
+					//System.out.println("----SKIM----");
+					n = perp(v.cpy().nor());
 				} else {
-					//System.out.println("---------Collision Physics--------");
-					//System.out.println("Old Velocity: " + velocity + "\tNormal: " + n);
-					//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n))); //COMMENT ABOVE ***
-					//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n)));
-					//System.out.println("New Velocity: " + velocity);
-
+					addVel = simplify(proj(c.getVelocity(), n));
+					velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n))); //***
+					if (!(Math.abs(addVel.x) < 0.001) || !(Math.abs(addVel.y) < 0.001)) {
+						//System.out.println("------------Acceleration----------");
+	
+						//System.out.print("Init Vel: " + velocity);
+						//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n)));
+						//System.out.print("\tCal Vel: " + velocity);
+						velocity.add(c.getVelocity());// .cpy().scl(1.1f));
+	
+						//System.out.println(
+						//		"\tC Vel: " + c.getVelocity()/* .cpy().scl(1.1f) */ + "\tFinal Vel: " + velocity);
+	
+					} else {
+						//System.out.println("---------Collision Physics--------");
+						//System.out.println("Old Velocity: " + velocity + "\tNormal: " + n);
+						//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n))); //COMMENT ABOVE ***
+						//velocity = v.cpy().sub(n.cpy().scl(2 * v.cpy().dot(n)));
+						//System.out.println("New Velocity: " + velocity);
+	
+					}
+					
 				}
-				
 			}
 			Vector2 u = velocity.cpy().nor();
 			// System.out.println(u + "\tSCALE: " + (c.segDists[index] - radius

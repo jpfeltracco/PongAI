@@ -16117,3 +16117,702 @@ Elements:
 	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
 
 Conditions: 	Simulation Number: 18050	AI Version: <AI VERSION INFO>	Total Sim Time: 19519.65101802908
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 3.608177891932428
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [-40.36402:-91.49178]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 2	AI Version: <AI VERSION INFO>	Total Sim Time: 9.146785406046547
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 1) TIME: 3.2595903426408768
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [-40.36402:-91.49178]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 2	AI Version: <AI VERSION INFO>	Total Sim Time: 9.197028063354082
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8310076777124777
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8310076777124777
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8310076777124777
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8310076777124777
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8302201613551006
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8302201613551006
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8302201613551006
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8302201613551006
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8294067059177905
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8294067059177905
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8294067059177905
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8294067059177905
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8360603055916727
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8360603055916727
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8360603055916727
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8360603055916727
+
+-----ERROR-----
+The ball hit the same object (ID: 3) twice. TIME: 2.8360603055916727
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8360603055916727
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8360603055916727
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8360603055916727
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8294348375638947
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8294348375638947
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8294348375638947
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8294348375638947
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8346317219547927
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8346317219547927
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8346317219547927
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8346317219547927
+
+-----ERROR-----
+The ball hit the same object (ID: 3) twice. TIME: 2.8346317219547927
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8346317219547927
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8346317219547927
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8346317219547927
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.838693596306257
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.838693596306257
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.838693596306257
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.838693596306257
+
+-----ERROR-----
+The ball hit the same object (ID: 3) twice. TIME: 2.838693596306257
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.838693596306257
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.838693596306257
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.838693596306257
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.838693596306257
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.838693596306257
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8255566457519308
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8255566457519308
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.8270045748795383
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:1.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.8270045748795383
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 3) TIME: 2.829516328405589
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:0.0]	 ROT: 0.0	 VEL: [20.0:1.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.829516328405589
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 1) TIME: 5.921178629156202
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [0.0:-60.0]	 ROT: 0.0	 VEL: [20.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [50.0:50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 5.921178629156202
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+
+-----ERROR-----
+The ball has been detected inside another object. (ID: 1) TIME: 2.82908145460533
+---------------
+Elements:
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:242.0]	 ROT: 0.0	 VEL: [-0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [0.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [-242.0:0.0]	 ROT: 90.0	 VEL: [0.0:-0.0]
+	class com.jeremyfeltracco.core.entities.Paddle	 POS: [242.0:0.0]	 ROT: 90.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Ball	 POS: [60.0:0.0]	 ROT: 0.0	 VEL: [0.0:-20.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:-242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [242.0:242.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [130.0:130.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-49.0:-50.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+	class com.jeremyfeltracco.core.entities.Corner	 POS: [-55.0:0.0]	 ROT: 0.0	 VEL: [0.0:0.0]
+
+Conditions: 	Simulation Number: 0	AI Version: <AI VERSION INFO>	Total Sim Time: 2.82908145460533
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 12 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.
+----------Simulation Start----------
+Added 13 objects to the simulation.

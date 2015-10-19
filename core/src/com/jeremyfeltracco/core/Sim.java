@@ -59,7 +59,7 @@ public class Sim extends ApplicationAdapter {
 		for (int i = 0; i < amtPad; i++) {
 			pads[i] = new Paddle(Side.values()[i]);
 		}
-		ball = new Ball(0,0, new Vector2(-300f,680f));
+		ball = new Ball(0,0);//new Vector2(-300f,680f));
 		
 		cornerSize = Textures.corner.getTexture().getHeight()/2;
 		new Corner(-maxX+cornerSize,-maxY+cornerSize);
@@ -75,10 +75,10 @@ public class Sim extends ApplicationAdapter {
 		
 		algorithm = new GA(this, pads, ball);
 		
-//		controls = new Controller[amtPad];
-//		for (int i = 0; i < amtPad; i++) {
-//			controls[i] = new Naive(Side.values()[i], pads, ball);
-//		}
+		controls = new Controller[amtPad];
+		for (int i = 0; i < amtPad; i++) {
+			controls[i] = new Naive(Side.values()[i], pads, ball);
+		}
 		
 		controls = algorithm.getControllers();
 
@@ -89,7 +89,7 @@ public class Sim extends ApplicationAdapter {
 		
 		
 		value = true;
-		while(value && simulationRuns < 10000){
+		while(value && simulationRuns < 1000){
 			
 			update(1/60f, simulationRuns % 500 == 0);
 		}
