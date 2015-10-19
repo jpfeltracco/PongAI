@@ -15,7 +15,7 @@ public class MLPerceptronControl extends Controller {
 
 	public MLPerceptronControl(Side side, Paddle[] pads, Ball ball) {
 		super(side, pads, ball);
-		mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH, 1, 5, 5, 5, 1);
+		mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH, 1, 2, 2, 1);
 		GaussianRandomizer r = new GaussianRandomizer(0, 1f);
 		mlPerceptron.randomizeWeights(r);
 	}

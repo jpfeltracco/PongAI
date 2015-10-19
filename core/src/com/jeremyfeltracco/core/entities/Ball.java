@@ -8,7 +8,7 @@ import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private float radius;
-	private float maxVelocity = 300;
+	private float maxVelocity = 110;
 	private final float CURVEAMT =  45 * MathUtils.degRad;
 	private int lastIDContact = -1;
 	private Vector2 pos;
@@ -29,8 +29,20 @@ public class Ball extends Entity {
 		setInitPos();
 	}
 	
+	public Ball(Vector2 p, Vector2 v){
+		this(p.x,p.y,v);
+	}
+	
+	public Ball(Vector2 p){
+		this(p.x,p.y,randomVelocity());
+	}
+	
 	public Ball(float x, float y){
 		this(x,y, randomVelocity());
+	}
+	
+	public Ball(){
+		this(chooseLoc(),randomVelocity());
 	}
 
 	/**
@@ -281,41 +293,29 @@ public class Ball extends Entity {
 				side = simplify(corners[index + 1].cpy().sub(corners[index]).cpy());
 				if(c instanceof Paddle && Math.abs(side.cpy().len() - ((Paddle)(c)).curveSideLength) < 0.01){
 					float len = ((Paddle)(c)).curveSideLength / 2;
-					float distFromCenter = pos.cpy().sub(c.getOriginPosition()).len();
+					//float distFromCenter = pos.cpy().sub(c.getOriginPosition()).len();
+					float distFromCenter = 0;
 					Vector2 s = side.cpy().nor();
 					Vector2 ref = new Vector2(0,1);
-					float angle = (float)Math.acos(ref.cpy().dot(s.cpy()) / (ref.len() * s.len())) + (float)Math.PI;
-					float add = (1-(len - distFromCenter) / (len)) * (CURVEAMT);
 					
-					int mut = 0;
+					float angle = (float)Math.acos(ref.cpy().dot(s.cpy()) / (ref.len() * s.len())) + (float)Math.PI;
+					float add = 0;
 					switch(((Paddle)(c)).side){
 					case UP:
-						if(pos.x < c.getOriginPosition().x)
-							mut = -1;
-						else
-							mut = 1;
+						distFromCenter = pos.x - c.getOriginPosition().x;
 						break;
 					case DOWN:
 						add += 180 * MathUtils.degRad;
-						if(pos.x > c.getOriginPosition().x)
-							mut = -1;
-						else
-							mut = 1;
+						distFromCenter = c.getOriginPosition().x - pos.x;
 						break;
 					case LEFT:
-						if(pos.y < c.getOriginPosition().y)
-							mut = -1;
-						else
-							mut = 1;
+						distFromCenter = pos.y - c.getOriginPosition().y;
 						break;
 					case RIGHT:
-						if(pos.y > c.getOriginPosition().y)
-							mut = -1;
-						else
-							mut = 1;
+						distFromCenter = c.getOriginPosition().y - pos.y;
 						break;
 					}
-					angle += add * mut;
+					angle += (1-(len - distFromCenter) / (len)) * (CURVEAMT) + add;
 					
 					Vector2 bounceDir = new Vector2((float)Math.cos(angle), (float)Math.sin(angle));
 					velocity = bounceDir.scl(velocity.len());
@@ -397,10 +397,10 @@ public class Ball extends Entity {
 	}
 	
 	public void reset(){
-		pos = initPos.cpy();
 		lastIDContact = -1;
-		super.reset();
+		pos = chooseLoc();
 		velocity = randomVelocity();
+		setOriginPosition(pos);
 	}
 	
 	private void checkWallBounces(){
@@ -465,6 +465,10 @@ public class Ball extends Entity {
 		float sector = (float)((MathUtils.random(4)+1) * 90 - 45);
 		float deg = (sector + MathUtils.random(-35f,35f)) * MathUtils.degreesToRadians;
 		return new Vector2((float)Math.cos(deg)*speed,(float)Math.sin(deg)*speed);
+	}
+	
+	private static Vector2 chooseLoc(){
+		return Sim.ballStartPos[MathUtils.random(0, 3)].cpy();
 	}
 
 }

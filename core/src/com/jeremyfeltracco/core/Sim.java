@@ -29,6 +29,8 @@ public class Sim extends ApplicationAdapter {
 	public static int amtPad = 4;
 	public static Paddle[] pads;
 	public static Ball ball;
+	public static Vector2[] ballStartPos;
+	public static final int BALLOFFSET = 50;
 	public static float cornerSize;
 	public static double systemTime = 0;
 	public static boolean enable = true;
@@ -37,9 +39,10 @@ public class Sim extends ApplicationAdapter {
 	private static Side loser;
 	private static int simulationRuns = 0;
 	private static double totalSystemTime = 0; 
+	private static double systemTiming = 0; 
 	private static int numErrors = 0;
 	private static int numTimouts = 0;
-	private static long differenceTime = System.nanoTime();
+	private static long nanoStartTime = System.nanoTime();
 	private static double averageTimeTaken = 0;
 	SpriteBatch batch;
 	public static OrthographicCamera cam;
@@ -55,11 +58,13 @@ public class Sim extends ApplicationAdapter {
 		maxX = Gdx.graphics.getWidth() / 2;
 		maxY = Gdx.graphics.getHeight() / 2;
 		
+		ballStartPos = new Vector2[] {new Vector2(0, maxY - BALLOFFSET),new Vector2(0, -maxY + BALLOFFSET),new Vector2(maxX - BALLOFFSET , 0),new Vector2(-maxY + BALLOFFSET, 0)};
+		
 		pads = new Paddle[amtPad];
 		for (int i = 0; i < amtPad; i++) {
 			pads[i] = new Paddle(Side.values()[i]);
 		}
-		ball = new Ball(0,0);//new Vector2(-300f,680f));
+		ball = new Ball();//new Vector2(-300f,680f));
 		
 		cornerSize = Textures.corner.getTexture().getHeight()/2;
 		new Corner(-maxX+cornerSize,-maxY+cornerSize);
@@ -67,7 +72,7 @@ public class Sim extends ApplicationAdapter {
 		new Corner(-maxX+cornerSize,maxY-cornerSize);
 		new Corner(maxX-cornerSize,maxY-cornerSize);
 		new Corner(130,130);
-		new Corner(50,50);
+		//new Corner(50,50);
 		new Corner(-49f,-50);
 		new Corner(-55,0);
 		
@@ -75,10 +80,10 @@ public class Sim extends ApplicationAdapter {
 		
 		algorithm = new GA(this, pads, ball);
 		
-		controls = new Controller[amtPad];
+		/*controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
 			controls[i] = new Naive(Side.values()[i], pads, ball);
-		}
+		}*/
 		
 		controls = algorithm.getControllers();
 
@@ -87,9 +92,8 @@ public class Sim extends ApplicationAdapter {
 		cam.position.x = 0;
 		cam.position.y = 0;
 		
-		
 		value = true;
-		while(value && simulationRuns < 10000){//&& numTimouts==0){//simulationRuns < 10000){
+		while(value && numTimouts < 20){//simulationRuns < 10000){
 			
 			update(1/60f, simulationRuns % 500 == 0);
 		}
@@ -101,17 +105,17 @@ public class Sim extends ApplicationAdapter {
 		if(!enable)
 			reset(print);
 		
-		if(systemTime > 20){
+		if(systemTime > 60){
 			numTimouts++;
 			reset(print);
 		}
 		//float delta = 1/60f;//0.01666f;
 		systemTime += delta;
 		totalSystemTime += delta;
+		systemTiming += delta;
 		
 		
-		secToSec = (int)((double)delta/((System.nanoTime() - differenceTime) * 1e-9));
-		differenceTime = System.nanoTime();
+		//differenceTime = System.nanoTime();
 		
 		for (Controller c : controls)
 			c.update();
@@ -123,24 +127,30 @@ public class Sim extends ApplicationAdapter {
 			reset(print);
 			loser = null;
 		}
+		//System.out.println(ball.getVelocity().len());
 	}
 	
 	private void reset(boolean print){
-		averageTimeTaken = aveTime(systemTime);
+		averageTimeTaken = avgTime(systemTime);
 		for(Entity e : Entity.entities){
 			e.reset();
 		}
 		enable = true;
 		systemTime = 0;
 		
-		if(print)
-			System.out.println("Sim Runs: " + simulationRuns + "\tTime: (/m) " + ((int)Math.round(totalSystemTime/60)) + "\tTimePerSim: " + averageTimeTaken + "\tSim secs per Sec: " + secToSec +"\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
+		if(print){
+			secToSec = (int)(systemTiming / ((double)(System.nanoTime() - nanoStartTime) * 1e-9));//(int)((double)delta/((System.nanoTime() - differenceTime) * 1e-9));
+			System.out.println("Sim Runs: " + simulationRuns + "\tTime: (/m) " + ((int)Math.ceil(totalSystemTime/60)) + "\tTimePerSim: " + averageTimeTaken + "\tSim secs per Sec: " + secToSec +"\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
+			nanoStartTime = System.nanoTime();
+			systemTiming = 0;
+		}
 		
 		simulationRuns++;
 	}
 
 	@Override
 	public void render () {
+		//System.out.println("DELTA: " + delta);
 		update(Gdx.graphics.getDeltaTime(),true);
 		batch.setProjectionMatrix(cam.combined);
 		Gdx.gl.glClearColor(1, 0.8431372549f, 0, 1);
@@ -198,10 +208,10 @@ public class Sim extends ApplicationAdapter {
         System.out.print("] " + (int)(progressPercentage*100) + "%, est " + (int)secRemaining + "s");
     }
 	
-	private static final int sampleNum = 100;
+	private static final int sampleNum = 75;
 	private double times[] = new double[sampleNum];
 	private int timeLoc = 0;
-	public double aveTime(double systemTime){
+	public double avgTime(double systemTime){
 		times[timeLoc] = systemTime;
 		timeLoc++;
 		if(timeLoc >= sampleNum){
