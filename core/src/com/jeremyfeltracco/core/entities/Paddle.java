@@ -1,5 +1,7 @@
 package com.jeremyfeltracco.core.entities;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
@@ -27,10 +29,12 @@ public class Paddle extends Entity{
 			break;
 		case LEFT:
 			sprite.rotate(90);
+			initRotation = 90;
 			setOriginPosition(-Sim.maxX + sprite.getOriginY(), 0);
 			break;
 		case RIGHT:
 			sprite.rotate(90);
+			initRotation = 90;
 			setOriginPosition(Sim.maxX - sprite.getOriginY(), -150);
 			break;
 		}
@@ -38,6 +42,7 @@ public class Paddle extends Entity{
 		boundX = Sim.maxX - sprite.getWidth() / 2 - size * 2;
 		boundY = Sim.maxY - sprite.getWidth() / 2 - size * 2;
 		this.updateSides();
+		setInitPos();
 		
 	}
 	
