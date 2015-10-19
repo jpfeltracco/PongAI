@@ -20,6 +20,8 @@ public class GA {
 	
 	final int numPerGen = 40;
 	final int numGamesPer = 10;
+	final float mutationRate = .05f;
+	final float mutationAmt = .10f;
 	
 	int curGen = 0;
 	int gameGrp = 0;
@@ -112,8 +114,19 @@ public class GA {
 					}
 					
 					newNet.get(i).weights = reproduce(nets.get(ind1).weights, nets.get(ind2).weights);
+					
+					int weightAmt = newNet.get(i).weights.length;
+					
+					rand = MathUtils.random();
+					if (rand < mutationRate) {
+						int numInd = (int) (weightAmt * mutationAmt);
+						numInd = MathUtils.random(0, numInd);
+						for (int j = 0; j < numInd; j++) {
+							int ind = (int) (MathUtils.random() * weightAmt);
+							newNet.get(i).weights[ind] = r.getRandomGenerator().nextGaussian();
+						}
+					}
 				}
-				
 				
 				// fill in remaining from reproduction algorithm
 				// higher fitness, higher chance to reproduce!
