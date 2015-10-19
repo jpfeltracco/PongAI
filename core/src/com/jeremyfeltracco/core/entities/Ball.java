@@ -1,17 +1,17 @@
 package com.jeremyfeltracco.core.entities;
 
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
-	private Vector2 pos;
 	private float radius;
 	private float maxVelocity = 500;
 	private int lastIDContact = -1;
-	private String errorString;
-
+	private Vector2 pos;
+	
 	/**
 	 * Creates a new ball. Can bounce off Entities that are properly configured.
 	 * 
@@ -20,20 +20,25 @@ public class Ball extends Entity {
 	 * @param initVelo the initial velocity
 	 */
 	public Ball(float x, float y, Vector2 initVelo) {
-		super(Textures.ball, initVelo);
+		super(Textures.ball, initVelo, 0f);
 		setOriginPosition(x, y);
 		pos = this.getOriginPosition();
 		radius = this.sprite.getWidth() / 2;
+		setInitPos();
 	}
 	
+	public Ball(float x, float y){
+		this(x,y, randomVelocity());
+	}
+
 	/**
 	 * Updates the ball's position and physics
 	 */
 	public void update(float delta) {
 		if (velocity.len() > maxVelocity) {
 			velocity.nor().scl(maxVelocity);
-			System.out.println("NEW VELOCITY VALUE: " + velocity + " :" + velocity.cpy().len() + "\tTime: "
-					+ Sim.systemTime + "\n");
+			//System.out.println("NEW VELOCITY VALUE: " + velocity + " :" + velocity.cpy().len() + "\tTime: "
+			//		+ Sim.systemTime + "\n");
 		}
 		pos = pos.add(velocity.cpy().scl(delta));
 		physics(delta);
@@ -342,6 +347,13 @@ public class Ball extends Entity {
 		
 	}
 	
+	public void reset(){
+		pos = initPos.cpy();
+		lastIDContact = -1;
+		super.reset();
+		velocity = randomVelocity();
+	}
+	
 	private void checkWallBounces(){
 		if (pos.x + radius > Sim.maxX) {
 			Sim.setSideHit(Side.RIGHT);
@@ -372,7 +384,8 @@ public class Ball extends Entity {
 	
 	private void error(String message) {
 		Sim.enable = false;
-		System.out.println("\n-----ERROR-----\n" + message + "\n---------------");
+		String out = "\n-----ERROR-----\n" + message + "\n---------------";
+		Sim.writeError(out);
 	}
 
 	private Vector2 perp(Vector2 v) {
@@ -396,6 +409,13 @@ public class Ball extends Entity {
 
 	private boolean close(Vector2 a, Vector2 b) {
 		return close(a, b, 0.01);
+	}
+	
+	private static Vector2 randomVelocity(){
+		float speed = MathUtils.random(350f, 500f);
+		float sector = (float)((MathUtils.random(4)+1) * 90 - 45);
+		float deg = (sector + MathUtils.random(-35f,35f)) * MathUtils.degreesToRadians;
+		return new Vector2((float)Math.cos(deg)*speed,(float)Math.sin(deg)*speed);
 	}
 
 }

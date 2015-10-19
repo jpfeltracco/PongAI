@@ -29,19 +29,28 @@ public abstract class Entity {
 	public Side side = null;
 	//--------------------------
 	
+	private Vector2 initVelocity;
+	protected float initRotation;
+	protected Vector2 initPos;
+	
 	/**
 	 * Constructs a new Entity
 	 * @param texture the texture to display with the Entity
 	 * @param vel the initial velocity of the Entity
 	 */
-	public Entity(TextureRegion texture, Vector2 vel) {
+	public Entity(TextureRegion texture, Vector2 vel, float rotation) {
 		sprite = new Sprite(texture);
 		Vector2 size = new Vector2(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		sprite.setOrigin(size.x, size.y);
 		entities.add(this);
+		sprite.rotate(rotation);
 		maxSize = size.len();
 		velocity = vel;
 		id = objCount++;
+		
+		initVelocity = vel;
+		initRotation = rotation;
+		initPos = new Vector2(0,0);
 	}
 	
 	/**
@@ -49,7 +58,11 @@ public abstract class Entity {
 	 * @param texture the texture to display with the Entity
 	 */
 	public Entity(TextureRegion texture){
-		this(texture, new Vector2(0,0));
+		this(texture, new Vector2(0,0),0f);
+	}
+	
+	protected void setInitPos(){
+		initPos = getOriginPosition();
 	}
 	
 	/**
@@ -60,6 +73,13 @@ public abstract class Entity {
 	public Entity(Vector2[] shape){
 		edges = shape;
 		id = -1;
+	}
+	
+	public void reset(){
+		setOriginPosition(initPos);
+		velocity = initVelocity;
+		sprite.setRotation(initRotation);
+		updateSides();
 	}
 	
 	/**
@@ -165,8 +185,7 @@ public abstract class Entity {
 	 * @param v the position in Vector2 form
 	 */
 	protected void setOriginPosition(Vector2 v) {
-		sprite.setPosition(v.x - sprite.getOriginX(), v.y - sprite.getOriginY());
-		updateSides();
+		setOriginPosition(v.x, v.y);
 	}
 	
 	/**
@@ -177,6 +196,30 @@ public abstract class Entity {
 			System.out.print(edges[i] + "\t");
 		}
 		System.out.println();
+	}
+	
+	/**
+	 * Gets the initial velocity of this Entity
+	 * @return the initial velocity
+	 */
+	public Vector2 getInitVelocity(){
+		return initVelocity;
+	}
+	
+	/**
+	 * Gets the initial rotation of this Entity
+	 * @return the initial rotation
+	 */
+	public float getInitRotation(){
+		return initRotation;
+	}
+	
+	/**
+	 * Gets the initial position of this Entity
+	 * @return the initial position
+	 */
+	public Vector2 getInitPos(){
+		return initPos;
 	}
 
 }
