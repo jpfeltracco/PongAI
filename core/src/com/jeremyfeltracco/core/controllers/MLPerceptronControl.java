@@ -29,7 +29,7 @@ public class MLPerceptronControl extends Controller {
 		mlPerceptron.setInput(in);
 		mlPerceptron.calculate();
 		double output = mlPerceptron.getOutput()[0];
-		System.out.println(output);
+//		System.out.println(output);
 		if (output < .4)
 			return State.LEFT;
 		else if (output > .4)

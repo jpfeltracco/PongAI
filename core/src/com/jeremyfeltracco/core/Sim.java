@@ -73,10 +73,12 @@ public class Sim extends ApplicationAdapter {
 		
 		algorithm = new GA(this, pads, ball);
 		
-		controls = new Controller[amtPad];
-		for (int i = 0; i < amtPad; i++) {
-			controls[i] = new Naive(Side.values()[i], pads, ball);
-		}
+//		controls = new Controller[amtPad];
+//		for (int i = 0; i < amtPad; i++) {
+//			controls[i] = new Naive(Side.values()[i], pads, ball);
+//		}
+		
+		controls = algorithm.getControllers();
 
 		batch = new SpriteBatch();
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -88,7 +90,7 @@ public class Sim extends ApplicationAdapter {
 		
 		
 		value = true;
-		while(value){//systemTime < 66.9833368267864 - 5/60f){
+		while(value && simulationRuns < 10000){
 			update();
 		}
 		
