@@ -89,7 +89,7 @@ public class Sim extends ApplicationAdapter {
 		
 		
 		value = true;
-		while(value && simulationRuns < 1000){
+		while(value && numTimouts==0){//simulationRuns < 10000){
 			
 			update(1/60f, simulationRuns % 500 == 0);
 		}
@@ -101,7 +101,7 @@ public class Sim extends ApplicationAdapter {
 		if(!enable)
 			reset(print);
 		
-		if(systemTime > 120){
+		if(systemTime > 1000){
 			numTimouts++;
 			reset(print);
 		}
@@ -169,13 +169,13 @@ public class Sim extends ApplicationAdapter {
 	}
 	
 	public static void log(String s){
-		try {
-		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fh.file().getAbsolutePath(), true)));
-		    out.print(s);
-		    out.close();
-		} catch (IOException e) {
-			System.out.println(e);
-		}
+//		try {
+//		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fh.file().getAbsolutePath(), true)));
+//		    out.print(s);
+//		    out.close();
+//		} catch (IOException e) {
+//			System.out.println(e);
+//		}
 	}
 	
 	public void updateProgress(double progressPercentage, long timeAtStart) {
