@@ -31,11 +31,17 @@ public class MLPEvolver extends Controller {
 		mlp.setInput(inPadX, inBallX);
 		mlp.calculate();
 		double output = mlp.getOutput()[0];
-		System.out.println(output);
-		if (output < -.2) return State.LEFT;
-		else if (output > .2) return State.RIGHT;
+//		System.out.println(output);
+		if (output < .4)
+			return State.LEFT;
+		else if (output > .4)
+			return State.RIGHT;
 		
 		return State.STOP;
+	}
+	
+	public MultiLayerPerceptron getNet() {
+		return mlp;
 	}
 
 }

@@ -89,19 +89,19 @@ public class Sim extends ApplicationAdapter {
 		
 		
 		value = true;
-		while(value && numTimouts==0){//simulationRuns < 10000){
+		while(value && simulationRuns < 10000){//&& numTimouts==0){//simulationRuns < 10000){
 			
 			update(1/60f, simulationRuns % 500 == 0);
 		}
 		
 	}
 	
-	
+	int secToSec;
 	public void update(float delta, boolean print){
 		if(!enable)
 			reset(print);
 		
-		if(systemTime > 1000){
+		if(systemTime > 20){
 			numTimouts++;
 			reset(print);
 		}
@@ -109,7 +109,9 @@ public class Sim extends ApplicationAdapter {
 		systemTime += delta;
 		totalSystemTime += delta;
 		
-		averageTimeTaken = aveTime(delta);
+		
+		secToSec = (int)((double)delta/((System.nanoTime() - differenceTime) * 1e-9));
+		differenceTime = System.nanoTime();
 		
 		for (Controller c : controls)
 			c.update();
@@ -117,18 +119,14 @@ public class Sim extends ApplicationAdapter {
 			e.update(delta);
 		
 		if(loser != null){
-			if(print)
-				System.out.print("Loser: " + loser + "\t");
 			algorithm.update(loser);
 			reset(print);
-			//Handle loser
-			//log("Loser: " + loser + "\tSim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\n");
-			//updateProgress((double)simulationRuns / (double)simulationGoal,System.nanoTime());
 			loser = null;
 		}
 	}
 	
 	private void reset(boolean print){
+		averageTimeTaken = aveTime(systemTime);
 		for(Entity e : Entity.entities){
 			e.reset();
 		}
@@ -136,7 +134,7 @@ public class Sim extends ApplicationAdapter {
 		systemTime = 0;
 		
 		if(print)
-			System.out.println("Sim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime +"\tSim secs per Sec: " + averageTimeTaken +"\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
+			System.out.println("Sim Runs: " + simulationRuns + "\tTime: (/m) " + ((int)Math.round(totalSystemTime/60)) + "\tTimePerSim: " + averageTimeTaken + "\tSim secs per Sec: " + secToSec +"\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
 		
 		simulationRuns++;
 	}
@@ -203,9 +201,8 @@ public class Sim extends ApplicationAdapter {
 	private static final int sampleNum = 100;
 	private double times[] = new double[sampleNum];
 	private int timeLoc = 0;
-	public double aveTime(float delta){
-		times[timeLoc] = ((double)delta/((System.nanoTime() - differenceTime) * 1e-9));
-		differenceTime = System.nanoTime();
+	public double aveTime(double systemTime){
+		times[timeLoc] = systemTime;
 		timeLoc++;
 		if(timeLoc >= sampleNum){
 			timeLoc = 0;
