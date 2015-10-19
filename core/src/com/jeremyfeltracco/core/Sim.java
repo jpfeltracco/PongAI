@@ -1,7 +1,6 @@
 package com.jeremyfeltracco.core;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.controllers.Controller;
-import com.jeremyfeltracco.core.controllers.MLPerceptronControl;
 import com.jeremyfeltracco.core.controllers.Naive;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Corner;
@@ -38,9 +36,12 @@ public class Sim extends ApplicationAdapter {
 	private static Side loser;
 	private static int simulationRuns = 0;
 	private static double totalSystemTime = 0; 
+	private static int numErrors = 0;
+	private static int numTimouts = 0;
 	SpriteBatch batch;
 	public static OrthographicCamera cam;
 	Controller[] controls;
+	
 	
 	boolean value = false;
 	@Override
@@ -79,9 +80,6 @@ public class Sim extends ApplicationAdapter {
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.x = 0;
 		cam.position.y = 0;
-
-		
-		
 		
 		
 		value = true;
@@ -92,7 +90,11 @@ public class Sim extends ApplicationAdapter {
 	}
 	
 	public void update(){
-		if(!enable || systemTime > 120){
+		if(!enable)
+			reset();
+		
+		if(systemTime > 120){
+			numTimouts++;
 			reset();
 		}
 		float delta = 1/60f;//0.01666f;
@@ -108,6 +110,7 @@ public class Sim extends ApplicationAdapter {
 			reset();
 			//Handle loser
 			//log("Loser: " + loser + "\tSim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\n");
+			//updateProgress((double)simulationRuns / (double)simulationGoal,System.nanoTime());
 			loser = null;
 		}
 	}
@@ -118,7 +121,8 @@ public class Sim extends ApplicationAdapter {
 		}
 		enable = true;
 		systemTime = 0;
-		System.out.println("Sim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime);
+		
+		System.out.println("Sim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
 		
 		simulationRuns++;
 	}
@@ -141,6 +145,7 @@ public class Sim extends ApplicationAdapter {
 	}
 	
 	public static void writeError(String in){
+		numErrors++;
 		System.out.println(in);
 		log(in + "\nElements:\n");
 		for(Entity e : Entity.entities){
@@ -158,6 +163,28 @@ public class Sim extends ApplicationAdapter {
 			System.out.println(e);
 		}
 	}
+	
+	public void updateProgress(double progressPercentage, long timeAtStart) {
+        final int width = 50; // progress bar width in chars
+        long elapsedTime = System.nanoTime() - timeAtStart;
+
+        double secRemaining = (double)elapsedTime / progressPercentage / 1000000000.0 - (double)elapsedTime / 1000000000.0;
+
+        System.out.print("\r");
+        for(int i = 0; i < width + 20; i++){
+            System.out.print(" ");
+        }
+
+        System.out.print("\r[");
+        int i = 0;
+        for (; i <= (int)(progressPercentage*width); i++) {
+            System.out.print(".");
+        }
+        for (; i < width; i++) {
+            System.out.print(" ");
+        }
+        System.out.print("] " + (int)(progressPercentage*100) + "%, est " + (int)secRemaining + "s");
+    }
 }
 
 
