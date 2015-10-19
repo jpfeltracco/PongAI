@@ -7,6 +7,7 @@ import org.neuroph.util.random.GaussianRandomizer;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.jeremyfeltracco.core.Sim;
+import com.jeremyfeltracco.core.controllers.Controller;
 import com.jeremyfeltracco.core.controllers.MLPerceptronControl;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
@@ -138,6 +139,10 @@ public class GA {
 	private void resetFit() {
 		for (Element net : nets)
 			net.fitness = numGamesPer;
+	}
+	
+	public Controller[] getControllers() {
+		return mlps;
 	}
 	
 }

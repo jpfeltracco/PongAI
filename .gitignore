@@ -65,3 +65,6 @@ build/
 
 ## OS Specific
 .DS_Store
+
+*.txt
+desktop/output.txt
