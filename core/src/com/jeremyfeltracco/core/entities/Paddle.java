@@ -35,7 +35,7 @@ public class Paddle extends Entity{
 		case RIGHT:
 			sprite.rotate(90);
 			initRotation = 90;
-			setOriginPosition(Sim.maxX - sprite.getOriginY(), -150);
+			setOriginPosition(Sim.maxX - sprite.getOriginY(), 0);
 			break;
 		}
 		float size = Textures.corner.getTexture().getHeight()/2;

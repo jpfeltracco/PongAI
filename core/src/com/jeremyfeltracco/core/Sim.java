@@ -39,6 +39,8 @@ public class Sim extends ApplicationAdapter {
 	private static double totalSystemTime = 0; 
 	private static int numErrors = 0;
 	private static int numTimouts = 0;
+	private static long differenceTime = System.nanoTime();
+	private static double averageTimeTaken = 0;
 	SpriteBatch batch;
 	public static OrthographicCamera cam;
 	Controller[] controls;
@@ -88,31 +90,37 @@ public class Sim extends ApplicationAdapter {
 		
 		value = true;
 		while(value && simulationRuns < 10000){
-			update();
+			
+			update(1/60f, simulationRuns % 500 == 0);
 		}
 		
 	}
 	
-	public void update(){
+	
+	public void update(float delta, boolean print){
 		if(!enable)
-			reset();
+			reset(print);
 		
 		if(systemTime > 120){
 			numTimouts++;
-			reset();
+			reset(print);
 		}
-		float delta = 1/60f;//0.01666f;
+		//float delta = 1/60f;//0.01666f;
 		systemTime += delta;
 		totalSystemTime += delta;
+		
+		averageTimeTaken = aveTime(delta);
+		
 		for (Controller c : controls)
 			c.update();
 		for(Entity e : Entity.entities)
 			e.update(delta);
 		
 		if(loser != null){
-			System.out.print("Loser: " + loser + "\t");
+			if(print)
+				System.out.print("Loser: " + loser + "\t");
 			algorithm.update(loser);
-			reset();
+			reset(print);
 			//Handle loser
 			//log("Loser: " + loser + "\tSim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\n");
 			//updateProgress((double)simulationRuns / (double)simulationGoal,System.nanoTime());
@@ -120,21 +128,22 @@ public class Sim extends ApplicationAdapter {
 		}
 	}
 	
-	private void reset(){
+	private void reset(boolean print){
 		for(Entity e : Entity.entities){
 			e.reset();
 		}
 		enable = true;
 		systemTime = 0;
 		
-		System.out.println("Sim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
+		if(print)
+			System.out.println("Sim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime +"\tSim secs per Sec: " + averageTimeTaken +"\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
 		
 		simulationRuns++;
 	}
 
 	@Override
 	public void render () {
-		update();
+		update(Gdx.graphics.getDeltaTime(),true);
 		batch.setProjectionMatrix(cam.combined);
 		Gdx.gl.glClearColor(1, 0.8431372549f, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -190,6 +199,25 @@ public class Sim extends ApplicationAdapter {
         }
         System.out.print("] " + (int)(progressPercentage*100) + "%, est " + (int)secRemaining + "s");
     }
+	
+	private static final int sampleNum = 100;
+	private double times[] = new double[sampleNum];
+	private int timeLoc = 0;
+	public double aveTime(float delta){
+		times[timeLoc] = ((double)delta/((System.nanoTime() - differenceTime) * 1e-9));
+		differenceTime = System.nanoTime();
+		timeLoc++;
+		if(timeLoc >= sampleNum){
+			timeLoc = 0;
+		}
+		
+		double sum = 0;
+		for(double d : times){
+			sum += d;
+		}
+		
+		return (double)sum / (double)sampleNum;
+	}
 }
 
 

@@ -8,7 +8,7 @@ import com.jeremyfeltracco.core.Textures;
 
 public class Ball extends Entity {
 	private float radius;
-	private float maxVelocity = 100;
+	private float maxVelocity = 500;
 	private int lastIDContact = -1;
 	private Vector2 pos;
 	
