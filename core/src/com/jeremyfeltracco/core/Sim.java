@@ -72,9 +72,7 @@ public class Sim extends ApplicationAdapter {
 		for (int i = 0; i < amtPad; i++) {
 			controls[i] = new Naive(Side.values()[i], pads, ball);
 		}
-		
-//		controls[Side.BOTTOM.ordinal()] = new MLPerceptronControl(Side.BOTTOM, pads, ball);
-		
+
 		batch = new SpriteBatch();
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.x = 0;
