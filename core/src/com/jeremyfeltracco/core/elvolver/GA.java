@@ -46,7 +46,7 @@ public class GA {
 		// Abuse first network to generate 50 arrays of weights
 		for (int i = 0; i < numPerGen; i++) {
 			mlps[0].getNet().randomizeWeights(r);
-			Double[] w = mlps[i].getNet().getWeights();
+			Double[] w = mlps[0].getNet().getWeights();
 			nets.get(i).weights = new double[w.length];
 			// Unbox the doubles
 			for (int j = 0; j < w.length; j++)

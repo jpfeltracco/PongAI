@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.controllers.Controller;
 import com.jeremyfeltracco.core.controllers.MLPerceptronControl;
 import com.jeremyfeltracco.core.controllers.Naive;
+import com.jeremyfeltracco.core.elvolver.GA;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Corner;
 import com.jeremyfeltracco.core.entities.Entity;
@@ -42,6 +43,8 @@ public class Sim extends ApplicationAdapter {
 	public static OrthographicCamera cam;
 	Controller[] controls;
 	
+	GA algorithm;
+	
 	boolean value = false;
 	@Override
 	public void create () {
@@ -67,6 +70,8 @@ public class Sim extends ApplicationAdapter {
 		new Corner(-55,0);
 		
 		log("Added " + Entity.objCount + " objects to the simulation.\n");
+		
+		algorithm = new GA(this, pads, ball);
 		
 		controls = new Controller[amtPad];
 		for (int i = 0; i < amtPad; i++) {
@@ -103,6 +108,7 @@ public class Sim extends ApplicationAdapter {
 		
 		if(loser != null){
 			System.out.print("Loser: " + loser + "\t");
+			algorithm.update(loser);
 			reset();
 			//Handle loser
 			//log("Loser: " + loser + "\tSim Runs: " + simulationRuns + "\tTotalSystemTime: " + totalSystemTime + "\n");
