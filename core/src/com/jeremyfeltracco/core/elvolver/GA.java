@@ -16,8 +16,8 @@ import com.jeremyfeltracco.core.entities.Side;
 
 public class GA {
 	Sim sim;
-	//MLPEvolver[] mlps;
-	MLPerceptronControl[] mlps;
+	MLPEvolver[] mlps;
+	//MLPerceptronControl[] mlps;
 	GaussianRandomizer r;
 	
 	final int numPerGen = 40;
@@ -35,8 +35,8 @@ public class GA {
 	
 	public GA(Sim sim, Paddle[] pads, Ball ball) {
 		this.sim = sim;
-		//mlps = new MLPEvolver[pads.length];
-		mlps = new MLPerceptronControl[pads.length];
+		mlps = new MLPEvolver[pads.length];
+		//mlps = new MLPerceptronControl[pads.length];
 		r = new GaussianRandomizer(0, 1f);
 		nets = new ArrayList<Element>();
 
@@ -47,8 +47,8 @@ public class GA {
 		
 		// We only need 4 networks, can have weights changed
 		for (int i = 0; i < pads.length; i++){
-			//mlps[i] = new MLPEvolver(Side.values()[i], pads, ball);
-			mlps[i] = new MLPerceptronControl(Side.values()[i], pads, ball);
+			mlps[i] = new MLPEvolver(Side.values()[i], pads, ball);
+			//mlps[i] = new MLPerceptronControl(Side.values()[i], pads, ball);
 		}
 		
 		// Abuse first network to generate 50 arrays of weights

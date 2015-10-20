@@ -24,6 +24,7 @@ public class MLPerceptronControl extends Controller {
 	public State controlPaddle() {
 		float ballX = this.getBallPos().x;
 		float padX = this.getPaddlePos().x;
+		
 		float in = (ballX - padX) / (2 * Sim.maxX); // 0 = farthest left, 1 =
 													// farthest right
 		mlPerceptron.setInput(in);

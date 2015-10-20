@@ -72,7 +72,7 @@ public class Sim extends ApplicationAdapter {
 		new Corner(-maxX+cornerSize,maxY-cornerSize);
 		new Corner(maxX-cornerSize,maxY-cornerSize);
 		new Corner(130,130);
-		//new Corner(50,50);
+		new Corner(50,50);
 		new Corner(-49f,-50);
 		new Corner(-55,0);
 		
