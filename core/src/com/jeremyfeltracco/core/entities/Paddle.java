@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.Textures;
+import com.jeremyfeltracco.core.entities.Paddle.State;
 
 public class Paddle extends Entity{
 	public enum State {
@@ -124,6 +125,5 @@ public class Paddle extends Entity{
 	public String toString(){
 		return side.name() + " " + getID();
 	}
-
 	
 }

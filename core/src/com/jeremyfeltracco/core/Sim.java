@@ -1,9 +1,6 @@
 package com.jeremyfeltracco.core;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.text.DecimalFormat;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -14,7 +11,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.controllers.Controller;
-import com.jeremyfeltracco.core.controllers.Naive;
+import com.jeremyfeltracco.core.controllers.mlps.MLPControl;
+import com.jeremyfeltracco.core.controllers.mlps.XPositions;
 import com.jeremyfeltracco.core.elvolver.GA;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Corner;
@@ -83,12 +81,11 @@ public class Sim extends ApplicationAdapter {
 		
 		log("Added " + Entity.objCount + " objects to the simulation.\n");
 		
-		algorithm = new GA(this, pads, ball);
+		MLPControl[] mlpcontrols = new MLPControl[pads.length];
+		for (int i = 0; i < mlpcontrols.length; i++)
+			mlpcontrols[i] = new XPositions(Side.values()[i], pads, ball);
 		
-		/*controls = new Controller[amtPad];
-		for (int i = 0; i < amtPad; i++) {
-			controls[i] = new Naive(Side.values()[i], pads, ball);
-		}*/
+		algorithm = new GA(mlpcontrols, ball);
 		
 		controls = algorithm.getControllers();
 
@@ -113,7 +110,9 @@ public class Sim extends ApplicationAdapter {
 		
 		if(systemTime > 60){
 			numTimouts++;
+			algorithm.update(loser); // No loser, so won't subtract fitnesses
 			reset(print);
+			
 		}
 		//float delta = 1/60f;//0.01666f;
 		systemTime += delta;

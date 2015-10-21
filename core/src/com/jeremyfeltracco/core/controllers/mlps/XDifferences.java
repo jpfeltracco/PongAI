@@ -1,24 +1,18 @@
-package com.jeremyfeltracco.core.controllers;
+package com.jeremyfeltracco.core.controllers.mlps;
 
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.util.TransferFunctionType;
-import org.neuroph.util.random.GaussianRandomizer;
 
-import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
 import com.jeremyfeltracco.core.entities.Paddle.State;
 import com.jeremyfeltracco.core.entities.Side;
 
-public class MLPEvolver extends Controller{
-	MultiLayerPerceptron mlp;
-	
-	public MLPEvolver(Side side, Paddle[] pads, Ball ball) {
+public class XDifferences extends MLPControl {
+	public XDifferences(Side side, Paddle[] pads, Ball ball) {
 		super(side, pads, ball);
-		mlp = new MultiLayerPerceptron(TransferFunctionType.TANH, 2, 7, 7, 7, 1);
-		GaussianRandomizer r = new GaussianRandomizer(0, 1f);
-		mlp.randomizeWeights(r);
+		this.setNet(new MultiLayerPerceptron(TransferFunctionType.TANH, 2, 7, 7, 7, 1));
 	}
 
 	@Override
@@ -28,20 +22,15 @@ public class MLPEvolver extends Controller{
 		float inBallX = (ballX + Sim.maxX) / (2 * Sim.maxX);
 		float inPadX = (padX + Sim.maxX) / (2 * Sim.maxX);
 		
-		mlp.setInput(inPadX, inBallX);
-		mlp.calculate();
-		double output = mlp.getOutput()[0];
-//		System.out.println(output);
+		getNet().setInput(inPadX, inBallX);
+		getNet().calculate();
+		double output = getNet().getOutput()[0];
 		if (output < .4)
 			return State.LEFT;
 		else if (output > .4)
 			return State.RIGHT;
 		
 		return State.STOP;
-	}
-	
-	public MultiLayerPerceptron getNet() {
-		return mlp;
 	}
 
 }
