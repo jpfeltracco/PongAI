@@ -1,23 +1,24 @@
-package com.jeremyfeltracco.core.controllers;
+package com.jeremyfeltracco.core.controllers.mlps;
 
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.util.TransferFunctionType;
 import org.neuroph.util.random.GaussianRandomizer;
 
 import com.jeremyfeltracco.core.Sim;
+import com.jeremyfeltracco.core.controllers.Controller;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
 import com.jeremyfeltracco.core.entities.Paddle.State;
 import com.jeremyfeltracco.core.entities.Side;
 
-public class MLPEvolver extends Controller {
+public class XDifferences extends MLPControl {
 	MultiLayerPerceptron mlp;
 	
-	public MLPEvolver(Side side, Paddle[] pads, Ball ball) {
+	public XDifferences(Side side, Paddle[] pads, Ball ball) {
 		super(side, pads, ball);
 		mlp = new MultiLayerPerceptron(TransferFunctionType.TANH, 2, 7, 7, 7, 1);
-		GaussianRandomizer r = new GaussianRandomizer(0, 1f);
-		mlp.randomizeWeights(r);
+//		GaussianRandomizer r = new GaussianRandomizer(0, 1f);
+//		mlp.randomizeWeights(r);
 	}
 
 	@Override

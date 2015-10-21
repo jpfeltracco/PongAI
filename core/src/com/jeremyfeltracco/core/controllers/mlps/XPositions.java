@@ -1,4 +1,4 @@
-package com.jeremyfeltracco.core.controllers;
+package com.jeremyfeltracco.core.controllers.mlps;
 
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.util.TransferFunctionType;
@@ -10,14 +10,13 @@ import com.jeremyfeltracco.core.entities.Paddle;
 import com.jeremyfeltracco.core.entities.Paddle.State;
 import com.jeremyfeltracco.core.entities.Side;
 
-public class MLPerceptronControl extends Controller {
-	MultiLayerPerceptron mlPerceptron;
+public class XPositions extends MLPControl {
 
-	public MLPerceptronControl(Side side, Paddle[] pads, Ball ball) {
+	public XPositions(Side side, Paddle[] pads, Ball ball) {
 		super(side, pads, ball);
-		mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH, 1, 2, 2, 1);
-		GaussianRandomizer r = new GaussianRandomizer(0, 1f);
-		mlPerceptron.randomizeWeights(r);
+		setNet(new MultiLayerPerceptron(TransferFunctionType.TANH, 1, 2, 2, 1));
+//		GaussianRandomizer r = new GaussianRandomizer(0, 1f);
+//		getNet().randomizeWeights(r);
 	}
 
 	@Override
@@ -27,20 +26,13 @@ public class MLPerceptronControl extends Controller {
 		
 		float in = (ballX - padX) / (2 * Sim.maxX); // 0 = farthest left, 1 =
 													// farthest right
-		mlPerceptron.setInput(in);
-		mlPerceptron.calculate();
-		double output = mlPerceptron.getOutput()[0];
-//		System.out.println(output);
+		getNet().setInput(in);
+		getNet().calculate();
+		double output = getNet().getOutput()[0];
 		if (output < .4)
 			return State.LEFT;
 		else if (output > .4)
 			return State.RIGHT;
-
 		return State.STOP;
 	}
-
-	public MultiLayerPerceptron getNet() {
-		return mlPerceptron;
-	}
-
 }
