@@ -3,6 +3,7 @@ package com.jeremyfeltracco.core.controllers;
 import java.util.EnumMap;
 
 import com.badlogic.gdx.math.Vector2;
+import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
 import com.jeremyfeltracco.core.entities.Paddle.State;
@@ -31,6 +32,7 @@ public abstract class Controller {
 	private Side controlledSide;
 	private Paddle[] pads;
 	private Ball ball;
+	private Thread thread;
 
 	public Controller(Side side, Paddle[] pads, Ball ball) {
 		this.controlledSide = side;
@@ -59,8 +61,7 @@ public abstract class Controller {
 	}
 
 	/**
-	 * Sets the pad state to the next computed state. Must be called once a
-	 * render loop.
+	 * Updates the net
 	 */
 	public void update() {
 		setPadState(controlPaddle());

@@ -163,4 +163,16 @@ public class GA {
 		return mlps;
 	}
 	
+	/**
+	 * Returns the number of the current generation
+	 * @return the gen number
+	 */
+	public int getCurrentGeneration(){
+		return curGen;
+	}
+	
+	public int getGameGroup(){
+		return gameGrp;
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -47,6 +48,10 @@ public class Sim extends ApplicationAdapter {
 	SpriteBatch batch;
 	public static OrthographicCamera cam;
 	Controller[] controls;
+	
+	public static boolean goal = false;
+	public static boolean threads = true;
+	public static int simHold = 0;
 	
 	GA algorithm;
 	
@@ -95,7 +100,8 @@ public class Sim extends ApplicationAdapter {
 		value = true;
 		while(value && numTimouts < 20){//simulationRuns < 10000){
 			
-			update(1/60f, simulationRuns % 500 == 0);
+			update(1/60f, algorithm.getCurrentGeneration() % 10 == 0 && algorithm.getGameGroup() == 36);
+			
 		}
 		
 	}
@@ -115,10 +121,20 @@ public class Sim extends ApplicationAdapter {
 		systemTiming += delta;
 		
 		
-		//differenceTime = System.nanoTime();
 		
-		for (Controller c : controls)
+		//System.out.println("UPDATE");
+		for (int i = 0; i < 4; i++){
+			//System.out.println(controls[i]);
+			controls[i].update();
+		}
+
+		
+		for(Controller c : controls){
 			c.update();
+		}
+		
+		//System.out.println(System.nanoTime() - t);
+		
 		for(Entity e : Entity.entities)
 			e.update(delta);
 		
@@ -127,9 +143,11 @@ public class Sim extends ApplicationAdapter {
 			reset(print);
 			loser = null;
 		}
+		//System.out.println("ENDLOOP");
 		//System.out.println(ball.getVelocity().len());
 	}
 	
+	DecimalFormat df = new DecimalFormat("#.00"); 
 	private void reset(boolean print){
 		averageTimeTaken = avgTime(systemTime);
 		for(Entity e : Entity.entities){
@@ -139,10 +157,14 @@ public class Sim extends ApplicationAdapter {
 		systemTime = 0;
 		
 		if(print){
-			secToSec = (int)(systemTiming / ((double)(System.nanoTime() - nanoStartTime) * 1e-9));//(int)((double)delta/((System.nanoTime() - differenceTime) * 1e-9));
-			System.out.println("Sim Runs: " + simulationRuns + "\tTime: (/m) " + ((int)Math.ceil(totalSystemTime/60)) + "\tTimePerSim: " + averageTimeTaken + "\tSim secs per Sec: " + secToSec +"\tErrors: " + numErrors + "\tTimouts: " + numTimouts);
+			secToSec = (int)(systemTiming / ((double)(System.nanoTime() - nanoStartTime) * 1e-9));
+			System.out.println("Sim Runs: " + simulationRuns + "\tGen: " + algorithm.getCurrentGeneration() + "\tGrp: " 
+					+ algorithm.getGameGroup() + "\tTime: (/m) " + ((int)Math.ceil(totalSystemTime/60)) + "\tTimePerSim: " 
+					+ df.format(averageTimeTaken) + "\tSim secs per Sec: " + secToSec +"\tErrors: " + numErrors + "\tTimouts: " 
+					+ numTimouts);
 			nanoStartTime = System.nanoTime();
 			systemTiming = 0;
+			//System.out.println(simHold);
 		}
 		
 		simulationRuns++;
@@ -166,9 +188,9 @@ public class Sim extends ApplicationAdapter {
 		loser = s;
 	}
 	
-	public static void writeError(String in){
+	public static void reportError(String in){
 		numErrors++;
-		System.out.println(in);
+		//System.out.println(in);
 		log(in + "\nElements:\n");
 		for(Entity e : Entity.entities){
 			log("\t" + e.getClass() + "\t POS: " + e.getInitPos() + "\t ROT: " + e.getInitRotation() + "\t VEL: " + e.getInitVelocity() + "\n");

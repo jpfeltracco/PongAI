@@ -4,13 +4,14 @@ import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.util.TransferFunctionType;
 import org.neuroph.util.random.GaussianRandomizer;
 
+import com.badlogic.gdx.math.Vector2;
 import com.jeremyfeltracco.core.Sim;
 import com.jeremyfeltracco.core.entities.Ball;
 import com.jeremyfeltracco.core.entities.Paddle;
 import com.jeremyfeltracco.core.entities.Paddle.State;
 import com.jeremyfeltracco.core.entities.Side;
 
-public class MLPEvolver extends Controller {
+public class MLPEvolver extends Controller{
 	MultiLayerPerceptron mlp;
 	
 	public MLPEvolver(Side side, Paddle[] pads, Ball ball) {
@@ -24,7 +25,6 @@ public class MLPEvolver extends Controller {
 	public State controlPaddle() {
 		float ballX = this.getBallPos().x;
 		float padX = this.getPaddlePos().x;
-		
 		float inBallX = (ballX + Sim.maxX) / (2 * Sim.maxX);
 		float inPadX = (padX + Sim.maxX) / (2 * Sim.maxX);
 		

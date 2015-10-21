@@ -268,9 +268,13 @@ public class Ball extends Entity {
 
 				Vector2 p = pos.cpy();
 				Vector2 velTmp = velocity.cpy().nor();
-				while (point.cpy().sub(p.cpy()).len() < radius) {
+				double time = System.nanoTime();
+				while (point.cpy().sub(p.cpy()).len() < radius && System.nanoTime() - time < 1000000) {
 					p.sub(velTmp);
 					//System.out.println("DIST: " + point.cpy().sub(p.cpy()).len() + "\t" + p);
+				}
+				if(System.nanoTime() - time >= 1000000){
+					error("Step caluclations timed out");
 				}
 
 				//System.out.println("DISTANCE: " + point.cpy().sub(p.cpy()).len());
@@ -366,10 +370,14 @@ public class Ball extends Entity {
 			// + velocity.cpy().scl(delta).len()));
 			pos.add(u.scl(radius - c.segDists[index]));
 			//double distance = Intersector.distanceSegmentPoint(corners[index], corners[index + 1], pos);
-			while (Intersector.distanceSegmentPoint(corners[index], corners[index + 1], pos) < radius) {
+			double time = System.nanoTime();
+			while (Intersector.distanceSegmentPoint(corners[index], corners[index + 1], pos) < radius && System.nanoTime() - time < 1000000) {
 				pos.add(u);
 				//System.out.println("DIST: " + distance);
 				//distance = Intersector.distanceSegmentPoint(corners[index], corners[index + 1], pos);
+			}
+			if(System.nanoTime() - time >= 1000000){
+				error("Step caluclations timed out");
 			}
 
 			// pos = pos.cpy().add(u.scl(radius - c.segDists[index]));// +
@@ -434,7 +442,7 @@ public class Ball extends Entity {
 	private void error(String message) {
 		Sim.enable = false;
 		String out = "\n-----ERROR-----\n" + message + "\n---------------";
-		Sim.writeError(out);
+		Sim.reportError(out);
 	}
 
 	private Vector2 perp(Vector2 v) {
